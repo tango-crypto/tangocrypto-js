@@ -138,7 +138,7 @@ src/models/RetrieveTransactionResponseBlock.ts
 src/models/RetrieveWalletSummaryResponse.ts
 src/models/RetrieveWebhookResponse.ts
 src/models/RetrieveWebhookResponseRulesInner.ts
-src/models/SubitTansactionRequest.ts
+src/models/SubmitTansactionRequest.ts
 src/models/SubitTansactionResponse.ts
 src/models/UpdateCollectionRequest.ts
 src/models/UpdateCollectionRequestMetadata.ts

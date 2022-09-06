@@ -12,7 +12,35 @@
  * Do not edit the class manually.
  */
 
+import { NftCollectionPayoutAddressOneOfInner } from "./NftCollectionPayoutAddressOneOfInner";
 
-export * from "./api";
-export * from "./configuration";
-export * from "./tangocrypto";
+/**
+ * @type CreateCollectionRequestPayoutAddress
+ * 
+ * @export
+ */
+export type CreateCollectionRequestPayoutAddress = Array<NftCollectionPayoutAddressOneOfInner> | string;
+
+export function CreateCollectionRequestPayoutAddressFromJSON(json: any): CreateCollectionRequestPayoutAddress {
+    return CreateCollectionRequestPayoutAddressFromJSONTyped(json, false);
+}
+
+export function CreateCollectionRequestPayoutAddressFromJSONTyped(json: any, ignoreDiscriminator: boolean): CreateCollectionRequestPayoutAddress {
+    if ((json === undefined) || (json === null)) {
+        return json;
+    }
+    return Array.isArray(json) ? json as Array<NftCollectionPayoutAddressOneOfInner> : json as string;
+}
+
+export function CreateCollectionRequestPayoutAddressToJSON(value?: CreateCollectionRequestPayoutAddress | null): any {
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
+    }
+
+    return Array.isArray(value) ? value as Array<NftCollectionPayoutAddressOneOfInner> : value as string;
+
+}
+

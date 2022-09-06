@@ -26,7 +26,7 @@ import type {
   ListTransactionUtxosResponse,
   RetrieveTransactionMetadataResponse,
   RetrieveTransactionResponse,
-  SubitTansactionRequest,
+  SubmitTansactionRequest,
   SubitTansactionResponse,
 } from '../models';
 import {
@@ -80,7 +80,7 @@ export interface ListTransactionUtxosRequest {
 
 export interface SubmitTransactionRequest {
     appId: string;
-    subitTansactionRequest?: SubitTansactionRequest;
+    subitTansactionRequest?: SubmitTansactionRequest;
 }
 
 /**
@@ -108,7 +108,7 @@ export class TransactionsApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/{app_id}/v1/transactions/build`.replace(`{${"app_id"}}`, encodeURIComponent(String(requestParameters.appId))),
+            path: `/{app_id}/transactions/build`.replace(`{${"app_id"}}`, encodeURIComponent(String(requestParameters.appId))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,

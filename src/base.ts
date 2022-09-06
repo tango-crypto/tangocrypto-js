@@ -12,55 +12,60 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+
+import { Configuration } from "./configuration";
+// Some imports not used depending on template conditions
+// @ts-ignore
+import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
+
+export const BASE_PATH = "https://cardano-mainnet.tangocrypto.com";
+
 /**
- * submit transaction payload
+ *
  * @export
- * @interface SubitTansactionRequest
  */
-export interface SubitTansactionRequest {
-    /**
-     * Transaction in CBOR format
-     * @type {string}
-     * @memberof SubitTansactionRequest
-     */
-    tx: string;
+export const COLLECTION_FORMATS = {
+    csv: ",",
+    ssv: " ",
+    tsv: "\t",
+    pipes: "|",
+};
+
+/**
+ *
+ * @export
+ * @interface RequestArgs
+ */
+export interface RequestArgs {
+    url: string;
+    options: AxiosRequestConfig;
 }
 
 /**
- * Check if a given object implements the SubitTansactionRequest interface.
+ *
+ * @export
+ * @class BaseAPI
  */
-export function instanceOfSubitTansactionRequest(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "tx" in value;
+export class BaseAPI {
+    protected configuration: Configuration | undefined;
 
-    return isInstance;
-}
-
-export function SubitTansactionRequestFromJSON(json: any): SubitTansactionRequest {
-    return SubitTansactionRequestFromJSONTyped(json, false);
-}
-
-export function SubitTansactionRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): SubitTansactionRequest {
-    if ((json === undefined) || (json === null)) {
-        return json;
+    constructor(configuration?: Configuration, protected basePath: string = BASE_PATH, protected axios: AxiosInstance = globalAxios) {
+        if (configuration) {
+            this.configuration = configuration;
+            this.basePath = configuration.basePath || this.basePath;
+        }
     }
-    return {
-        
-        'tx': json['tx'],
-    };
-}
+};
 
-export function SubitTansactionRequestToJSON(value?: SubitTansactionRequest | null): any {
-    if (value === undefined) {
-        return undefined;
+/**
+ *
+ * @export
+ * @class RequiredError
+ * @extends {Error}
+ */
+export class RequiredError extends Error {
+    name: "RequiredError" = "RequiredError";
+    constructor(public field: string, msg?: string) {
+        super(msg);
     }
-    if (value === null) {
-        return null;
-    }
-    return {
-        
-        'tx': value.tx,
-    };
 }
-

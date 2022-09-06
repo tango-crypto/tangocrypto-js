@@ -27,7 +27,7 @@ export function CreateNftRequestTokensInnerImageFromJSONTyped(json: any, ignoreD
     if ((json === undefined) || (json === null)) {
         return json;
     }
-    return { ...Array<string>FromJSONTyped(json, true), ...stringFromJSONTyped(json, true) };
+    return Array.isArray(json) ? json as Array<string> : json as string;
 }
 
 export function CreateNftRequestTokensInnerImageToJSON(value?: CreateNftRequestTokensInnerImage | null): any {
@@ -38,13 +38,6 @@ export function CreateNftRequestTokensInnerImageToJSON(value?: CreateNftRequestT
         return null;
     }
 
-    if (instanceOfArray<string>(value)) {
-        return Array<string>ToJSON(value as Array<string>);
-    }
-    if (instanceOfstring(value)) {
-        return stringToJSON(value as string);
-    }
-
-    return {};
+    return Array.isArray(value) ? value as Array<string> : value as string;
 }
 

@@ -12,39 +12,55 @@
  * Do not edit the class manually.
  */
 
+import { exists, mapValues } from '../runtime';
 /**
- * @type CreateCollectionRequestPayoutAddress
- * 
+ * submit transaction payload
  * @export
+ * @interface SubmitTansactionRequest
  */
-export type CreateCollectionRequestPayoutAddress = Array<NftCollectionPayoutAddressOneOfInner> | string;
-
-export function CreateCollectionRequestPayoutAddressFromJSON(json: any): CreateCollectionRequestPayoutAddress {
-    return CreateCollectionRequestPayoutAddressFromJSONTyped(json, false);
+export interface SubmitTansactionRequest {
+    /**
+     * Transaction in CBOR format
+     * @type {string}
+     * @memberof SubmitTansactionRequest
+     */
+    tx: string;
 }
 
-export function CreateCollectionRequestPayoutAddressFromJSONTyped(json: any, ignoreDiscriminator: boolean): CreateCollectionRequestPayoutAddress {
+/**
+ * Check if a given object implements the SubmitTansactionRequest interface.
+ */
+export function instanceOfSubitTansactionRequest(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "tx" in value;
+
+    return isInstance;
+}
+
+export function SubitTansactionRequestFromJSON(json: any): SubmitTansactionRequest {
+    return SubitTansactionRequestFromJSONTyped(json, false);
+}
+
+export function SubitTansactionRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): SubmitTansactionRequest {
     if ((json === undefined) || (json === null)) {
         return json;
     }
-    return { ...Array<NftCollectionPayoutAddressOneOfInner>FromJSONTyped(json, true), ...stringFromJSONTyped(json, true) };
+    return {
+        
+        'tx': json['tx'],
+    };
 }
 
-export function CreateCollectionRequestPayoutAddressToJSON(value?: CreateCollectionRequestPayoutAddress | null): any {
+export function SubitTansactionRequestToJSON(value?: SubmitTansactionRequest | null): any {
     if (value === undefined) {
         return undefined;
     }
     if (value === null) {
         return null;
     }
-
-    if (instanceOfArray<NftCollectionPayoutAddressOneOfInner>(value)) {
-        return Array<NftCollectionPayoutAddressOneOfInner>ToJSON(value as Array<NftCollectionPayoutAddressOneOfInner>);
-    }
-    if (instanceOfstring(value)) {
-        return stringToJSON(value as string);
-    }
-
-    return {};
+    return {
+        
+        'tx': value.tx,
+    };
 }
 

@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
     "declaration": true,
     "target": "es6",
     "module": "commonjs",
@@ -10,7 +12,11 @@
     ]
   },
   "exclude": [
+    "test",
     "dist",
     "node_modules"
-  ]
+  ],
+  "ts-node": {
+    "files": true
+  },
 }

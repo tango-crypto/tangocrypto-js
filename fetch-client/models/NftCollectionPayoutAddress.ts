@@ -12,6 +12,8 @@
  * Do not edit the class manually.
  */
 
+import { NftCollectionPayoutAddressOneOfInner } from "./NftCollectionPayoutAddressOneOfInner";
+
 /**
  * @type NftCollectionPayoutAddress
  * 
@@ -27,7 +29,7 @@ export function NftCollectionPayoutAddressFromJSONTyped(json: any, ignoreDiscrim
     if ((json === undefined) || (json === null)) {
         return json;
     }
-    return { ...Array<NftCollectionPayoutAddressOneOfInner>FromJSONTyped(json, true), ...stringFromJSONTyped(json, true) };
+    return Array.isArray(json) ? json as Array<NftCollectionPayoutAddressOneOfInner> : json as string ;
 }
 
 export function NftCollectionPayoutAddressToJSON(value?: NftCollectionPayoutAddress | null): any {
@@ -38,13 +40,6 @@ export function NftCollectionPayoutAddressToJSON(value?: NftCollectionPayoutAddr
         return null;
     }
 
-    if (instanceOfArray<NftCollectionPayoutAddressOneOfInner>(value)) {
-        return Array<NftCollectionPayoutAddressOneOfInner>ToJSON(value as Array<NftCollectionPayoutAddressOneOfInner>);
-    }
-    if (instanceOfstring(value)) {
-        return stringToJSON(value as string);
-    }
-
-    return {};
+    return  Array.isArray(value) ? value as Array<NftCollectionPayoutAddressOneOfInner> : value as string;
 }
 
