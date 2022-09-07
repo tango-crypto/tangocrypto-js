@@ -22,7 +22,6 @@ export class WalletApi {
      * Retrieve wallet summary specified by `stake_address`.
      * @summary Retrieve wallet summary
      * @param {string} stakeAddress The Bech32 encoded version of the stake address.
-     * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WalletsApi
      */
@@ -37,7 +36,6 @@ export class WalletApi {
      * @param {number} [size] The number of results displayed on one page.
      * @param {string} [cursor] A &#x60;cursor&#x60; to access the next set of results. You include the cursor in subsequent requests to the endpoint as a URL query parameter of your request. If the cursor is empty in the result it means there are no more items to be retrieved. 
      * @param {'asc' | 'desc'} [order] The ordering of items from the point of view of the blockchain. By default, we return oldest first, newest last. 
-     * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WalletsApi
      */
