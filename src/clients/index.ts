@@ -4,6 +4,7 @@ import { TransactionApi } from "./transactions";
 import { AddressApi } from "./address";
 import { WalletApi } from "./wallets";
 import { BlockApi } from "./blocks";
+import { AssetApi } from "./assets";
 
 export interface ClientConfiguration {
     apiKey: string;
@@ -54,6 +55,13 @@ export class ApiClient {
      */
     public block(): BlockApi {
         return new BlockApi(this.configuration, this.axios);
+    }
+
+    /**
+     * Get asset api client
+     */
+    public asset(): AssetApi {
+        return new AssetApi(this.configuration, this.axios);
     }
 
 }
