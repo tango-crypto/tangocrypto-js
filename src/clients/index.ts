@@ -3,6 +3,7 @@ import globalAxios, { AxiosInstance } from 'axios';
 import { TransactionApi } from "./transactions";
 import { AddressApi } from "./address";
 import { WalletApi } from "./wallets";
+import { BlockApi } from "./blocks";
 
 export interface ClientConfiguration {
     apiKey: string;
@@ -46,6 +47,13 @@ export class ApiClient {
      */
     public wallet(): WalletApi {
         return new WalletApi(this.configuration, this.axios);
+    }
+
+    /**
+     * Get block api client
+     */
+    public block(): BlockApi {
+        return new BlockApi(this.configuration, this.axios);
     }
 
 }
