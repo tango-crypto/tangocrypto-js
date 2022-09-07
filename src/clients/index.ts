@@ -2,6 +2,7 @@ import { BASE_PATH, V1 } from "../base";
 import globalAxios, { AxiosInstance } from 'axios';
 import { TransactionApi } from "./transactions";
 import { AddressApi } from "./address";
+import { WalletApi } from "./wallets";
 
 export interface ClientConfiguration {
     apiKey: string;
@@ -38,6 +39,13 @@ export class ApiClient {
      */
     public address(): AddressApi {
         return new AddressApi(this.configuration, this.axios);
+    }
+
+    /**
+     * Get wallet api client
+     */
+    public wallet(): WalletApi {
+        return new WalletApi(this.configuration, this.axios);
     }
 
 }

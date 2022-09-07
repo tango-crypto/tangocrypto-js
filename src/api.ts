@@ -9594,18 +9594,17 @@ export const WalletsApiAxiosParamCreator = function (configuration?: Configurati
          * Retrieve wallet summary specified by `stake_address`.
          * @summary Retrieve wallet summary
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
          * @param {string} stakeAddress The Bech32 encoded version of the stake address.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getWalletsStake: async (appId: string, stakeAddress: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getWalletsStake: async (appId: string, version: string, stakeAddress: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('getWalletsStake', 'appId', appId)
             // verify required parameter 'stakeAddress' is not null or undefined
             assertParamExists('getWalletsStake', 'stakeAddress', stakeAddress)
-            const localVarPath = `/{app_id}/v1/wallets/{stake_address}`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)))
-                .replace(`{${"stake_address"}}`, encodeURIComponent(String(stakeAddress)));
+            const localVarPath = buildPath(appId, version, 'wallets', stakeAddress);
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -9631,10 +9630,12 @@ export const WalletsApiAxiosParamCreator = function (configuration?: Configurati
                 options: localVarRequestOptions,
             };
         },
+
         /**
          * Returns a list of addreses for a given wallet `stake_address`. The response is paginated. If truncated, the response includes a cursor that you use in a subsequent request to retrieve the next set of addresses. 
          * @summary List wallet addresses
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
          * @param {string} stakeAddress 
          * @param {number} [size] The number of results displayed on one page.
          * @param {string} [cursor] A &#x60;cursor&#x60; to access the next set of results. You include the cursor in subsequent requests to the endpoint as a URL query parameter of your request. If the cursor is empty in the result it means there are no more items to be retrieved. 
@@ -9642,14 +9643,12 @@ export const WalletsApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listStakeAddressAddresses: async (appId: string, stakeAddress: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        listStakeAddressAddresses: async (appId: string, version: string, stakeAddress: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('listStakeAddressAddresses', 'appId', appId)
             // verify required parameter 'stakeAddress' is not null or undefined
             assertParamExists('listStakeAddressAddresses', 'stakeAddress', stakeAddress)
-            const localVarPath = `/{app_id}/v1/wallets/{stake_address}/addresses`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)))
-                .replace(`{${"stake_address"}}`, encodeURIComponent(String(stakeAddress)));
+            const localVarPath = buildPath(appId, version, 'wallets', stakeAddress, 'addresses');
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -9701,18 +9700,21 @@ export const WalletsApiFp = function (configuration?: Configuration) {
          * Retrieve wallet summary specified by `stake_address`.
          * @summary Retrieve wallet summary
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
          * @param {string} stakeAddress The Bech32 encoded version of the stake address.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getWalletsStake(appId: string, stakeAddress: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveWalletSummaryResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getWalletsStake(appId, stakeAddress, options);
+        async getWalletsStake(appId: string, version: string, stakeAddress: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveWalletSummaryResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getWalletsStake(appId, version, stakeAddress, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+
         /**
          * Returns a list of addreses for a given wallet `stake_address`. The response is paginated. If truncated, the response includes a cursor that you use in a subsequent request to retrieve the next set of addresses. 
          * @summary List wallet addresses
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
          * @param {string} stakeAddress 
          * @param {number} [size] The number of results displayed on one page.
          * @param {string} [cursor] A &#x60;cursor&#x60; to access the next set of results. You include the cursor in subsequent requests to the endpoint as a URL query parameter of your request. If the cursor is empty in the result it means there are no more items to be retrieved. 
@@ -9720,8 +9722,8 @@ export const WalletsApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listStakeAddressAddresses(appId: string, stakeAddress: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListWalletAddressesResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listStakeAddressAddresses(appId, stakeAddress, size, cursor, order, options);
+        async listStakeAddressAddresses(appId: string, version: string, stakeAddress: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListWalletAddressesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listStakeAddressAddresses(appId, version, stakeAddress, size, cursor, order, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -9738,17 +9740,20 @@ export const WalletsApiFactory = function (configuration?: Configuration, basePa
          * Retrieve wallet summary specified by `stake_address`.
          * @summary Retrieve wallet summary
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
          * @param {string} stakeAddress The Bech32 encoded version of the stake address.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getWalletsStake(appId: string, stakeAddress: string, options?: any): AxiosPromise<RetrieveWalletSummaryResponse> {
-            return localVarFp.getWalletsStake(appId, stakeAddress, options).then((request) => request(axios, basePath));
+        getWalletsStake(appId: string, version: string, stakeAddress: string, options?: any): AxiosPromise<RetrieveWalletSummaryResponse> {
+            return localVarFp.getWalletsStake(appId, version, stakeAddress, options).then((request) => request(axios, basePath));
         },
+
         /**
          * Returns a list of addreses for a given wallet `stake_address`. The response is paginated. If truncated, the response includes a cursor that you use in a subsequent request to retrieve the next set of addresses. 
          * @summary List wallet addresses
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
          * @param {string} stakeAddress 
          * @param {number} [size] The number of results displayed on one page.
          * @param {string} [cursor] A &#x60;cursor&#x60; to access the next set of results. You include the cursor in subsequent requests to the endpoint as a URL query parameter of your request. If the cursor is empty in the result it means there are no more items to be retrieved. 
@@ -9756,8 +9761,8 @@ export const WalletsApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listStakeAddressAddresses(appId: string, stakeAddress: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: any): AxiosPromise<ListWalletAddressesResponse> {
-            return localVarFp.listStakeAddressAddresses(appId, stakeAddress, size, cursor, order, options).then((request) => request(axios, basePath));
+        listStakeAddressAddresses(appId: string, version: string, stakeAddress: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: any): AxiosPromise<ListWalletAddressesResponse> {
+            return localVarFp.listStakeAddressAddresses(appId, version, stakeAddress, size, cursor, order, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -9773,19 +9778,21 @@ export class WalletsApi extends BaseAPI {
      * Retrieve wallet summary specified by `stake_address`.
      * @summary Retrieve wallet summary
      * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.
      * @param {string} stakeAddress The Bech32 encoded version of the stake address.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WalletsApi
      */
-    public getWalletsStake(appId: string, stakeAddress: string, options?: AxiosRequestConfig) {
-        return WalletsApiFp(this.configuration).getWalletsStake(appId, stakeAddress, options).then((request) => request(this.axios, this.basePath));
+    public getWalletsStake(appId: string, version: string, stakeAddress: string, options?: AxiosRequestConfig) {
+        return WalletsApiFp(this.configuration).getWalletsStake(appId, version, stakeAddress, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Returns a list of addreses for a given wallet `stake_address`. The response is paginated. If truncated, the response includes a cursor that you use in a subsequent request to retrieve the next set of addresses. 
      * @summary List wallet addresses
      * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.
      * @param {string} stakeAddress 
      * @param {number} [size] The number of results displayed on one page.
      * @param {string} [cursor] A &#x60;cursor&#x60; to access the next set of results. You include the cursor in subsequent requests to the endpoint as a URL query parameter of your request. If the cursor is empty in the result it means there are no more items to be retrieved. 
@@ -9794,8 +9801,8 @@ export class WalletsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof WalletsApi
      */
-    public listStakeAddressAddresses(appId: string, stakeAddress: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: AxiosRequestConfig) {
-        return WalletsApiFp(this.configuration).listStakeAddressAddresses(appId, stakeAddress, size, cursor, order, options).then((request) => request(this.axios, this.basePath));
+    public listStakeAddressAddresses(appId: string, version: string, stakeAddress: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: AxiosRequestConfig) {
+        return WalletsApiFp(this.configuration).listStakeAddressAddresses(appId, version, stakeAddress, size, cursor, order, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
