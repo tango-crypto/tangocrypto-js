@@ -27,14 +27,14 @@ export class ApiClient {
     }
 
     /**
-     * getTransaction
+     * Get Transaction api client
      */
     public transaction(): TransactionApi {
         return new TransactionApi(this.configuration, this.axios);
     }
 
     /**
-     * address
+     * Get address api client
      */
     public address(): AddressApi {
         return new AddressApi(this.configuration, this.axios);

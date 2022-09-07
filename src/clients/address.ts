@@ -56,7 +56,7 @@ export class AddressApi {
      * @throws {RequiredError}
      * @memberof AddressesApi
      */
-    public listAddressTransactions(appId: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc') {
+    public listAddressTransactions(address: string, size?: number, cursor?: string, order?: 'asc' | 'desc') {
         return this.addressesApi.listAddressTransactions(this.config.appId, this.config.version, address, size, cursor, order);
     }
 
@@ -71,7 +71,7 @@ export class AddressApi {
      * @throws {RequiredError}
      * @memberof AddressesApi
      */
-    public listAddressUtxos(appId: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc') {
+    public listAddressUtxos(address: string, size?: number, cursor?: string, order?: 'asc' | 'desc') {
         return this.addressesApi.listAddressUtxos(this.config.appId, this.config.version, address, size, cursor, order);
     }
 }

@@ -5,10 +5,11 @@ chai.use(chaiAsPromised);
 const expect = chai.expect;
 
 import 'mocha';
-
-import { BuildTxRequest, ApiClient, Configuration, TransactionsApi } from '../src';
+import * as dotenv from "dotenv";
+import { BuildTxRequest, ApiClient } from '../src';
 import { TransactionApi } from '../src/clients/transactions';
 
+dotenv.config();
 describe('Transaction API endpoints', function () {
     this.timeout(0);
     let api: TransactionApi;
@@ -16,10 +17,10 @@ describe('Transaction API endpoints', function () {
     before('Initializing API ...', () => {
 
         api = new ApiClient({
-            basePath: 'https://cardano-testnet-staging.tangocrypto.com',
-            apiKey: '8120536a5efc478b92809f8f1987a76e',
-            appId: '6e2ab6cc28d943f48a84d92ad9b5392d',
-            version: 'v1'
+            basePath: process.env.BASE_PATH,
+            apiKey: process.env.API_KEY!,
+            appId: process.env.APP_ID!,
+            version: process.env.VERSION
         }).transaction();
     })
 
@@ -71,7 +72,7 @@ describe('Transaction API endpoints', function () {
             "change_address": "addr_test1qpemm54tmynjhuyw0qhzdpnras29c3pc8gxvc4afpsa3uwglmrag6mlare663x64ugkkv8nqhqg3z6u78xa49fq6wmts55h5y9"
         }
 
-        const expectedResponse = {
+        const buildTx = {
             "tx_id": "b9106b1a6620d7d1cf7ef65068792e0fd09c67f4042aa3c4f965ab41a7be75b0",
             "tx": "7b22626f6479223a2261373030383138323538323031633038306634653736383530316364343238323432303139396130363933323666333964393836613037656433656439306162383163356136376136623430303230313833383235383339303038393563643165356537613462313265373337383632636430633831653036386561396437613838353136626165316330656262336536633033636339383164383561396366383462643639343836393861373463356234656263333739306566616262306334393566333830653632383231613030313530626430613135383163313865643238326265646134626563313332323663343237643437343464323634326261326365663430343437306236326165313834643861313466343237353639366336343534373835343635373337343233333033303331303138323538333930303731613830646130643461346264363732623832646461356437336664393032636338376261323538643830633232643633313935343865393865656130666463373465326366663666346436653664643937333634383232663262663961323635663237306361393264323036313538323161303031653834383061313538316335383131383066643464333031653932356331323365336631666537386365653637303336396266346363613461396666336535363464376131346135343435353335343566353434313465343734663031383235383339303037336264643261626439323732626630386537383265323638363633656331343563343433383361306363633537613930633362316533393166643866613864366666643165373561383962353565323264363631653630623831313131366239653339626235326134316137366437316130343737303533353032316130303033326436313033316130626236653936353037353832303162336666326264303630373365656665336461316331616565613361356431343262383433316433333538333764666236353133366366613132353066383530383030303961323538316331386564323832626564613462656331333232366334323764343734346432363432626132636566343034343730623632616531383464386131346634323735363936633634353437383534363537333734323333303330333130313538316335383131383066643464333031653932356331323365336631666537386365653637303336396266346363613461396666336535363464376131346135343435353335343566353434313465343734663031222c226b657973223a5b2238323538323039383230356334393365373835336464376263363934353836343661626563643937653836633934343163633261393033346165303164373135363161653138353834303631323934336436653435363366313462363364316637363462666165336230393930323338363261353163366133393835663732656530373031306363303762613361613138353063663638653962663465346463643762313331316430346432333063313832613134366265623965353732633635306637376165303066225d2c2273637269707473223a5b22383230313832383230303538316331616162653863646231313533653131633333363332373066643131626165663263613735386535366439613038363665373366376463353832303531613062623665393635222c223832303138323832303035383163386531636162633630303031653364626138636262613932326438303432383266313631636161393330313964636633386437383564333638323030353831633130653332376636653561616637363437646264306261633731633136363233383537336537303436343539643231353837393864316362225d2c226d65746164617461223a226131313930326431613137383338363336343636333736313339333433393633363336313330363433353337363133323337363633383336333236343335333233353635333436343334363333373333333436333331363433353330333336333632363333373636333033343633333136313633333233333335333036356131366634323735363936633634353437383534363537333734323333303330333161333634366536313664363537303432373536393663363435343738353436353733373432303233333033303331363536393664363136373635373833353639373036363733336132663266353136643632343636383463353233353433333634323664353435373337363137303637343434643536366434373666376134633735343535353561373736663635376136333637343835313635353534633534333533393464333536623634363537333633373236393730373436393666366537383165346336393734373436633635323034323735363936633634353437383534363537333734323036343635373336333732363937303734363936663665227d"
         }
@@ -81,7 +82,7 @@ describe('Transaction API endpoints', function () {
 
         // assert
         expect(response.status).equal(200);
-        expect(response.data).deep.equal(expectedResponse);
+        expect(response.data).deep.equal(buildTx);
     })
 
     it('should sign a tx', () => {
@@ -117,7 +118,7 @@ describe('Transaction API endpoints', function () {
     it('should get tx', async () => {
         // arrange
         const hash = 'a440d0f2c09e25f93aadea53dfe511c00b730eef4b6ed0be614f06d48c2fdaeb';
-        const expectedTx = {
+        const tx = {
             "hash": "a440d0f2c09e25f93aadea53dfe511c00b730eef4b6ed0be614f06d48c2fdaeb",
             "block_index": 1,
             "out_sum": 78280429,
@@ -169,22 +170,323 @@ describe('Transaction API endpoints', function () {
         const response = await api.getTransaction(hash);
 
         // assert
-        expect(response.data).deep.equal(expectedTx);
+        expect(response.data).deep.equal(tx);
     })
 
     it('should get tx metadata', async () => {
         // arrange
+        const hash = 'f777bd82c752bcb924548fa4a6e30bcbc25424f611a4a63289ee03d00a951e7d';
+        const metadata = [
+            {
+                "label": "721",
+                "json": {
+                    "cdf7a949cca0d57a27f862d525e4d4c734c1d503cbc7f04c1ac2350e": {
+                        "BuildTxTest#001": {
+                            "name": "BuildTxTest #001",
+                            "image": "ipfs://QmbFhLR5C6BmTW7apgDMVmGozLuEUZwoezcgHQeULT59M5",
+                            "description": "Little BuildTxTest description"
+                        }
+                    }
+                }
+            }
+        ]
 
         // act
+        const response = await api.getTransactionMetadata(hash);
 
         // assert
+        expect(response.data.data).deep.equal(metadata);
     })
 
     it('should list tx utxos', async () => {
         // arrange
+        const hash = '122128d2f72f77ab6bf8fb3f95b13f820b7c08a7ba2cab9c1d4ae5422f97d3fd';
+        const utxos = {
+            "hash": "122128d2f72f77ab6bf8fb3f95b13f820b7c08a7ba2cab9c1d4ae5422f97d3fd",
+            "inputs": [
+                {
+                    "address": "addr_test1qzmnd26rem246tykw4f7attzr5f6qnf25kp3mdgzany4vegm47veu20yllnu8a0t26ppr6hunpxa03jyvmdhanpym9vq6eqmp0",
+                    "hash": "a143357d16db17f2a9d35d0ea0e39806a855e8f06649d2982934aebda30bba84",
+                    "index": 4,
+                    "value": 2965452,
+                    "smart_contract": false,
+                    "assets": [
+                        {
+                            "policy_id": "648823ffdad1610b4162f4dbc87bd47f6f9cf45d772ddef661eff198",
+                            "asset_name": "wUSDT",
+                            "fingerprint": "asset1majzcngy2svamh5zns70xeetwkg2vx5nxg09nv",
+                            "quantity": 899000
+                        },
+                        {
+                            "policy_id": "406c221cad25b6832609bc24f649840763fae659cafa3472f26122ab",
+                            "asset_name":"zv�\r�`���P����0�㺦�PL�",
+                            "fingerprint": "asset109f4hv4sk8aaw2qeaspquet8hez8jqmczs5uaz",
+                            "quantity": 7069067
+                        },
+                        {
+                            "policy_id": "406c221cad25b6832609bc24f649840763fae659cafa3472f26122ab",
+                            "asset_name":"�\"��,S^q?��lH��8P�GJ\t�'����s�=",
+                            "fingerprint": "asset1y4292t9n698eu3eas2sl07c0a7636uc3n3qfvr",
+                            "quantity": 785749
+                        },
+                        {
+                            "policy_id": "406c221cad25b6832609bc24f649840763fae659cafa3472f26122ab",
+                            "asset_name":"�!�͞h Vya�ٻ����A+Dy�cΑZ��",
+                            "fingerprint": "asset1x2trcynescvqwutmdnta4qc9c2yrea4g3tj7nr",
+                            "quantity": 3296181
+                        },
+                        {
+                            "policy_id": "648823ffdad1610b4162f4dbc87bd47f6f9cf45d772ddef661eff198",
+                            "asset_name": "wDOGE",
+                            "fingerprint": "asset1v5g4zdz9s5ezkvdfd29yyetfpta8gx93ae6nqu",
+                            "quantity": 5300000
+                        },
+                        {
+                            "policy_id": "406c221cad25b6832609bc24f649840763fae659cafa3472f26122ab",
+                            "asset_name":"��R\"}^z��H;&t'�[�b�)��^���Y�@2",
+                            "fingerprint": "asset1jxfj2x02fnklr8lf0gc523epewafgkl9am2wrm",
+                            "quantity": 3160119
+                        },
+                        {
+                            "policy_id": "648823ffdad1610b4162f4dbc87bd47f6f9cf45d772ddef661eff198",
+                            "asset_name": "wBTC",
+                            "fingerprint": "asset173xsaag0t8aeemrujp2lg3t296xqn69ehynq4d",
+                            "quantity": 10000
+                        },
+                        {
+                            "policy_id": "648823ffdad1610b4162f4dbc87bd47f6f9cf45d772ddef661eff198",
+                            "asset_name": "wDOT",
+                            "fingerprint": "asset1r9t3dp2dvp2erfur645atkzq883dr25aaja66v",
+                            "quantity": 38610
+                        },
+                        {
+                            "policy_id": "406c221cad25b6832609bc24f649840763fae659cafa3472f26122ab",
+                            "asset_name":"{�N����\t�ֳ1 ����7U�\t�\"!��#�",
+                            "fingerprint": "asset1acensvu6258pdzqcxjwqh0d3v52kjgjc5tq58x",
+                            "quantity": 7069067
+                        },
+                        {
+                            "policy_id": "648823ffdad1610b4162f4dbc87bd47f6f9cf45d772ddef661eff198",
+                            "asset_name": "wLUNA",
+                            "fingerprint": "asset1v9wx950p65dde73kj6fs0lpd6pzc28crzv0zpe",
+                            "quantity": 18000
+                        },
+                        {
+                            "policy_id": "648823ffdad1610b4162f4dbc87bd47f6f9cf45d772ddef661eff198",
+                            "asset_name": "wBNB",
+                            "fingerprint": "asset1pssjpqkpm8y48x3q68sekrhl2kyxnwpgsn7xe4",
+                            "quantity": 88
+                        },
+                        {
+                            "policy_id": "648823ffdad1610b4162f4dbc87bd47f6f9cf45d772ddef661eff198",
+                            "asset_name": "wETH",
+                            "fingerprint": "asset1yuaxuqd8942yd366flvl0nju22exezfzsp052n",
+                            "quantity": 260
+                        },
+                        {
+                            "policy_id": "648823ffdad1610b4162f4dbc87bd47f6f9cf45d772ddef661eff198",
+                            "asset_name": "wXRP",
+                            "fingerprint": "asset1lurw6489320vegzs73e0tzljnd9jv5lfdqjn74",
+                            "quantity": 1796120
+                        },
+                        {
+                            "policy_id": "648823ffdad1610b4162f4dbc87bd47f6f9cf45d772ddef661eff198",
+                            "asset_name": "wUSDC",
+                            "fingerprint": "asset1n3weea8202dpev06tshdvhe9xd6f9jcqldpc2q",
+                            "quantity": 889000
+                        }
+                    ]
+                },
+                {
+                    "address": "addr_test1qzmnd26rem246tykw4f7attzr5f6qnf25kp3mdgzany4vegm47veu20yllnu8a0t26ppr6hunpxa03jyvmdhanpym9vq6eqmp0",
+                    "hash": "a143357d16db17f2a9d35d0ea0e39806a855e8f06649d2982934aebda30bba84",
+                    "index": 3,
+                    "value": 459949535,
+                    "smart_contract": false,
+                    "assets": []
+                },
+                {
+                    "address": "addr_test1wrhtrx98lc6dc2zk0uuv0hjjcrffq5fvllq9k7u6cajfvhq0rqywz",
+                    "hash": "7a052450386f97a1f208144de3f8ca158f93ad526ddfb1da9cf9d39e5e3aa7ab",
+                    "index": 1,
+                    "value": 1689618,
+                    "smart_contract": true,
+                    "assets": [
+                        {
+                            "policy_id": "406c221cad25b6832609bc24f649840763fae659cafa3472f26122ab",
+                            "asset_name": "F",
+                            "fingerprint": "asset1r5mrxn5377473gus6jzq3n947j33flenl4qptm",
+                            "quantity": 1
+                        }
+                    ]
+                }
+            ],
+            "outputs": [
+                {
+                    "address": "addr_test1wpzjtlyp6v4qx6gzjm4zc7lsdufw597507y060qhk84vpjsjd625n",
+                    "hash": "122128d2f72f77ab6bf8fb3f95b13f820b7c08a7ba2cab9c1d4ae5422f97d3fd",
+                    "index": 2,
+                    "value": 13000000,
+                    "smart_contract": true,
+                    "assets": [
+                        {
+                            "policy_id": "648823ffdad1610b4162f4dbc87bd47f6f9cf45d772ddef661eff198",
+                            "asset_name": "wBNB",
+                            "fingerprint": "asset1pssjpqkpm8y48x3q68sekrhl2kyxnwpgsn7xe4",
+                            "quantity": 88
+                        },
+                        {
+                            "policy_id": "406c221cad25b6832609bc24f649840763fae659cafa3472f26122ab",
+                            "asset_name":"/��`�.k�����D\nE�A��E5���7�",
+                            "fingerprint": "asset1s3txp9ah8vpswdn4d9afyefxzq69vfwqd0thgv",
+                            "quantity": 9223372036854747000
+                        },
+                        {
+                            "policy_id": "406c221cad25b6832609bc24f649840763fae659cafa3472f26122ab",
+                            "asset_name": "L",
+                            "fingerprint": "asset1gts3l2zwux060ze7mr6v8vxaal8hkntnkzmrh4",
+                            "quantity": 1
+                        }
+                    ]
+                },
+                {
+                    "address": "addr_test1qzmnd26rem246tykw4f7attzr5f6qnf25kp3mdgzany4vegm47veu20yllnu8a0t26ppr6hunpxa03jyvmdhanpym9vq6eqmp0",
+                    "hash": "122128d2f72f77ab6bf8fb3f95b13f820b7c08a7ba2cab9c1d4ae5422f97d3fd",
+                    "index": 4,
+                    "value": 3103380,
+                    "smart_contract": false,
+                    "assets": [
+                        {
+                            "policy_id": "406c221cad25b6832609bc24f649840763fae659cafa3472f26122ab",
+                            "asset_name":"zv�\r�`���P����0�㺦�PL�",
+                            "fingerprint": "asset109f4hv4sk8aaw2qeaspquet8hez8jqmczs5uaz",
+                            "quantity": 7069067
+                        },
+                        {
+                            "policy_id": "406c221cad25b6832609bc24f649840763fae659cafa3472f26122ab",
+                            "asset_name":"/��`�.k�����D\nE�A��E5���7�",
+                            "fingerprint": "asset1s3txp9ah8vpswdn4d9afyefxzq69vfwqd0thgv",
+                            "quantity": 27664
+                        },
+                        {
+                            "policy_id": "648823ffdad1610b4162f4dbc87bd47f6f9cf45d772ddef661eff198",
+                            "asset_name": "wETH",
+                            "fingerprint": "asset1yuaxuqd8942yd366flvl0nju22exezfzsp052n",
+                            "quantity": 260
+                        },
+                        {
+                            "policy_id": "406c221cad25b6832609bc24f649840763fae659cafa3472f26122ab",
+                            "asset_name":"�!�͞h Vya�ٻ����A+Dy�cΑZ��",
+                            "fingerprint": "asset1x2trcynescvqwutmdnta4qc9c2yrea4g3tj7nr",
+                            "quantity": 3296181
+                        },
+                        {
+                            "policy_id": "648823ffdad1610b4162f4dbc87bd47f6f9cf45d772ddef661eff198",
+                            "asset_name": "wLUNA",
+                            "fingerprint": "asset1v9wx950p65dde73kj6fs0lpd6pzc28crzv0zpe",
+                            "quantity": 18000
+                        },
+                        {
+                            "policy_id": "648823ffdad1610b4162f4dbc87bd47f6f9cf45d772ddef661eff198",
+                            "asset_name": "wUSDT",
+                            "fingerprint": "asset1majzcngy2svamh5zns70xeetwkg2vx5nxg09nv",
+                            "quantity": 899000
+                        },
+                        {
+                            "policy_id": "648823ffdad1610b4162f4dbc87bd47f6f9cf45d772ddef661eff198",
+                            "asset_name": "wDOT",
+                            "fingerprint": "asset1r9t3dp2dvp2erfur645atkzq883dr25aaja66v",
+                            "quantity": 38610
+                        },
+                        {
+                            "policy_id": "406c221cad25b6832609bc24f649840763fae659cafa3472f26122ab",
+                            "asset_name":"��R\"}^z��H;&t'�[�b�)��^���Y�@2",
+                            "fingerprint": "asset1jxfj2x02fnklr8lf0gc523epewafgkl9am2wrm",
+                            "quantity": 3160119
+                        },
+                        {
+                            "policy_id": "406c221cad25b6832609bc24f649840763fae659cafa3472f26122ab",
+                            "asset_name":"�\"��,S^q?��lH��8P�GJ\t�'����s�=",
+                            "fingerprint": "asset1y4292t9n698eu3eas2sl07c0a7636uc3n3qfvr",
+                            "quantity": 785749
+                        },
+                        {
+                            "policy_id": "648823ffdad1610b4162f4dbc87bd47f6f9cf45d772ddef661eff198",
+                            "asset_name": "wUSDC",
+                            "fingerprint": "asset1n3weea8202dpev06tshdvhe9xd6f9jcqldpc2q",
+                            "quantity": 889000
+                        },
+                        {
+                            "policy_id": "406c221cad25b6832609bc24f649840763fae659cafa3472f26122ab",
+                            "asset_name":"{�N����\t�ֳ1 ����7U�\t�\"!��#�",
+                            "fingerprint": "asset1acensvu6258pdzqcxjwqh0d3v52kjgjc5tq58x",
+                            "quantity": 7069067
+                        },
+                        {
+                            "policy_id": "648823ffdad1610b4162f4dbc87bd47f6f9cf45d772ddef661eff198",
+                            "asset_name": "wBTC",
+                            "fingerprint": "asset173xsaag0t8aeemrujp2lg3t296xqn69ehynq4d",
+                            "quantity": 10000
+                        },
+                        {
+                            "policy_id": "648823ffdad1610b4162f4dbc87bd47f6f9cf45d772ddef661eff198",
+                            "asset_name": "wDOGE",
+                            "fingerprint": "asset1v5g4zdz9s5ezkvdfd29yyetfpta8gx93ae6nqu",
+                            "quantity": 5300000
+                        },
+                        {
+                            "policy_id": "648823ffdad1610b4162f4dbc87bd47f6f9cf45d772ddef661eff198",
+                            "asset_name": "wXRP",
+                            "fingerprint": "asset1lurw6489320vegzs73e0tzljnd9jv5lfdqjn74",
+                            "quantity": 1796120
+                        }
+                    ]
+                },
+                {
+                    "address": "addr_test1wrhtrx98lc6dc2zk0uuv0hjjcrffq5fvllq9k7u6cajfvhq0rqywz",
+                    "hash": "122128d2f72f77ab6bf8fb3f95b13f820b7c08a7ba2cab9c1d4ae5422f97d3fd",
+                    "index": 1,
+                    "value": 1689618,
+                    "smart_contract": true,
+                    "assets": [
+                        {
+                            "policy_id": "406c221cad25b6832609bc24f649840763fae659cafa3472f26122ab",
+                            "asset_name": "F",
+                            "fingerprint": "asset1r5mrxn5377473gus6jzq3n947j33flenl4qptm",
+                            "quantity": 1
+                        }
+                    ]
+                },
+                {
+                    "address": "addr_test1qzmnd26rem246tykw4f7attzr5f6qnf25kp3mdgzany4vegm47veu20yllnu8a0t26ppr6hunpxa03jyvmdhanpym9vq6eqmp0",
+                    "hash": "122128d2f72f77ab6bf8fb3f95b13f820b7c08a7ba2cab9c1d4ae5422f97d3fd",
+                    "index": 3,
+                    "value": 443498138,
+                    "smart_contract": false,
+                    "assets": []
+                },
+                {
+                    "address": "addr_test1wrhtrx98lc6dc2zk0uuv0hjjcrffq5fvllq9k7u6cajfvhq0rqywz",
+                    "hash": "122128d2f72f77ab6bf8fb3f95b13f820b7c08a7ba2cab9c1d4ae5422f97d3fd",
+                    "index": 0,
+                    "value": 1689618,
+                    "smart_contract": true,
+                    "assets": [
+                        {
+                            "policy_id": "406c221cad25b6832609bc24f649840763fae659cafa3472f26122ab",
+                            "asset_name": "F",
+                            "fingerprint": "asset1r5mrxn5377473gus6jzq3n947j33flenl4qptm",
+                            "quantity": 1
+                        }
+                    ]
+                }
+            ]
+        }
 
         // act
+        const response = await api.listTransactionUtxos(hash);
 
         // assert
+        expect(response.data).deep.equal(utxos);
     })
 })
