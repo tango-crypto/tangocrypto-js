@@ -17,7 +17,7 @@ import { Configuration } from './configuration';
 import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from './common';
+import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction, buildPath } from './common';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from './base';
 
@@ -5068,18 +5068,17 @@ export const AddressesApiAxiosParamCreator = function (configuration?: Configura
          * Retrieves summarized information of an address.
          * @summary Retrieve address summary
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.            
          * @param {string} address Bech32 address.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAddressSummary: async (appId: string, address: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getAddressSummary: async (appId: string, version: string, address: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('getAddressSummary', 'appId', appId)
             // verify required parameter 'address' is not null or undefined
             assertParamExists('getAddressSummary', 'address', address)
-            const localVarPath = `/{app_id}/v1/addresses/{address}`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)))
-                .replace(`{${"address"}}`, encodeURIComponent(String(address)));
+            const localVarPath = buildPath(appId, version, 'addresses', address);
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -5087,7 +5086,7 @@ export const AddressesApiAxiosParamCreator = function (configuration?: Configura
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -5095,20 +5094,22 @@ export const AddressesApiAxiosParamCreator = function (configuration?: Configura
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
                 options: localVarRequestOptions,
             };
         },
+
         /**
          * Returns a list of assets for a given `address`. The response is paginated. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next set of assets. 
          * @summary List address assets
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
          * @param {string} address Bech32 address.
          * @param {number} [size] The number of results displayed on one page.
          * @param {string} [cursor] A &#x60;cursor&#x60; to access the next set of results. You include the cursor in subsequent requests to the endpoint as a URL query parameter of your request. If the cursor is empty in the result it means there are no more items to be retrieved. 
@@ -5116,14 +5117,12 @@ export const AddressesApiAxiosParamCreator = function (configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listAddressAssets: async (appId: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        listAddressAssets: async (appId: string, version: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('listAddressAssets', 'appId', appId)
             // verify required parameter 'address' is not null or undefined
             assertParamExists('listAddressAssets', 'address', address)
-            const localVarPath = `/{app_id}/v1/addresses/{address}/assets`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)))
-                .replace(`{${"address"}}`, encodeURIComponent(String(address)));
+            const localVarPath = buildPath(appId, version, 'addresses', address, 'assets');
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -5131,7 +5130,7 @@ export const AddressesApiAxiosParamCreator = function (configuration?: Configura
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -5151,20 +5150,22 @@ export const AddressesApiAxiosParamCreator = function (configuration?: Configura
             }
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
                 options: localVarRequestOptions,
             };
         },
+
         /**
          * Returns a list of UTXOs for a given `address`. The response is paginated. If truncated, the response includes a cursor that you use in a subsequent request to retrieve the next set of transactions. 
          * @summary List address transactions
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
          * @param {string} address Bech32 address.
          * @param {number} [size] The number of results displayed on one page.
          * @param {string} [cursor] A &#x60;cursor&#x60; to access the next set of results. You include the cursor in subsequent requests to the endpoint as a URL query parameter of your request. If the cursor is empty in the result it means there are no more items to be retrieved. 
@@ -5172,14 +5173,12 @@ export const AddressesApiAxiosParamCreator = function (configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listAddressTransactions: async (appId: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        listAddressTransactions: async (appId: string, version: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('listAddressTransactions', 'appId', appId)
             // verify required parameter 'address' is not null or undefined
             assertParamExists('listAddressTransactions', 'address', address)
-            const localVarPath = `/{app_id}/v1/addresses/{address}/transactions`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)))
-                .replace(`{${"address"}}`, encodeURIComponent(String(address)));
+            const localVarPath = buildPath(appId, version, 'addresses', address, 'transactions');
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -5187,7 +5186,7 @@ export const AddressesApiAxiosParamCreator = function (configuration?: Configura
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -5207,20 +5206,22 @@ export const AddressesApiAxiosParamCreator = function (configuration?: Configura
             }
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
                 options: localVarRequestOptions,
             };
         },
+
         /**
          * Returns a list of UTXOs for a given `address`. The response is paginated. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next set of UTXOs. 
          * @summary List address UTXOs
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
          * @param {string} address Bech32 address.
          * @param {number} [size] The number of results displayed on one page.
          * @param {string} [cursor] A &#x60;cursor&#x60; to access the next set of results. You include the cursor in subsequent requests to the endpoint as a URL query parameter of your request. If the cursor is empty in the result it means there are no more items to be retrieved. 
@@ -5228,14 +5229,12 @@ export const AddressesApiAxiosParamCreator = function (configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listAddressUtxos: async (appId: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        listAddressUtxos: async (appId: string, version: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('listAddressUtxos', 'appId', appId)
             // verify required parameter 'address' is not null or undefined
             assertParamExists('listAddressUtxos', 'address', address)
-            const localVarPath = `/{app_id}/v1/addresses/{address}/utxos`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)))
-                .replace(`{${"address"}}`, encodeURIComponent(String(address)));
+            const localVarPath = buildPath(appId, version, 'addresses', address, 'utxos');
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -5243,7 +5242,7 @@ export const AddressesApiAxiosParamCreator = function (configuration?: Configura
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -5263,10 +5262,10 @@ export const AddressesApiAxiosParamCreator = function (configuration?: Configura
             }
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -5280,25 +5279,28 @@ export const AddressesApiAxiosParamCreator = function (configuration?: Configura
  * AddressesApi - functional programming interface
  * @export
  */
-export const AddressesApiFp = function(configuration?: Configuration) {
+export const AddressesApiFp = function (configuration?: Configuration) {
     const localVarAxiosParamCreator = AddressesApiAxiosParamCreator(configuration)
     return {
         /**
          * Retrieves summarized information of an address.
          * @summary Retrieve address summary
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} address Bech32 address.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAddressSummary(appId: string, address: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveAddressSummaryResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAddressSummary(appId, address, options);
+        async getAddressSummary(appId: string, version: string, address: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveAddressSummaryResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAddressSummary(appId, version, address, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+
         /**
          * Returns a list of assets for a given `address`. The response is paginated. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next set of assets. 
          * @summary List address assets
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} address Bech32 address.
          * @param {number} [size] The number of results displayed on one page.
          * @param {string} [cursor] A &#x60;cursor&#x60; to access the next set of results. You include the cursor in subsequent requests to the endpoint as a URL query parameter of your request. If the cursor is empty in the result it means there are no more items to be retrieved. 
@@ -5306,14 +5308,16 @@ export const AddressesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listAddressAssets(appId: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListAddressAssetsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listAddressAssets(appId, address, size, cursor, order, options);
+        async listAddressAssets(appId: string, version: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListAddressAssetsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listAddressAssets(appId, version, address, size, cursor, order, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+
         /**
          * Returns a list of UTXOs for a given `address`. The response is paginated. If truncated, the response includes a cursor that you use in a subsequent request to retrieve the next set of transactions. 
          * @summary List address transactions
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.            
          * @param {string} address Bech32 address.
          * @param {number} [size] The number of results displayed on one page.
          * @param {string} [cursor] A &#x60;cursor&#x60; to access the next set of results. You include the cursor in subsequent requests to the endpoint as a URL query parameter of your request. If the cursor is empty in the result it means there are no more items to be retrieved. 
@@ -5321,14 +5325,16 @@ export const AddressesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listAddressTransactions(appId: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListAddressTransactionsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listAddressTransactions(appId, address, size, cursor, order, options);
+        async listAddressTransactions(appId: string, version: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListAddressTransactionsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listAddressTransactions(appId, version, address, size, cursor, order, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+
         /**
          * Returns a list of UTXOs for a given `address`. The response is paginated. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next set of UTXOs. 
          * @summary List address UTXOs
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
          * @param {string} address Bech32 address.
          * @param {number} [size] The number of results displayed on one page.
          * @param {string} [cursor] A &#x60;cursor&#x60; to access the next set of results. You include the cursor in subsequent requests to the endpoint as a URL query parameter of your request. If the cursor is empty in the result it means there are no more items to be retrieved. 
@@ -5336,8 +5342,8 @@ export const AddressesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listAddressUtxos(appId: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListAddressUtxosResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listAddressUtxos(appId, address, size, cursor, order, options);
+        async listAddressUtxos(appId: string, version: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListAddressUtxosResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listAddressUtxos(appId, version, address, size, cursor, order, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -5354,17 +5360,20 @@ export const AddressesApiFactory = function (configuration?: Configuration, base
          * Retrieves summarized information of an address.
          * @summary Retrieve address summary
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
          * @param {string} address Bech32 address.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAddressSummary(appId: string, address: string, options?: any): AxiosPromise<RetrieveAddressSummaryResponse> {
-            return localVarFp.getAddressSummary(appId, address, options).then((request) => request(axios, basePath));
+        getAddressSummary(appId: string, version: string, address: string, options?: any): AxiosPromise<RetrieveAddressSummaryResponse> {
+            return localVarFp.getAddressSummary(appId, version, address, options).then((request) => request(axios, basePath));
         },
+
         /**
          * Returns a list of assets for a given `address`. The response is paginated. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next set of assets. 
          * @summary List address assets
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} address Bech32 address.
          * @param {number} [size] The number of results displayed on one page.
          * @param {string} [cursor] A &#x60;cursor&#x60; to access the next set of results. You include the cursor in subsequent requests to the endpoint as a URL query parameter of your request. If the cursor is empty in the result it means there are no more items to be retrieved. 
@@ -5372,13 +5381,15 @@ export const AddressesApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listAddressAssets(appId: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: any): AxiosPromise<ListAddressAssetsResponse> {
-            return localVarFp.listAddressAssets(appId, address, size, cursor, order, options).then((request) => request(axios, basePath));
+        listAddressAssets(appId: string, version: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: any): AxiosPromise<ListAddressAssetsResponse> {
+            return localVarFp.listAddressAssets(appId, version, address, size, cursor, order, options).then((request) => request(axios, basePath));
         },
+
         /**
          * Returns a list of UTXOs for a given `address`. The response is paginated. If truncated, the response includes a cursor that you use in a subsequent request to retrieve the next set of transactions. 
          * @summary List address transactions
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} address Bech32 address.
          * @param {number} [size] The number of results displayed on one page.
          * @param {string} [cursor] A &#x60;cursor&#x60; to access the next set of results. You include the cursor in subsequent requests to the endpoint as a URL query parameter of your request. If the cursor is empty in the result it means there are no more items to be retrieved. 
@@ -5386,13 +5397,15 @@ export const AddressesApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listAddressTransactions(appId: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: any): AxiosPromise<ListAddressTransactionsResponse> {
-            return localVarFp.listAddressTransactions(appId, address, size, cursor, order, options).then((request) => request(axios, basePath));
+        listAddressTransactions(appId: string, version: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: any): AxiosPromise<ListAddressTransactionsResponse> {
+            return localVarFp.listAddressTransactions(appId, version, address, size, cursor, order, options).then((request) => request(axios, basePath));
         },
+
         /**
          * Returns a list of UTXOs for a given `address`. The response is paginated. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next set of UTXOs. 
          * @summary List address UTXOs
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} address Bech32 address.
          * @param {number} [size] The number of results displayed on one page.
          * @param {string} [cursor] A &#x60;cursor&#x60; to access the next set of results. You include the cursor in subsequent requests to the endpoint as a URL query parameter of your request. If the cursor is empty in the result it means there are no more items to be retrieved. 
@@ -5400,8 +5413,8 @@ export const AddressesApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listAddressUtxos(appId: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: any): AxiosPromise<ListAddressUtxosResponse> {
-            return localVarFp.listAddressUtxos(appId, address, size, cursor, order, options).then((request) => request(axios, basePath));
+        listAddressUtxos(appId: string, version: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: any): AxiosPromise<ListAddressUtxosResponse> {
+            return localVarFp.listAddressUtxos(appId, version, address, size, cursor, order, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -5417,19 +5430,21 @@ export class AddressesApi extends BaseAPI {
      * Retrieves summarized information of an address.
      * @summary Retrieve address summary
      * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.
      * @param {string} address Bech32 address.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AddressesApi
      */
-    public getAddressSummary(appId: string, address: string, options?: AxiosRequestConfig) {
-        return AddressesApiFp(this.configuration).getAddressSummary(appId, address, options).then((request) => request(this.axios, this.basePath));
+    public getAddressSummary(appId: string, version: string, address: string, options?: AxiosRequestConfig) {
+        return AddressesApiFp(this.configuration).getAddressSummary(appId, version, address, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Returns a list of assets for a given `address`. The response is paginated. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next set of assets. 
      * @summary List address assets
      * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.     
      * @param {string} address Bech32 address.
      * @param {number} [size] The number of results displayed on one page.
      * @param {string} [cursor] A &#x60;cursor&#x60; to access the next set of results. You include the cursor in subsequent requests to the endpoint as a URL query parameter of your request. If the cursor is empty in the result it means there are no more items to be retrieved. 
@@ -5438,14 +5453,15 @@ export class AddressesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AddressesApi
      */
-    public listAddressAssets(appId: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: AxiosRequestConfig) {
-        return AddressesApiFp(this.configuration).listAddressAssets(appId, address, size, cursor, order, options).then((request) => request(this.axios, this.basePath));
+    public listAddressAssets(appId: string, version: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: AxiosRequestConfig) {
+        return AddressesApiFp(this.configuration).listAddressAssets(appId, version, address, size, cursor, order, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Returns a list of UTXOs for a given `address`. The response is paginated. If truncated, the response includes a cursor that you use in a subsequent request to retrieve the next set of transactions. 
      * @summary List address transactions
      * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.     
      * @param {string} address Bech32 address.
      * @param {number} [size] The number of results displayed on one page.
      * @param {string} [cursor] A &#x60;cursor&#x60; to access the next set of results. You include the cursor in subsequent requests to the endpoint as a URL query parameter of your request. If the cursor is empty in the result it means there are no more items to be retrieved. 
@@ -5454,14 +5470,15 @@ export class AddressesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AddressesApi
      */
-    public listAddressTransactions(appId: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: AxiosRequestConfig) {
-        return AddressesApiFp(this.configuration).listAddressTransactions(appId, address, size, cursor, order, options).then((request) => request(this.axios, this.basePath));
+    public listAddressTransactions(appId: string, version: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: AxiosRequestConfig) {
+        return AddressesApiFp(this.configuration).listAddressTransactions(appId, version, address, size, cursor, order, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Returns a list of UTXOs for a given `address`. The response is paginated. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next set of UTXOs. 
      * @summary List address UTXOs
      * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.     
      * @param {string} address Bech32 address.
      * @param {number} [size] The number of results displayed on one page.
      * @param {string} [cursor] A &#x60;cursor&#x60; to access the next set of results. You include the cursor in subsequent requests to the endpoint as a URL query parameter of your request. If the cursor is empty in the result it means there are no more items to be retrieved. 
@@ -5470,8 +5487,8 @@ export class AddressesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AddressesApi
      */
-    public listAddressUtxos(appId: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: AxiosRequestConfig) {
-        return AddressesApiFp(this.configuration).listAddressUtxos(appId, address, size, cursor, order, options).then((request) => request(this.axios, this.basePath));
+    public listAddressUtxos(appId: string, version: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: AxiosRequestConfig) {
+        return AddressesApiFp(this.configuration).listAddressUtxos(appId, version, address, size, cursor, order, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -5505,7 +5522,7 @@ export const AssetsApiAxiosParamCreator = function (configuration?: Configuratio
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -5513,10 +5530,10 @@ export const AssetsApiAxiosParamCreator = function (configuration?: Configuratio
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -5546,7 +5563,7 @@ export const AssetsApiAxiosParamCreator = function (configuration?: Configuratio
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -5554,10 +5571,10 @@ export const AssetsApiAxiosParamCreator = function (configuration?: Configuratio
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -5587,7 +5604,7 @@ export const AssetsApiAxiosParamCreator = function (configuration?: Configuratio
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -5595,10 +5612,10 @@ export const AssetsApiAxiosParamCreator = function (configuration?: Configuratio
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -5628,7 +5645,7 @@ export const AssetsApiAxiosParamCreator = function (configuration?: Configuratio
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -5636,10 +5653,10 @@ export const AssetsApiAxiosParamCreator = function (configuration?: Configuratio
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -5653,7 +5670,7 @@ export const AssetsApiAxiosParamCreator = function (configuration?: Configuratio
  * AssetsApi - functional programming interface
  * @export
  */
-export const AssetsApiFp = function(configuration?: Configuration) {
+export const AssetsApiFp = function (configuration?: Configuration) {
     const localVarAxiosParamCreator = AssetsApiAxiosParamCreator(configuration)
     return {
         /**
@@ -5851,7 +5868,7 @@ export const BlocksApiAxiosParamCreator = function (configuration?: Configuratio
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -5859,10 +5876,10 @@ export const BlocksApiAxiosParamCreator = function (configuration?: Configuratio
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -5895,7 +5912,7 @@ export const BlocksApiAxiosParamCreator = function (configuration?: Configuratio
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -5915,10 +5932,10 @@ export const BlocksApiAxiosParamCreator = function (configuration?: Configuratio
             }
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -5944,7 +5961,7 @@ export const BlocksApiAxiosParamCreator = function (configuration?: Configuratio
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -5952,10 +5969,10 @@ export const BlocksApiAxiosParamCreator = function (configuration?: Configuratio
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -5969,7 +5986,7 @@ export const BlocksApiAxiosParamCreator = function (configuration?: Configuratio
  * BlocksApi - functional programming interface
  * @export
  */
-export const BlocksApiFp = function(configuration?: Configuration) {
+export const BlocksApiFp = function (configuration?: Configuration) {
     const localVarAxiosParamCreator = BlocksApiAxiosParamCreator(configuration)
     return {
         /**
@@ -6133,7 +6150,7 @@ export const EpochsApiAxiosParamCreator = function (configuration?: Configuratio
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -6141,10 +6158,10 @@ export const EpochsApiAxiosParamCreator = function (configuration?: Configuratio
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -6174,7 +6191,7 @@ export const EpochsApiAxiosParamCreator = function (configuration?: Configuratio
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -6182,10 +6199,10 @@ export const EpochsApiAxiosParamCreator = function (configuration?: Configuratio
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -6199,7 +6216,7 @@ export const EpochsApiAxiosParamCreator = function (configuration?: Configuratio
  * EpochsApi - functional programming interface
  * @export
  */
-export const EpochsApiFp = function(configuration?: Configuration) {
+export const EpochsApiFp = function (configuration?: Configuration) {
     const localVarAxiosParamCreator = EpochsApiAxiosParamCreator(configuration)
     return {
         /**
@@ -6323,7 +6340,7 @@ export const NFTsAddressListApiAxiosParamCreator = function (configuration?: Con
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -6331,12 +6348,12 @@ export const NFTsAddressListApiAxiosParamCreator = function (configuration?: Con
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
             localVarRequestOptions.data = serializeDataIfNeeded(checkAddressListRequest, localVarRequestOptions, configuration)
 
             return {
@@ -6370,7 +6387,7 @@ export const NFTsAddressListApiAxiosParamCreator = function (configuration?: Con
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
             const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
@@ -6379,24 +6396,24 @@ export const NFTsAddressListApiAxiosParamCreator = function (configuration?: Con
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-            if (name !== undefined) { 
+            if (name !== undefined) {
                 localVarFormParams.append('name', name as any);
             }
-    
-            if (description !== undefined) { 
+
+            if (description !== undefined) {
                 localVarFormParams.append('description', description as any);
             }
-    
-            if (file !== undefined) { 
+
+            if (file !== undefined) {
                 localVarFormParams.append('file', file as any);
             }
-    
-    
+
+
             localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
             localVarRequestOptions.data = localVarFormParams;
 
             return {
@@ -6427,7 +6444,7 @@ export const NFTsAddressListApiAxiosParamCreator = function (configuration?: Con
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -6435,10 +6452,10 @@ export const NFTsAddressListApiAxiosParamCreator = function (configuration?: Con
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -6465,7 +6482,7 @@ export const NFTsAddressListApiAxiosParamCreator = function (configuration?: Con
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -6477,10 +6494,10 @@ export const NFTsAddressListApiAxiosParamCreator = function (configuration?: Con
             }
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -6510,7 +6527,7 @@ export const NFTsAddressListApiAxiosParamCreator = function (configuration?: Con
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -6518,10 +6535,10 @@ export const NFTsAddressListApiAxiosParamCreator = function (configuration?: Con
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -6535,7 +6552,7 @@ export const NFTsAddressListApiAxiosParamCreator = function (configuration?: Con
  * NFTsAddressListApi - functional programming interface
  * @export
  */
-export const NFTsAddressListApiFp = function(configuration?: Configuration) {
+export const NFTsAddressListApiFp = function (configuration?: Configuration) {
     const localVarAxiosParamCreator = NFTsAddressListApiAxiosParamCreator(configuration)
     return {
         /**
@@ -6778,7 +6795,7 @@ export const NFTsCollectionsApiAxiosParamCreator = function (configuration?: Con
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -6786,10 +6803,10 @@ export const NFTsCollectionsApiAxiosParamCreator = function (configuration?: Con
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -6823,7 +6840,7 @@ export const NFTsCollectionsApiAxiosParamCreator = function (configuration?: Con
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -6847,10 +6864,10 @@ export const NFTsCollectionsApiAxiosParamCreator = function (configuration?: Con
             }
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -6879,7 +6896,7 @@ export const NFTsCollectionsApiAxiosParamCreator = function (configuration?: Con
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -6899,10 +6916,10 @@ export const NFTsCollectionsApiAxiosParamCreator = function (configuration?: Con
             }
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -6929,7 +6946,7 @@ export const NFTsCollectionsApiAxiosParamCreator = function (configuration?: Con
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -6937,12 +6954,12 @@ export const NFTsCollectionsApiAxiosParamCreator = function (configuration?: Con
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
             localVarRequestOptions.data = serializeDataIfNeeded(createCollectionRequest, localVarRequestOptions, configuration)
 
             return {
@@ -6973,7 +6990,7 @@ export const NFTsCollectionsApiAxiosParamCreator = function (configuration?: Con
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -6981,10 +6998,10 @@ export const NFTsCollectionsApiAxiosParamCreator = function (configuration?: Con
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -7015,7 +7032,7 @@ export const NFTsCollectionsApiAxiosParamCreator = function (configuration?: Con
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -7023,12 +7040,12 @@ export const NFTsCollectionsApiAxiosParamCreator = function (configuration?: Con
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
             localVarRequestOptions.data = serializeDataIfNeeded(updateCollectionRequest, localVarRequestOptions, configuration)
 
             return {
@@ -7043,7 +7060,7 @@ export const NFTsCollectionsApiAxiosParamCreator = function (configuration?: Con
  * NFTsCollectionsApi - functional programming interface
  * @export
  */
-export const NFTsCollectionsApiFp = function(configuration?: Configuration) {
+export const NFTsCollectionsApiFp = function (configuration?: Configuration) {
     const localVarAxiosParamCreator = NFTsCollectionsApiAxiosParamCreator(configuration)
     return {
         /**
@@ -7339,7 +7356,7 @@ export const NFTsSalePhasesApiAxiosParamCreator = function (configuration?: Conf
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -7347,12 +7364,12 @@ export const NFTsSalePhasesApiAxiosParamCreator = function (configuration?: Conf
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
             localVarRequestOptions.data = serializeDataIfNeeded(createAffiliateRequest, localVarRequestOptions, configuration)
 
             return {
@@ -7391,7 +7408,7 @@ export const NFTsSalePhasesApiAxiosParamCreator = function (configuration?: Conf
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -7399,10 +7416,10 @@ export const NFTsSalePhasesApiAxiosParamCreator = function (configuration?: Conf
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -7436,7 +7453,7 @@ export const NFTsSalePhasesApiAxiosParamCreator = function (configuration?: Conf
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -7444,10 +7461,10 @@ export const NFTsSalePhasesApiAxiosParamCreator = function (configuration?: Conf
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -7478,7 +7495,7 @@ export const NFTsSalePhasesApiAxiosParamCreator = function (configuration?: Conf
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -7486,12 +7503,12 @@ export const NFTsSalePhasesApiAxiosParamCreator = function (configuration?: Conf
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
             localVarRequestOptions.data = serializeDataIfNeeded(createSalePhaseRequest, localVarRequestOptions, configuration)
 
             return {
@@ -7526,7 +7543,7 @@ export const NFTsSalePhasesApiAxiosParamCreator = function (configuration?: Conf
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -7534,10 +7551,10 @@ export const NFTsSalePhasesApiAxiosParamCreator = function (configuration?: Conf
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -7567,7 +7584,7 @@ export const NFTsSalePhasesApiAxiosParamCreator = function (configuration?: Conf
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -7575,10 +7592,10 @@ export const NFTsSalePhasesApiAxiosParamCreator = function (configuration?: Conf
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -7617,7 +7634,7 @@ export const NFTsSalePhasesApiAxiosParamCreator = function (configuration?: Conf
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -7625,12 +7642,12 @@ export const NFTsSalePhasesApiAxiosParamCreator = function (configuration?: Conf
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
             localVarRequestOptions.data = serializeDataIfNeeded(createAffiliateRequest, localVarRequestOptions, configuration)
 
             return {
@@ -7666,7 +7683,7 @@ export const NFTsSalePhasesApiAxiosParamCreator = function (configuration?: Conf
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -7674,12 +7691,12 @@ export const NFTsSalePhasesApiAxiosParamCreator = function (configuration?: Conf
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
             localVarRequestOptions.data = serializeDataIfNeeded(createSalePhaseRequest, localVarRequestOptions, configuration)
 
             return {
@@ -7694,7 +7711,7 @@ export const NFTsSalePhasesApiAxiosParamCreator = function (configuration?: Conf
  * NFTsSalePhasesApi - functional programming interface
  * @export
  */
-export const NFTsSalePhasesApiFp = function(configuration?: Configuration) {
+export const NFTsSalePhasesApiFp = function (configuration?: Configuration) {
     const localVarAxiosParamCreator = NFTsSalePhasesApiAxiosParamCreator(configuration)
     return {
         /**
@@ -8080,7 +8097,7 @@ export const NFTsSalesApiAxiosParamCreator = function (configuration?: Configura
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -8088,10 +8105,10 @@ export const NFTsSalesApiAxiosParamCreator = function (configuration?: Configura
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -8122,7 +8139,7 @@ export const NFTsSalesApiAxiosParamCreator = function (configuration?: Configura
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -8130,12 +8147,12 @@ export const NFTsSalesApiAxiosParamCreator = function (configuration?: Configura
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
             localVarRequestOptions.data = serializeDataIfNeeded(createNftSaleRequest, localVarRequestOptions, configuration)
 
             return {
@@ -8169,7 +8186,7 @@ export const NFTsSalesApiAxiosParamCreator = function (configuration?: Configura
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -8189,10 +8206,10 @@ export const NFTsSalesApiAxiosParamCreator = function (configuration?: Configura
             }
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -8226,7 +8243,7 @@ export const NFTsSalesApiAxiosParamCreator = function (configuration?: Configura
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -8234,10 +8251,10 @@ export const NFTsSalesApiAxiosParamCreator = function (configuration?: Configura
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -8251,7 +8268,7 @@ export const NFTsSalesApiAxiosParamCreator = function (configuration?: Configura
  * NFTsSalesApi - functional programming interface
  * @export
  */
-export const NFTsSalesApiFp = function(configuration?: Configuration) {
+export const NFTsSalesApiFp = function (configuration?: Configuration) {
     const localVarAxiosParamCreator = NFTsSalesApiAxiosParamCreator(configuration)
     return {
         /**
@@ -8474,7 +8491,7 @@ export const NFTsTokensApiAxiosParamCreator = function (configuration?: Configur
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -8482,10 +8499,10 @@ export const NFTsTokensApiAxiosParamCreator = function (configuration?: Configur
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -8516,7 +8533,7 @@ export const NFTsTokensApiAxiosParamCreator = function (configuration?: Configur
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -8524,12 +8541,12 @@ export const NFTsTokensApiAxiosParamCreator = function (configuration?: Configur
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
             localVarRequestOptions.data = serializeDataIfNeeded(createNftRequest, localVarRequestOptions, configuration)
 
             return {
@@ -8564,7 +8581,7 @@ export const NFTsTokensApiAxiosParamCreator = function (configuration?: Configur
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -8572,10 +8589,10 @@ export const NFTsTokensApiAxiosParamCreator = function (configuration?: Configur
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -8610,7 +8627,7 @@ export const NFTsTokensApiAxiosParamCreator = function (configuration?: Configur
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -8618,12 +8635,12 @@ export const NFTsTokensApiAxiosParamCreator = function (configuration?: Configur
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
             localVarRequestOptions.data = serializeDataIfNeeded(updateNftRequest, localVarRequestOptions, configuration)
 
             return {
@@ -8638,7 +8655,7 @@ export const NFTsTokensApiAxiosParamCreator = function (configuration?: Configur
  * NFTsTokensApi - functional programming interface
  * @export
  */
-export const NFTsTokensApiFp = function(configuration?: Configuration) {
+export const NFTsTokensApiFp = function (configuration?: Configuration) {
     const localVarAxiosParamCreator = NFTsTokensApiAxiosParamCreator(configuration)
     return {
         /**
@@ -8851,7 +8868,7 @@ export const PolicyApiAxiosParamCreator = function (configuration?: Configuratio
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -8859,10 +8876,10 @@ export const PolicyApiAxiosParamCreator = function (configuration?: Configuratio
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -8876,7 +8893,7 @@ export const PolicyApiAxiosParamCreator = function (configuration?: Configuratio
  * PolicyApi - functional programming interface
  * @export
  */
-export const PolicyApiFp = function(configuration?: Configuration) {
+export const PolicyApiFp = function (configuration?: Configuration) {
     const localVarAxiosParamCreator = PolicyApiAxiosParamCreator(configuration)
     return {
         /**
@@ -8966,7 +8983,7 @@ export const PoolsApiAxiosParamCreator = function (configuration?: Configuration
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -8974,10 +8991,10 @@ export const PoolsApiAxiosParamCreator = function (configuration?: Configuration
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -9007,7 +9024,7 @@ export const PoolsApiAxiosParamCreator = function (configuration?: Configuration
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -9015,10 +9032,10 @@ export const PoolsApiAxiosParamCreator = function (configuration?: Configuration
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -9032,7 +9049,7 @@ export const PoolsApiAxiosParamCreator = function (configuration?: Configuration
  * PoolsApi - functional programming interface
  * @export
  */
-export const PoolsApiFp = function(configuration?: Configuration) {
+export const PoolsApiFp = function (configuration?: Configuration) {
     const localVarAxiosParamCreator = PoolsApiAxiosParamCreator(configuration)
     return {
         /**
@@ -9143,11 +9160,10 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        buildTransaction: async (appId: string, buildTxRequest?: BuildTxRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        buildTransaction: async (appId: string, version: string, buildTxRequest?: BuildTxRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('buildTransaction', 'appId', appId)
-            const localVarPath = `/{app_id}/transactions/build`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)));
+            const localVarPath = buildPath(appId, version, 'transactions', 'build');
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -9155,7 +9171,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -9163,12 +9179,12 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
             localVarRequestOptions.data = serializeDataIfNeeded(buildTxRequest, localVarRequestOptions, configuration)
 
             return {
@@ -9176,22 +9192,22 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
                 options: localVarRequestOptions,
             };
         },
+
         /**
          * Retrieves the information about a transaction requested specified by a transaction `hash`.
          * @summary Retrieve Transaction
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} hash Hash of the requested transaction
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTransaction: async (appId: string, hash: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getTransaction: async (appId: string, version: string, hash: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('getTransaction', 'appId', appId)
             // verify required parameter 'hash' is not null or undefined
             assertParamExists('getTransaction', 'hash', hash)
-            const localVarPath = `/{app_id}/v1/transactions/{hash}`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)))
-                .replace(`{${"hash"}}`, encodeURIComponent(String(hash)));
+            const localVarPath = buildPath(appId, version, 'transactions', hash);
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -9199,7 +9215,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -9207,32 +9223,32 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
                 options: localVarRequestOptions,
             };
         },
+
         /**
          * Retrieve the transaction metadata specified by a transaction `hash`. The response is paginated. If truncated, the response includes a cursor that you use in a subsequent request to retrieve the next set of metadata values. 
          * @summary Retrieve transaction metadata
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.          
          * @param {string} hash Hash of the requested transaction
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTransactionMetadata: async (appId: string, hash: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getTransactionMetadata: async (appId: string, version: string, hash: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('getTransactionMetadata', 'appId', appId)
             // verify required parameter 'hash' is not null or undefined
             assertParamExists('getTransactionMetadata', 'hash', hash)
-            const localVarPath = `/{app_id}/v1/transactions/{hash}/metadata`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)))
-                .replace(`{${"hash"}}`, encodeURIComponent(String(hash)));
+            const localVarPath = buildPath(appId, version, 'transactions', hash, 'metadata');
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -9240,7 +9256,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -9248,32 +9264,32 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
                 options: localVarRequestOptions,
             };
         },
+
         /**
          * List the UTXOs from a transaction specified by a transaction `hash`.
          * @summary List transaction UTXOs
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
          * @param {string} hash Hash of the requested transaction
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listTransactionUtxos: async (appId: string, hash: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        listTransactionUtxos: async (appId: string, version: string, hash: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('listTransactionUtxos', 'appId', appId)
             // verify required parameter 'hash' is not null or undefined
             assertParamExists('listTransactionUtxos', 'hash', hash)
-            const localVarPath = `/{app_id}/v1/transactions/{hash}/utxos`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)))
-                .replace(`{${"hash"}}`, encodeURIComponent(String(hash)));
+            const localVarPath = buildPath(appId, version, 'transactions', hash, 'utxos');
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -9281,7 +9297,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -9289,10 +9305,10 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -9303,15 +9319,15 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
          * Submit an already serialized transaction to the network.
          * @summary Submit a transaction
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
          * @param {SubmitTansactionRequest} [subitTansactionRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        submitTransaction: async (appId: string, subitTansactionRequest?: SubmitTansactionRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        submitTransaction: async (appId: string, version: string, subitTansactionRequest?: SubmitTansactionRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('submitTransaction', 'appId', appId)
-            const localVarPath = `/{app_id}/v1/transactions/submit`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)));
+            const localVarPath = buildPath(appId, version, 'transactions', 'submit');
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -9319,7 +9335,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -9327,12 +9343,12 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
             localVarRequestOptions.data = serializeDataIfNeeded(subitTansactionRequest, localVarRequestOptions, configuration)
 
             return {
@@ -9347,67 +9363,76 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
  * TransactionsApi - functional programming interface
  * @export
  */
-export const TransactionsApiFp = function(configuration?: Configuration) {
+export const TransactionsApiFp = function (configuration?: Configuration) {
     const localVarAxiosParamCreator = TransactionsApiAxiosParamCreator(configuration)
     return {
         /**
          * Build and serialize transaction with custom logic like swap, send, mint, burn etc.
          * @summary Build a transaction
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
          * @param {BuildTxRequest} [buildTxRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async buildTransaction(appId: string, buildTxRequest?: BuildTxRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BuildTxResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.buildTransaction(appId, buildTxRequest, options);
+        async buildTransaction(appId: string, version: string, buildTxRequest?: BuildTxRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BuildTxResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.buildTransaction(appId, version, buildTxRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+
         /**
          * Retrieves the information about a transaction requested specified by a transaction `hash`.
          * @summary Retrieve Transaction
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
          * @param {string} hash Hash of the requested transaction
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getTransaction(appId: string, hash: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveTransactionResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getTransaction(appId, hash, options);
+        async getTransaction(appId: string, version: string, hash: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveTransactionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTransaction(appId, version, hash, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+
         /**
          * Retrieve the transaction metadata specified by a transaction `hash`. The response is paginated. If truncated, the response includes a cursor that you use in a subsequent request to retrieve the next set of metadata values. 
          * @summary Retrieve transaction metadata
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} hash Hash of the requested transaction
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getTransactionMetadata(appId: string, hash: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveTransactionMetadataResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getTransactionMetadata(appId, hash, options);
+        async getTransactionMetadata(appId: string, version: string, hash: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveTransactionMetadataResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTransactionMetadata(appId, version, hash, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+
         /**
          * List the UTXOs from a transaction specified by a transaction `hash`.
          * @summary List transaction UTXOs
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} hash Hash of the requested transaction
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listTransactionUtxos(appId: string, hash: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListTransactionUtxosResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listTransactionUtxos(appId, hash, options);
+        async listTransactionUtxos(appId: string, version: string, hash: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListTransactionUtxosResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listTransactionUtxos(appId, version, hash, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+
         /**
          * Submit an already serialized transaction to the network.
          * @summary Submit a transaction
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
          * @param {SubmitTansactionRequest} [subitTansactionRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async submitTransaction(appId: string, subitTansactionRequest?: SubmitTansactionRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SubitTansactionResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.submitTransaction(appId, subitTansactionRequest, options);
+        async submitTransaction(appId: string, version: string, subitTansactionRequest?: SubmitTansactionRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SubitTansactionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.submitTransaction(appId, version, subitTansactionRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -9424,12 +9449,13 @@ export const TransactionsApiFactory = function (configuration?: Configuration, b
          * Build and serialize transaction with custom logic like swap, send, mint, burn etc.
          * @summary Build a transaction
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
          * @param {BuildTxRequest} [buildTxRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        buildTransaction(appId: string, buildTxRequest?: BuildTxRequest, options?: any): AxiosPromise<BuildTxResponse> {
-            return localVarFp.buildTransaction(appId, buildTxRequest, options).then((request) => request(axios, basePath));
+        buildTransaction(appId: string, version: string, buildTxRequest?: BuildTxRequest, options?: any): AxiosPromise<BuildTxResponse> {
+            return localVarFp.buildTransaction(appId, version, buildTxRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * Retrieves the information about a transaction requested specified by a transaction `hash`.
@@ -9468,12 +9494,13 @@ export const TransactionsApiFactory = function (configuration?: Configuration, b
          * Submit an already serialized transaction to the network.
          * @summary Submit a transaction
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
          * @param {SubmitTansactionRequest} [subitTansactionRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        submitTransaction(appId: string, subitTansactionRequest?: SubmitTansactionRequest, options?: any): AxiosPromise<SubitTansactionResponse> {
-            return localVarFp.submitTransaction(appId, subitTansactionRequest, options).then((request) => request(axios, basePath));
+        submitTransaction(appId: string, version: string, subitTansactionRequest?: SubmitTansactionRequest, options?: any): AxiosPromise<SubitTansactionResponse> {
+            return localVarFp.submitTransaction(appId, version, subitTansactionRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -9489,65 +9516,70 @@ export class TransactionsApi extends BaseAPI {
      * Build and serialize transaction with custom logic like swap, send, mint, burn etc.
      * @summary Build a transaction
      * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.
      * @param {BuildTxRequest} [buildTxRequest] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TransactionsApi
      */
-    public buildTransaction(appId: string, buildTxRequest?: BuildTxRequest, options?: AxiosRequestConfig) {
-        return TransactionsApiFp(this.configuration).buildTransaction(appId, buildTxRequest, options).then((request) => request(this.axios, this.basePath));
+    public buildTransaction(appId: string, version: string, buildTxRequest?: BuildTxRequest, options?: AxiosRequestConfig) {
+        return TransactionsApiFp(this.configuration).buildTransaction(appId, version, buildTxRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Retrieves the information about a transaction requested specified by a transaction `hash`.
      * @summary Retrieve Transaction
      * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.
      * @param {string} hash Hash of the requested transaction
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TransactionsApi
      */
-    public getTransaction(appId: string, hash: string, options?: AxiosRequestConfig) {
-        return TransactionsApiFp(this.configuration).getTransaction(appId, hash, options).then((request) => request(this.axios, this.basePath));
+    public getTransaction(appId: string, version: string, hash: string, options?: AxiosRequestConfig) {
+        return TransactionsApiFp(this.configuration).getTransaction(appId, version, hash, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Retrieve the transaction metadata specified by a transaction `hash`. The response is paginated. If truncated, the response includes a cursor that you use in a subsequent request to retrieve the next set of metadata values. 
      * @summary Retrieve transaction metadata
      * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.
      * @param {string} hash Hash of the requested transaction
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TransactionsApi
      */
-    public getTransactionMetadata(appId: string, hash: string, options?: AxiosRequestConfig) {
-        return TransactionsApiFp(this.configuration).getTransactionMetadata(appId, hash, options).then((request) => request(this.axios, this.basePath));
+    public getTransactionMetadata(appId: string, version: string, hash: string, options?: AxiosRequestConfig) {
+        return TransactionsApiFp(this.configuration).getTransactionMetadata(appId, version, hash, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * List the UTXOs from a transaction specified by a transaction `hash`.
      * @summary List transaction UTXOs
      * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.     
      * @param {string} hash Hash of the requested transaction
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TransactionsApi
      */
-    public listTransactionUtxos(appId: string, hash: string, options?: AxiosRequestConfig) {
-        return TransactionsApiFp(this.configuration).listTransactionUtxos(appId, hash, options).then((request) => request(this.axios, this.basePath));
+    public listTransactionUtxos(appId: string, version: string, hash: string, options?: AxiosRequestConfig) {
+        return TransactionsApiFp(this.configuration).listTransactionUtxos(appId, version, hash, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Submit an already serialized transaction to the network.
      * @summary Submit a transaction
      * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.
      * @param {SubmitTansactionRequest} [subitTansactionRequest] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TransactionsApi
      */
-    public submitTransaction(appId: string, subitTansactionRequest?: SubmitTansactionRequest, options?: AxiosRequestConfig) {
-        return TransactionsApiFp(this.configuration).submitTransaction(appId, subitTansactionRequest, options).then((request) => request(this.axios, this.basePath));
+    public submitTransaction(appId: string, version: string, subitTansactionRequest?: SubmitTansactionRequest, options?: AxiosRequestConfig) {
+        return TransactionsApiFp(this.configuration).submitTransaction(appId, version, subitTansactionRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -9581,7 +9613,7 @@ export const WalletsApiAxiosParamCreator = function (configuration?: Configurati
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -9589,10 +9621,10 @@ export const WalletsApiAxiosParamCreator = function (configuration?: Configurati
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -9625,7 +9657,7 @@ export const WalletsApiAxiosParamCreator = function (configuration?: Configurati
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -9645,10 +9677,10 @@ export const WalletsApiAxiosParamCreator = function (configuration?: Configurati
             }
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -9662,7 +9694,7 @@ export const WalletsApiAxiosParamCreator = function (configuration?: Configurati
  * WalletsApi - functional programming interface
  * @export
  */
-export const WalletsApiFp = function(configuration?: Configuration) {
+export const WalletsApiFp = function (configuration?: Configuration) {
     const localVarAxiosParamCreator = WalletsApiAxiosParamCreator(configuration)
     return {
         /**
@@ -9794,7 +9826,7 @@ export const WebhooksApiAxiosParamCreator = function (configuration?: Configurat
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -9802,12 +9834,12 @@ export const WebhooksApiAxiosParamCreator = function (configuration?: Configurat
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
             localVarRequestOptions.data = serializeDataIfNeeded(createWebhookRequest, localVarRequestOptions, configuration)
 
             return {
@@ -9838,7 +9870,7 @@ export const WebhooksApiAxiosParamCreator = function (configuration?: Configurat
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -9846,10 +9878,10 @@ export const WebhooksApiAxiosParamCreator = function (configuration?: Configurat
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -9877,7 +9909,7 @@ export const WebhooksApiAxiosParamCreator = function (configuration?: Configurat
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -9893,10 +9925,10 @@ export const WebhooksApiAxiosParamCreator = function (configuration?: Configurat
             }
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -9926,7 +9958,7 @@ export const WebhooksApiAxiosParamCreator = function (configuration?: Configurat
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -9934,10 +9966,10 @@ export const WebhooksApiAxiosParamCreator = function (configuration?: Configurat
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -9968,7 +10000,7 @@ export const WebhooksApiAxiosParamCreator = function (configuration?: Configurat
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -9976,12 +10008,12 @@ export const WebhooksApiAxiosParamCreator = function (configuration?: Configurat
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
 
-    
+
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
             localVarRequestOptions.data = serializeDataIfNeeded(updateWebhookRequest, localVarRequestOptions, configuration)
 
             return {
@@ -9996,7 +10028,7 @@ export const WebhooksApiAxiosParamCreator = function (configuration?: Configurat
  * WebhooksApi - functional programming interface
  * @export
  */
-export const WebhooksApiFp = function(configuration?: Configuration) {
+export const WebhooksApiFp = function (configuration?: Configuration) {
     const localVarAxiosParamCreator = WebhooksApiAxiosParamCreator(configuration)
     return {
         /**

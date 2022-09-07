@@ -6,19 +6,21 @@ const expect = chai.expect;
 
 import 'mocha';
 
-import { BuildTxRequest, ClientApi, Configuration, TransactionsApi } from '../src';
+import { BuildTxRequest, ApiClient, Configuration, TransactionsApi } from '../src';
+import { TransactionApi } from '../src/clients/transactions';
 
 describe('Transaction API endpoints', function () {
     this.timeout(0);
-    let api: ClientApi;
+    let api: TransactionApi;
 
     before('Initializing API ...', () => {
 
-        api = new ClientApi({
-            basePath: 'http://localhost:3000',
+        api = new ApiClient({
+            basePath: 'https://cardano-testnet-staging.tangocrypto.com',
             apiKey: '8120536a5efc478b92809f8f1987a76e',
-            appId: '6e2ab6cc28d943f48a84d92ad9b5392d'
-        });
+            appId: '6e2ab6cc28d943f48a84d92ad9b5392d',
+            version: 'v1'
+        }).transaction();
     })
 
     it('should build a tx', async () => {
@@ -97,5 +99,92 @@ describe('Transaction API endpoints', function () {
 
         // assert
         expect(signed).equal(expected);
+    })
+
+    it('should submit tx', async () => {
+        // arrange
+        const tx = '84a700818258201c080f4e768501cd4282420199a069326f39d986a07ed3ed90ab81c5a67a6b4002018382583900895cd1e5e7a4b12e737862cd0c81e068ea9d7a88516bae1c0ebb3e6c03cc981d85a9cf84bd6948698a74c5b4ebc3790efabb0c495f380e62821a00172698a1581c18ed282beda4bec13226c427d4744d2642ba2cef404470b62ae184d8a24f4275696c6454785465737423303031014f4275696c6454785465737423303032018258390071a80da0d4a4bd672b82dda5d73fd902cc87ba258d80c22d6319548e98eea0fdc74e2cff6f4d6e6dd97364822f2bf9a265f270ca92d20615821a001e8480a1581c581180fd4d301e925c123e3f1fe78cee670369bf4cca4a9ff3e564d7a14a544553545f54414e474f028258390073bdd2abd9272bf08e782e268663ec145c44383a0ccc57a90c3b1e391fd8fa8d6ffd1e75a89b55e22d661e60b811116b9e39bb52a41a76d71a0474cbd5021a00034bf9031a0bb6e965075820760c78b3b22ea0c0fa1eebb6f716d4522c9be7e8898b758feae99129dbc5ae0e080009a2581c18ed282beda4bec13226c427d4744d2642ba2cef404470b62ae184d8a24f4275696c6454785465737423303031014f4275696c645478546573742330303201581c581180fd4d301e925c123e3f1fe78cee670369bf4cca4a9ff3e564d7a14a544553545f54414e474f02a2008382582098205c493e7853dd7bc69458646abecd97e86c9441cc2a9034ae01d71561ae18584027981c1cbdf349d788478220c74d4048b0c6e6e8b818700d8558e45726a4fb9f7c1fad047b7acfe07bf52a2a3cf34ea824e554b24be11a8b650fe601751db409825820e46fdc0ff42bad0b7107bd89ecdd937e0297f13e8d7e68ca5d82b52343110fcd58404e430f983c80454642e628945f5207f990507b36c43f7d7e99d8a59676dbd4ed5d84dce9025421bbe4e90f46cb56533d0751fb223e9d7ad31259900194a2a70a825820f0e93930a1ea13247e73b7a332dad3b3048de90ac1147f9c4d5adb61ba46402e584064ed47947817c6f908e019530210fdb5ac46da198a0bfd1f63e6a778a536403044e4def594e9d6ee53504ad95297f5c34e0f0382115f24834ab89ca60fab050a01828201828200581c1aabe8cdb1153e11c3363270fd11baef2ca758e56d9a0866e73f7dc582051a0bb6e9658201828200581c8e1cabc60001e3dba8cbba922d804282f161caa93019dcf38d785d368200581c10e327f6e5aaf7647dbd0bac71c166238573e7046459d2158798d1cbf5a11902d1a178386364663761393439636361306435376132376638363264353235653464346337333463316435303363626337663034633161633233353065a26f4275696c6454785465737423303031a3646e616d65704275696c64547854657374202330303165696d6167657835697066733a2f2f516d6246684c52354336426d545737617067444d566d476f7a4c7545555a776f657a6367485165554c5435394d356b6465736372697074696f6e781e4c6974746c65204275696c64547854657374206465736372697074696f6e6f4275696c6454785465737423303032a3646e616d65704275696c64547854657374202330303265696d6167657835697066733a2f2f516d6246684c52354336426d545737617067444d566d476f7a4c7545555a776f657a6367485165554c5435394d356b6465736372697074696f6e781e4c6974746c65204275696c64547854657374206465736372697074696f6e';
+
+        const expectedTxId = 'a440d0f2c09e25f93aadea53dfe511c00b730eef4b6ed0be614f06d48c2fdaeb';
+
+        // act
+        const response = await api.submitTransaction({ tx });
+
+        // assert
+        expect(response.data.tx_id).equal(expectedTxId);
+    })
+
+    it('should get tx', async () => {
+        // arrange
+        const hash = 'a440d0f2c09e25f93aadea53dfe511c00b730eef4b6ed0be614f06d48c2fdaeb';
+        const expectedTx = {
+            "hash": "a440d0f2c09e25f93aadea53dfe511c00b730eef4b6ed0be614f06d48c2fdaeb",
+            "block_index": 1,
+            "out_sum": 78280429,
+            "fee": 216057,
+            "deposit": 0,
+            "size": 1378,
+            "invalid_before": 0,
+            "invalid_hereafter": 196536677,
+            "valid_contract": true,
+            "script_size": 0,
+            "utxo_count": 4,
+            "withdrawal_count": 0,
+            "delegation_count": 0,
+            "stake_cert_count": 0,
+            "pool_update": false,
+            "pool_retire": false,
+            "block": {
+                "hash": "5748e6e998c2b49248b971f0bb6208bb4681f0dddc46b19607762bad8a6f5b39",
+                "epoch_no": 227,
+                "slot_no": 68106176,
+                "block_no": 3822826
+            },
+            "assets": [
+                {
+                    "policy_id": "18ed282beda4bec13226c427d4744d2642ba2cef404470b62ae184d8",
+                    "asset_name": "BuildTxTest#001",
+                    "fingerprint": "asset1ugyv8dshc5x9cclgamemq7z8dqvkure4knzfvl",
+                    "quantity": 1,
+                    "mint_or_burn_quantity": 1
+                },
+                {
+                    "policy_id": "18ed282beda4bec13226c427d4744d2642ba2cef404470b62ae184d8",
+                    "asset_name": "BuildTxTest#002",
+                    "fingerprint": "asset1s3s6n7rs2y35txt09a02nnpd9f6lqcl6s5tral",
+                    "quantity": 1,
+                    "mint_or_burn_quantity": 1
+                },
+                {
+                    "policy_id": "581180fd4d301e925c123e3f1fe78cee670369bf4cca4a9ff3e564d7",
+                    "asset_name": "TEST_TANGO",
+                    "fingerprint": "asset13nkuheamggvmq0a6msnvtdgruuxajll5v9xksc",
+                    "quantity": 2,
+                    "mint_or_burn_quantity": 2
+                }
+            ]
+        }
+
+        // act
+        const response = await api.getTransaction(hash);
+
+        // assert
+        expect(response.data).deep.equal(expectedTx);
+    })
+
+    it('should get tx metadata', async () => {
+        // arrange
+
+        // act
+
+        // assert
+    })
+
+    it('should list tx utxos', async () => {
+        // arrange
+
+        // act
+
+        // assert
     })
 })

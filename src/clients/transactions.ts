@@ -1,43 +1,25 @@
-import { BaseAPI, BASE_PATH } from "./base";
-import { Configuration } from "./configuration";
-import globalAxios, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import { BuildTxRequest, SubmitTansactionRequest, TransactionsApi } from "./api";
-import { SignTxRequest } from "../utils/models/sing-transaction-request.model";
-import { Seed } from "../utils/serialization.util";
-import { MultisigTransaction } from "../utils/models/multisig-transaction";
+import { AxiosInstance } from "axios";
+import { ClientConfiguration } from ".";
+import { Configuration } from "../configuration";
+import { BuildTxRequest, SubmitTansactionRequest, TransactionsApi } from "../api";
+import { SignTxRequest } from "../../utils/models/sing-transaction-request.model";
+import { Seed } from "../../utils/serialization.util";
+import { MultisigTransaction } from "../../utils/models/multisig-transaction";
 
-export interface ClientConfiguration {
-    apiKey: string;
-    appId: string;
-    basePath?: string;
-}
-
-const defaultConfig: ClientConfiguration = {
-    apiKey: '',
-    appId: '',
-    basePath: BASE_PATH
-}
-
-export class ClientApi {
-    config: ClientConfiguration;
-    protected axios: AxiosInstance = globalAxios;
+export class TransactionApi {
     transactionsApi: TransactionsApi;
+    config: ClientConfiguration
 
-    constructor(config: ClientConfiguration) {
-        this.config = config || defaultConfig;
-        const configuration: Configuration = new Configuration({
+    constructor(config: ClientConfiguration, protected axios: AxiosInstance) {
+        this.config = config;
+        const configuration = new Configuration({
             apiKey: config.apiKey,
             basePath: config.basePath
         })
-
-        // super(configuration, basePath, axios);
-
+        
         // initialize api
-        this.transactionsApi = new TransactionsApi(configuration, this.config.basePath, this.axios);
+        this.transactionsApi = new TransactionsApi(configuration, configuration.basePath, axios);
     }
-
-    /** BEGIN TRANSACTION API **/
-
 
     /**
      * Retrieves the information about a transaction requested specified by a transaction `hash`.
@@ -47,7 +29,7 @@ export class ClientApi {
      * @memberof ClientApi
      */
     public getTransaction(hash: string) {
-        return this.transactionsApi.getTransaction(this.config.appId, hash);
+        return this.transactionsApi.getTransaction(this.config.appId, this.config.version, hash);
     }
 
     /**
@@ -58,7 +40,7 @@ export class ClientApi {
      * @memberof ClientApi
      */
     public getTransactionMetadata(hash: string) {
-        return this.transactionsApi.getTransactionMetadata(this.config.appId, hash);
+        return this.transactionsApi.getTransactionMetadata(this.config.appId, this.config.version, hash);
     }
 
     /**
@@ -69,7 +51,7 @@ export class ClientApi {
      * @memberof ClientApi
      */
     public listTransactionUtxos(hash: string) {
-        return this.transactionsApi.listTransactionUtxos(this.config.appId, hash);
+        return this.transactionsApi.listTransactionUtxos(this.config.appId, this.config.version, hash);
     }
 
     /**
@@ -80,7 +62,7 @@ export class ClientApi {
      * @memberof ClientApi
      */
     public submitTransaction(submitTansactionRequest?: SubmitTansactionRequest) {
-        return this.transactionsApi.submitTransaction(this.config.appId, submitTansactionRequest);
+        return this.transactionsApi.submitTransaction(this.config.appId, this.config.version, submitTansactionRequest);
     }
 
     /**
@@ -91,7 +73,7 @@ export class ClientApi {
     * @memberof ClientApi
     */
     public buildTransaction(buildTxRequest: BuildTxRequest) {
-        return this.transactionsApi.buildTransaction(this.config.appId, buildTxRequest);
+        return this.transactionsApi.buildTransaction(this.config.appId, this.config.version, buildTxRequest);
     }
 
     /**
@@ -101,24 +83,19 @@ export class ClientApi {
     * @throws {RequiredError}
     * @memberof ClientApi
     */
-   public signTransaction(signTxRequest: SignTxRequest) {
+    public signTransaction(signTxRequest: SignTxRequest) {
         const { tx: encoded, keys } = signTxRequest;
 
         const signingKeys = keys.map(key => Seed.getPrivateKey(key));
         const buffer = Buffer.from(encoded, 'hex');
-		
-		const tx = MultisigTransaction.fromBytes(buffer);
 
-		for (const prvKey of signingKeys) {
-			tx.addKeyWitnesses(prvKey);
-		}
-        
-		const signed = tx.build();
+        const tx = MultisigTransaction.fromBytes(buffer);
+
+        for (const prvKey of signingKeys) {
+            tx.addKeyWitnesses(prvKey);
+        }
+
+        const signed = tx.build();
         return signed;
-   }
-
-    /** END TRANSACTION API **/
-
-
-
+    }
 }
