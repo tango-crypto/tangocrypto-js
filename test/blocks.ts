@@ -50,7 +50,7 @@ describe('Blocks API endpoints', function () {
         const response = await api.getBlock(blockNo);
 
         // assert
-        expect(response.data.block_no).deep.equal(result.block_no);
+        expect(response.block_no).deep.equal(result.block_no);
 
     })
 
@@ -80,7 +80,7 @@ describe('Blocks API endpoints', function () {
         const response = await api.getBlockByHash(hash);
 
         // assert
-        expect(response.data.hash).equal(result.hash);
+        expect(response.hash).equal(result.hash);
 
     })
 
@@ -118,7 +118,7 @@ describe('Blocks API endpoints', function () {
         const response = await api.getBlockTransactions(blockNo, size);
 
         // assert
-        expect(response.data).deep.equal(result);
+        expect(response).deep.equal(result);
 
     })
 
@@ -156,7 +156,7 @@ describe('Blocks API endpoints', function () {
         const response = await api.getBlockTransactionsByHash(hash, size);
 
         // assert
-        expect(response.data).deep.equal(result);
+        expect(response).deep.equal(result);
 
     })
 
@@ -168,6 +168,6 @@ describe('Blocks API endpoints', function () {
         const response = await api.getLatestBlock();
 
         // assert
-        expect(response.data.block_no).gt(blockNo);
+        expect(response.block_no).gt(blockNo);
     })
 })

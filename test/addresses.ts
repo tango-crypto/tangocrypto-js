@@ -39,7 +39,7 @@ describe('Address API endpoints', function () {
         const response = await api.getAddressSummary(address);
 
         // assert
-        expect(response.data).deep.equal(summary);
+        expect(response).deep.equal(summary);
     })
 
     it('should list address utxos', async () => {
@@ -89,7 +89,7 @@ describe('Address API endpoints', function () {
         const response = await api.listAddressUtxos(address)
 
         // assert
-        expect(response.data.data).deep.equal(utxos);
+        expect(response.data).deep.equal(utxos);
     })
     
     it('should list address transactions', async () => {
@@ -235,7 +235,7 @@ describe('Address API endpoints', function () {
         const response = await api.listAddressTransactions(address, size);
 
         // assert
-        expect(response.data).deep.equal(result);
+        expect(response).deep.equal(result);
     })
 
     it('should list address assets', async () => {
@@ -264,7 +264,7 @@ describe('Address API endpoints', function () {
         const response = await api.listAddressAssets(address, size);
 
         // assert
-        expect(response.data).deep.equal(result);
+        expect(response).deep.equal(result);
     })
 
 })

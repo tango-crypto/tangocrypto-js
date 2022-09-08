@@ -28,6 +28,6 @@ export class PolicyApi {
      * @memberof PolicyApi
      */
      public getAssetsByPolicy(policyId: string, size?: number, cursor?: string) {
-        return this.policiesApi.getAssetByPolicy(this.config.appId, this.config.version, policyId, size, cursor);
+        return this.policiesApi.getAssetByPolicy(this.config.appId, this.config.version, policyId, size, cursor).then(response => response.data);
     }
 }

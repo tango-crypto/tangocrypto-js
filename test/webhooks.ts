@@ -32,7 +32,7 @@ describe('Webhooks API endpoints', function () {
         const response = await api.listWebhooks(size);
 
         // assert
-        expect(response.data.data).is.instanceOf(Array);
+        expect(response.data).is.instanceOf(Array);
 
     })
 

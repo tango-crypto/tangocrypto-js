@@ -16,7 +16,7 @@ export class TransactionApi {
             apiKey: config.apiKey,
             basePath: config.basePath
         })
-        
+
         // initialize api
         this.transactionsApi = new TransactionsApi(configuration, configuration.basePath, axios);
     }
@@ -29,7 +29,7 @@ export class TransactionApi {
      * @memberof ClientApi
      */
     public getTransaction(hash: string) {
-        return this.transactionsApi.getTransaction(this.config.appId, this.config.version, hash);
+        return this.transactionsApi.getTransaction(this.config.appId, this.config.version, hash).then(response => response.data);
     }
 
     /**
@@ -40,7 +40,7 @@ export class TransactionApi {
      * @memberof ClientApi
      */
     public getTransactionMetadata(hash: string) {
-        return this.transactionsApi.getTransactionMetadata(this.config.appId, this.config.version, hash);
+        return this.transactionsApi.getTransactionMetadata(this.config.appId, this.config.version, hash).then(response => response.data);
     }
 
     /**
@@ -51,7 +51,7 @@ export class TransactionApi {
      * @memberof ClientApi
      */
     public listTransactionUtxos(hash: string) {
-        return this.transactionsApi.listTransactionUtxos(this.config.appId, this.config.version, hash);
+        return this.transactionsApi.listTransactionUtxos(this.config.appId, this.config.version, hash).then(response => response.data);
     }
 
     /**
@@ -62,7 +62,7 @@ export class TransactionApi {
      * @memberof ClientApi
      */
     public submitTransaction(submitTansactionRequest?: SubmitTansactionRequest) {
-        return this.transactionsApi.submitTransaction(this.config.appId, this.config.version, submitTansactionRequest);
+        return this.transactionsApi.submitTransaction(this.config.appId, this.config.version, submitTansactionRequest).then(response => response.data);
     }
 
     /**
@@ -73,7 +73,7 @@ export class TransactionApi {
     * @memberof ClientApi
     */
     public buildTransaction(buildTxRequest: BuildTxRequest) {
-        return this.transactionsApi.buildTransaction(this.config.appId, this.config.version, buildTxRequest);
+        return this.transactionsApi.buildTransaction(this.config.appId, this.config.version, buildTxRequest).then(response => response.data);
     }
 
     /**
@@ -96,6 +96,6 @@ export class TransactionApi {
         }
 
         const signed = tx.build();
-        return signed;
+        return Promise.resolve(signed);
     }
 }

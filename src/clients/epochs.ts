@@ -25,7 +25,7 @@ export class EpochApi {
      * @memberof EpochsApi
      */
      public retrieveCurrentEpoch() {
-        return this.epochsApi.retrieveCurrentEpoch(this.config.appId, this.config.version);
+        return this.epochsApi.retrieveCurrentEpoch(this.config.appId, this.config.version).then(response => response.data);
     }
 
     /**
@@ -36,6 +36,6 @@ export class EpochApi {
      * @memberof EpochsApi
      */
     public retrieveEpochParameters(number: number) {
-        return this.epochsApi.retrieveEpochParameters(this.config.appId, this.config.version, number);
+        return this.epochsApi.retrieveEpochParameters(this.config.appId, this.config.version, number).then(response => response.data);
     }
 }

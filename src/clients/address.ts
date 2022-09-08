@@ -25,8 +25,8 @@ export class AddressApi {
      * @throws {RequiredError}
      * @memberof AddressesApi
      */
-      public getAddressSummary(address: string) {
-        return this.addressesApi.getAddressSummary(this.config.appId, this.config.version, address);
+    public getAddressSummary(address: string) {
+        return this.addressesApi.getAddressSummary(this.config.appId, this.config.version, address).then(response => response.data);
     }
 
     /**
@@ -40,7 +40,7 @@ export class AddressApi {
      * @memberof AddressesApi
      */
     public listAddressAssets(address: string, size?: number, cursor?: string, order?: 'asc' | 'desc') {
-        return this.addressesApi.listAddressAssets(this.config.appId, this.config.version, address, size, cursor, order);
+        return this.addressesApi.listAddressAssets(this.config.appId, this.config.version, address, size, cursor, order).then(response => response.data);
     }
 
     /**
@@ -54,7 +54,7 @@ export class AddressApi {
      * @memberof AddressesApi
      */
     public listAddressTransactions(address: string, size?: number, cursor?: string, order?: 'asc' | 'desc') {
-        return this.addressesApi.listAddressTransactions(this.config.appId, this.config.version, address, size, cursor, order);
+        return this.addressesApi.listAddressTransactions(this.config.appId, this.config.version, address, size, cursor, order).then(response => response.data);
     }
 
     /**
@@ -68,6 +68,6 @@ export class AddressApi {
      * @memberof AddressesApi
      */
     public listAddressUtxos(address: string, size?: number, cursor?: string, order?: 'asc' | 'desc') {
-        return this.addressesApi.listAddressUtxos(this.config.appId, this.config.version, address, size, cursor, order);
+        return this.addressesApi.listAddressUtxos(this.config.appId, this.config.version, address, size, cursor, order).then(response => response.data);
     }
 }

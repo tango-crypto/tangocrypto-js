@@ -26,7 +26,7 @@ export class PoolApi {
      * @memberof PoolsApi
      */
      public stakePoolDelegations(poolId: string) {
-        return this.poolsApi.stakePoolDelegations(this.config.appId, this.config.version, poolId);
+        return this.poolsApi.stakePoolDelegations(this.config.appId, this.config.version, poolId).then(response => response.data);
     }
 
     /**
@@ -37,6 +37,6 @@ export class PoolApi {
      * @memberof PoolsApi
      */
     public stakePoolMetadata(poolId: string) {
-        return this.poolsApi.stakePoolMetadata(this.config.appId, this.config.version, poolId);
+        return this.poolsApi.stakePoolMetadata(this.config.appId, this.config.version, poolId).then(response => response.data);
     }
 }

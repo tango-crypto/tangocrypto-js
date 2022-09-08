@@ -41,7 +41,7 @@ describe('Assets API endpoints', function () {
         const response = await api.getAsset(asset);
 
         // assert
-        expect(response.data).deep.equal(result);
+        expect(response).deep.equal(result);
     })
 
     it('should get asset by fingerprint', async () => {
@@ -61,7 +61,7 @@ describe('Assets API endpoints', function () {
         const response = await api.getAssetByFingerprint(fingerprint);
 
         // assert
-        expect(response.data).deep.equal(result);
+        expect(response).deep.equal(result);
     })
 
     it('should get asset addresses', async () => {
@@ -82,7 +82,7 @@ describe('Assets API endpoints', function () {
         const response = await api.listAssetAddresses(asset);
 
         // assert
-        expect(response.data).deep.equal(result);
+        expect(response).deep.equal(result);
     })
 
     it('should get asset addresses by fingerprint', async () => {
@@ -103,6 +103,6 @@ describe('Assets API endpoints', function () {
         const response = await api.listAssetAddressesFingerprint(fingerprint);
 
         // assert
-        expect(response.data).deep.equal(result);
+        expect(response).deep.equal(result);
     })
 })

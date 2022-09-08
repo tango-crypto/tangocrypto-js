@@ -26,7 +26,7 @@ export class BlockApi {
      * @memberof BlocksApi
      */
     public getBlock(blockNo: number) {
-        return this.blocksApi.getBlock(this.config.appId, this.config.version, blockNo);
+        return this.blocksApi.getBlock(this.config.appId, this.config.version, blockNo).then(response => response.data);
     }
 
     /**
@@ -37,7 +37,7 @@ export class BlockApi {
      * @memberof BlocksApi
      */
     public getBlockByHash(hash: string) {
-        return this.blocksApi.getBlockByHash(this.config.appId, this.config.version, hash);
+        return this.blocksApi.getBlockByHash(this.config.appId, this.config.version, hash).then(response => response.data);
     }
 
     /**
@@ -52,7 +52,7 @@ export class BlockApi {
      * @memberof BlocksApi
      */
     public getBlockTransactions(blockNumber: number, size?: number, cursor?: string, order?: 'asc' | 'desc') {
-        return this.blocksApi.getBlockTransactions(this.config.appId, this.config.version, blockNumber, size, cursor, order);
+        return this.blocksApi.getBlockTransactions(this.config.appId, this.config.version, blockNumber, size, cursor, order).then(response => response.data);
     }
 
     /**
@@ -67,7 +67,7 @@ export class BlockApi {
      * @memberof BlocksApi
      */
     public getBlockTransactionsByHash(hash: string, size?: number, cursor?: string, order?: 'asc' | 'desc') {
-        return this.blocksApi.getBlockTransactionsByHash(this.config.appId, this.config.version, hash, size, cursor, order);
+        return this.blocksApi.getBlockTransactionsByHash(this.config.appId, this.config.version, hash, size, cursor, order).then(response => response.data);
     }
 
     /**
@@ -77,6 +77,6 @@ export class BlockApi {
      * @memberof BlocksApi
      */
     public getLatestBlock() {
-        return this.blocksApi.getLatestBlock(this.config.appId, this.config.version);
+        return this.blocksApi.getLatestBlock(this.config.appId, this.config.version).then(response => response.data);
     }
 }
