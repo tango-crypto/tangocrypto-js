@@ -9175,18 +9175,17 @@ export const PoolsApiAxiosParamCreator = function (configuration?: Configuration
          * Returns a list of delegations for a given stake pool. The response is paginated. If truncated, the response includes a cursor that you use in a subsequent request to retrieve the next set of delegations. 
          * @summary List stake pool delegations
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} poolId Bech32 or hexadecimal pool ID.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        stakePoolDelegations: async (appId: string, poolId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        stakePoolDelegations: async (appId: string, version: string,  poolId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('stakePoolDelegations', 'appId', appId)
             // verify required parameter 'poolId' is not null or undefined
             assertParamExists('stakePoolDelegations', 'poolId', poolId)
-            const localVarPath = `/{app_id}/v1/pools/{pool_id}/delegations`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)))
-                .replace(`{${"pool_id"}}`, encodeURIComponent(String(poolId)));
+            const localVarPath = buildPath(appId, version, 'pools', poolId, 'delegations');
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -9212,22 +9211,22 @@ export const PoolsApiAxiosParamCreator = function (configuration?: Configuration
                 options: localVarRequestOptions,
             };
         },
+
         /**
          * Retrieve stake pool registration metadata specified by a `pool_id`. 
          * @summary Retrieve stake pool metadata
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.          
          * @param {string} poolId Bech32 or hexadecimal pool ID.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        stakePoolMetadata: async (appId: string, poolId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        stakePoolMetadata: async (appId: string, version: string, poolId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('stakePoolMetadata', 'appId', appId)
             // verify required parameter 'poolId' is not null or undefined
             assertParamExists('stakePoolMetadata', 'poolId', poolId)
-            const localVarPath = `/{app_id}/v1/pools/{pool_id}`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)))
-                .replace(`{${"pool_id"}}`, encodeURIComponent(String(poolId)));
+            const localVarPath = buildPath(appId, version, 'pools', poolId);
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -9267,24 +9266,27 @@ export const PoolsApiFp = function (configuration?: Configuration) {
          * Returns a list of delegations for a given stake pool. The response is paginated. If truncated, the response includes a cursor that you use in a subsequent request to retrieve the next set of delegations. 
          * @summary List stake pool delegations
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
          * @param {string} poolId Bech32 or hexadecimal pool ID.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async stakePoolDelegations(appId: string, poolId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListPoolDelegationsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.stakePoolDelegations(appId, poolId, options);
+        async stakePoolDelegations(appId: string, version: string, poolId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListPoolDelegationsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.stakePoolDelegations(appId, version, poolId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+
         /**
          * Retrieve stake pool registration metadata specified by a `pool_id`. 
          * @summary Retrieve stake pool metadata
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} poolId Bech32 or hexadecimal pool ID.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async stakePoolMetadata(appId: string, poolId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrievePoolMetadataResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.stakePoolMetadata(appId, poolId, options);
+        async stakePoolMetadata(appId: string, version: string, poolId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrievePoolMetadataResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.stakePoolMetadata(appId, version, poolId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -9333,26 +9335,28 @@ export class PoolsApi extends BaseAPI {
      * Returns a list of delegations for a given stake pool. The response is paginated. If truncated, the response includes a cursor that you use in a subsequent request to retrieve the next set of delegations. 
      * @summary List stake pool delegations
      * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.
      * @param {string} poolId Bech32 or hexadecimal pool ID.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PoolsApi
      */
-    public stakePoolDelegations(appId: string, poolId: string, options?: AxiosRequestConfig) {
-        return PoolsApiFp(this.configuration).stakePoolDelegations(appId, poolId, options).then((request) => request(this.axios, this.basePath));
+    public stakePoolDelegations(appId: string, version: string, poolId: string, options?: AxiosRequestConfig) {
+        return PoolsApiFp(this.configuration).stakePoolDelegations(appId, version, poolId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Retrieve stake pool registration metadata specified by a `pool_id`. 
      * @summary Retrieve stake pool metadata
      * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.
      * @param {string} poolId Bech32 or hexadecimal pool ID.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PoolsApi
      */
-    public stakePoolMetadata(appId: string, poolId: string, options?: AxiosRequestConfig) {
-        return PoolsApiFp(this.configuration).stakePoolMetadata(appId, poolId, options).then((request) => request(this.axios, this.basePath));
+    public stakePoolMetadata(appId: string, version: string, poolId: string, options?: AxiosRequestConfig) {
+        return PoolsApiFp(this.configuration).stakePoolMetadata(appId, version, poolId, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
