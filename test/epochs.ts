@@ -6,7 +6,7 @@ const expect = chai.expect;
 
 import 'mocha';
 import * as dotenv from "dotenv";
-import { ApiClient } from '../src';
+import { ApiClient } from '../index';
 import { EpochApi } from '../src/clients/epochs';
 
 dotenv.config();

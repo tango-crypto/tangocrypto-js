@@ -13,6 +13,6 @@
  */
 
 
-export * from "./api";
-export * from "./configuration";
-export * from "./clients/index";
+export * from "./src/api";
+export * from "./src/configuration";
+export * from "./src/clients/index";

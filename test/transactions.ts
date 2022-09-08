@@ -6,7 +6,7 @@ const expect = chai.expect;
 
 import 'mocha';
 import * as dotenv from "dotenv";
-import { BuildTxRequest, ApiClient } from '../src';
+import { BuildTxRequest, ApiClient } from '../index';
 import { TransactionApi } from '../src/clients/transactions';
 
 dotenv.config();
