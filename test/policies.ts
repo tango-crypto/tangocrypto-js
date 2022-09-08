@@ -10,7 +10,7 @@ import { ApiClient } from '../src';
 import { PolicyApi } from '../src/clients/policies';
 
 dotenv.config();
-describe('Policy API endpoints', function () {
+describe('Policies API endpoints', function () {
     this.timeout(0);
     let api: PolicyApi;
 

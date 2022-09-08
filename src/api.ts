@@ -10048,15 +10048,15 @@ export const WebhooksApiAxiosParamCreator = function (configuration?: Configurat
          * Create Webhook
          * @summary Create Webhook
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {CreateWebhookRequest} [createWebhookRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createWebhook: async (appId: string, createWebhookRequest?: CreateWebhookRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        createWebhook: async (appId: string, version: string, createWebhookRequest?: CreateWebhookRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('createWebhook', 'appId', appId)
-            const localVarPath = `/{app_id}/v1/webhooks`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)));
+            const localVarPath = buildPath(appId, version, 'webhooks');
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -10085,22 +10085,22 @@ export const WebhooksApiAxiosParamCreator = function (configuration?: Configurat
                 options: localVarRequestOptions,
             };
         },
+
         /**
          * Deletes a single Webhook based on the provided ID.
          * @summary Delete Webhook
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} webhookId Webhook ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteWebhook: async (appId: string, webhookId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        deleteWebhook: async (appId: string, version: string, webhookId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('deleteWebhook', 'appId', appId)
             // verify required parameter 'webhookId' is not null or undefined
             assertParamExists('deleteWebhook', 'webhookId', webhookId)
-            const localVarPath = `/{app_id}/v1/webhooks/{webhook_id}`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)))
-                .replace(`{${"webhook_id"}}`, encodeURIComponent(String(webhookId)));
+            const localVarPath = buildPath(appId, version, 'webhooks', webhookId);
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -10126,20 +10126,21 @@ export const WebhooksApiAxiosParamCreator = function (configuration?: Configurat
                 options: localVarRequestOptions,
             };
         },
+
         /**
          * Returns a list of webhooks created in your Tangocrypto account. The response is paginated. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next set of webhooks. For more information, see our <a href=\"https://docs.tangocrypto.com/rest-api/pagination\">pagination guide</a>. 
          * @summary List Webhooks
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {number} [size] The number of webhooks to return in a single page.
          * @param {string} [cursor] A &#x60;cursor&#x60; to access the next set of results. You include the cursor in subsequent requests to the endpoint as a URL query parameter of your request. If the cursor is empty in the result it means there are no more items to be retrieved. 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listWebhooks: async (appId: string, size?: number, cursor?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        listWebhooks: async (appId: string, version: string, size?: number, cursor?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('listWebhooks', 'appId', appId)
-            const localVarPath = `/{app_id}/v1/webhooks`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)));
+            const localVarPath =  buildPath(appId, version, 'webhooks');
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -10173,15 +10174,17 @@ export const WebhooksApiAxiosParamCreator = function (configuration?: Configurat
                 options: localVarRequestOptions,
             };
         },
+
         /**
          * Get details for a single Webhook in your Tangocrypto account.
          * @summary Retrieve Webhook
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} webhookId The ID of the webhook to retrieve.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        retrieveWebhook: async (appId: string, webhookId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        retrieveWebhook: async (appId: string, version: string, webhookId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('retrieveWebhook', 'appId', appId)
             // verify required parameter 'webhookId' is not null or undefined
@@ -10214,23 +10217,23 @@ export const WebhooksApiAxiosParamCreator = function (configuration?: Configurat
                 options: localVarRequestOptions,
             };
         },
+
         /**
          * Updates the webbook without having to perform an upsert on the entire item. Just include include the fields you want to be updated in the request body.
          * @summary Update Webhook
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} webhookId The ID of the webhook to update.
          * @param {UpdateWebhookRequest} [updateWebhookRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateWebhook: async (appId: string, webhookId: string, updateWebhookRequest?: UpdateWebhookRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        updateWebhook: async (appId: string, version: string, webhookId: string, updateWebhookRequest?: UpdateWebhookRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('updateWebhook', 'appId', appId)
             // verify required parameter 'webhookId' is not null or undefined
             assertParamExists('updateWebhook', 'webhookId', webhookId)
-            const localVarPath = `/{app_id}/v1/webhooks/{webhook_id}`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)))
-                .replace(`{${"webhook_id"}}`, encodeURIComponent(String(webhookId)));
+            const localVarPath = buildPath(appId, version, 'webhooks', webhookId);
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -10272,63 +10275,72 @@ export const WebhooksApiFp = function (configuration?: Configuration) {
         /**
          * Create Webhook
          * @summary Create Webhook
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} appId Tangocrypto &#x60;app_id&#x60;
+         * @param {string} version Tangocrypto version.         
          * @param {CreateWebhookRequest} [createWebhookRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createWebhook(appId: string, createWebhookRequest?: CreateWebhookRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateWebhooksResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createWebhook(appId, createWebhookRequest, options);
+        async createWebhook(appId: string, version: string, createWebhookRequest?: CreateWebhookRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateWebhooksResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createWebhook(appId, version, createWebhookRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+
         /**
          * Deletes a single Webhook based on the provided ID.
          * @summary Delete Webhook
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.          
          * @param {string} webhookId Webhook ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteWebhook(appId: string, webhookId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteWebhookResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteWebhook(appId, webhookId, options);
+        async deleteWebhook(appId: string, version: string, webhookId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteWebhookResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteWebhook(appId, version, webhookId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+
         /**
          * Returns a list of webhooks created in your Tangocrypto account. The response is paginated. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next set of webhooks. For more information, see our <a href=\"https://docs.tangocrypto.com/rest-api/pagination\">pagination guide</a>. 
          * @summary List Webhooks
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.          
          * @param {number} [size] The number of webhooks to return in a single page.
          * @param {string} [cursor] A &#x60;cursor&#x60; to access the next set of results. You include the cursor in subsequent requests to the endpoint as a URL query parameter of your request. If the cursor is empty in the result it means there are no more items to be retrieved. 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listWebhooks(appId: string, size?: number, cursor?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListWebhooksResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listWebhooks(appId, size, cursor, options);
+        async listWebhooks(appId: string, version: string, size?: number, cursor?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListWebhooksResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listWebhooks(appId, version, size, cursor, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+
         /**
          * Get details for a single Webhook in your Tangocrypto account.
          * @summary Retrieve Webhook
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.          
          * @param {string} webhookId The ID of the webhook to retrieve.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async retrieveWebhook(appId: string, webhookId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveWebhookResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveWebhook(appId, webhookId, options);
+        async retrieveWebhook(appId: string, version: string, webhookId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveWebhookResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveWebhook(appId, version, webhookId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+
         /**
          * Updates the webbook without having to perform an upsert on the entire item. Just include include the fields you want to be updated in the request body.
          * @summary Update Webhook
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version. 
          * @param {string} webhookId The ID of the webhook to update.
          * @param {UpdateWebhookRequest} [updateWebhookRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateWebhook(appId: string, webhookId: string, updateWebhookRequest?: UpdateWebhookRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UpdateWebhookResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateWebhook(appId, webhookId, updateWebhookRequest, options);
+        async updateWebhook(appId: string, version: string, webhookId: string, updateWebhookRequest?: UpdateWebhookRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UpdateWebhookResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateWebhook(appId, version, webhookId, updateWebhookRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -10345,58 +10357,67 @@ export const WebhooksApiFactory = function (configuration?: Configuration, baseP
          * Create Webhook
          * @summary Create Webhook
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
          * @param {CreateWebhookRequest} [createWebhookRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createWebhook(appId: string, createWebhookRequest?: CreateWebhookRequest, options?: any): AxiosPromise<CreateWebhooksResponse> {
-            return localVarFp.createWebhook(appId, createWebhookRequest, options).then((request) => request(axios, basePath));
+        createWebhook(appId: string, version: string, createWebhookRequest?: CreateWebhookRequest, options?: any): AxiosPromise<CreateWebhooksResponse> {
+            return localVarFp.createWebhook(appId, version, createWebhookRequest, options).then((request) => request(axios, basePath));
         },
+
         /**
          * Deletes a single Webhook based on the provided ID.
          * @summary Delete Webhook
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} webhookId Webhook ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteWebhook(appId: string, webhookId: string, options?: any): AxiosPromise<DeleteWebhookResponse> {
-            return localVarFp.deleteWebhook(appId, webhookId, options).then((request) => request(axios, basePath));
+        deleteWebhook(appId: string, version: string, webhookId: string, options?: any): AxiosPromise<DeleteWebhookResponse> {
+            return localVarFp.deleteWebhook(appId, version, webhookId, options).then((request) => request(axios, basePath));
         },
+
         /**
          * Returns a list of webhooks created in your Tangocrypto account. The response is paginated. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next set of webhooks. For more information, see our <a href=\"https://docs.tangocrypto.com/rest-api/pagination\">pagination guide</a>. 
          * @summary List Webhooks
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {number} [size] The number of webhooks to return in a single page.
          * @param {string} [cursor] A &#x60;cursor&#x60; to access the next set of results. You include the cursor in subsequent requests to the endpoint as a URL query parameter of your request. If the cursor is empty in the result it means there are no more items to be retrieved. 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listWebhooks(appId: string, size?: number, cursor?: string, options?: any): AxiosPromise<ListWebhooksResponse> {
-            return localVarFp.listWebhooks(appId, size, cursor, options).then((request) => request(axios, basePath));
+        listWebhooks(appId: string, version: string, size?: number, cursor?: string, options?: any): AxiosPromise<ListWebhooksResponse> {
+            return localVarFp.listWebhooks(appId, version, size, cursor, options).then((request) => request(axios, basePath));
         },
+
         /**
          * Get details for a single Webhook in your Tangocrypto account.
          * @summary Retrieve Webhook
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} webhookId The ID of the webhook to retrieve.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        retrieveWebhook(appId: string, webhookId: string, options?: any): AxiosPromise<RetrieveWebhookResponse> {
-            return localVarFp.retrieveWebhook(appId, webhookId, options).then((request) => request(axios, basePath));
+        retrieveWebhook(appId: string, version: string, webhookId: string, options?: any): AxiosPromise<RetrieveWebhookResponse> {
+            return localVarFp.retrieveWebhook(appId, version, webhookId, options).then((request) => request(axios, basePath));
         },
+
         /**
          * Updates the webbook without having to perform an upsert on the entire item. Just include include the fields you want to be updated in the request body.
          * @summary Update Webhook
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.        
          * @param {string} webhookId The ID of the webhook to update.
          * @param {UpdateWebhookRequest} [updateWebhookRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateWebhook(appId: string, webhookId: string, updateWebhookRequest?: UpdateWebhookRequest, options?: any): AxiosPromise<UpdateWebhookResponse> {
-            return localVarFp.updateWebhook(appId, webhookId, updateWebhookRequest, options).then((request) => request(axios, basePath));
+        updateWebhook(appId: string, version: string, webhookId: string, updateWebhookRequest?: UpdateWebhookRequest, options?: any): AxiosPromise<UpdateWebhookResponse> {
+            return localVarFp.updateWebhook(appId, version, webhookId, updateWebhookRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -10412,66 +10433,71 @@ export class WebhooksApi extends BaseAPI {
      * Create Webhook
      * @summary Create Webhook
      * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.
      * @param {CreateWebhookRequest} [createWebhookRequest] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WebhooksApi
      */
-    public createWebhook(appId: string, createWebhookRequest?: CreateWebhookRequest, options?: AxiosRequestConfig) {
-        return WebhooksApiFp(this.configuration).createWebhook(appId, createWebhookRequest, options).then((request) => request(this.axios, this.basePath));
+    public createWebhook(appId: string, version: string, createWebhookRequest?: CreateWebhookRequest, options?: AxiosRequestConfig) {
+        return WebhooksApiFp(this.configuration).createWebhook(appId, version, createWebhookRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Deletes a single Webhook based on the provided ID.
      * @summary Delete Webhook
      * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.     
      * @param {string} webhookId Webhook ID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WebhooksApi
      */
-    public deleteWebhook(appId: string, webhookId: string, options?: AxiosRequestConfig) {
-        return WebhooksApiFp(this.configuration).deleteWebhook(appId, webhookId, options).then((request) => request(this.axios, this.basePath));
+    public deleteWebhook(appId: string, version: string, webhookId: string, options?: AxiosRequestConfig) {
+        return WebhooksApiFp(this.configuration).deleteWebhook(appId, version, webhookId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Returns a list of webhooks created in your Tangocrypto account. The response is paginated. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next set of webhooks. For more information, see our <a href=\"https://docs.tangocrypto.com/rest-api/pagination\">pagination guide</a>. 
      * @summary List Webhooks
      * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.     
      * @param {number} [size] The number of webhooks to return in a single page.
      * @param {string} [cursor] A &#x60;cursor&#x60; to access the next set of results. You include the cursor in subsequent requests to the endpoint as a URL query parameter of your request. If the cursor is empty in the result it means there are no more items to be retrieved. 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WebhooksApi
      */
-    public listWebhooks(appId: string, size?: number, cursor?: string, options?: AxiosRequestConfig) {
-        return WebhooksApiFp(this.configuration).listWebhooks(appId, size, cursor, options).then((request) => request(this.axios, this.basePath));
+    public listWebhooks(appId: string, version: string, size?: number, cursor?: string, options?: AxiosRequestConfig) {
+        return WebhooksApiFp(this.configuration).listWebhooks(appId, version, size, cursor, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Get details for a single Webhook in your Tangocrypto account.
      * @summary Retrieve Webhook
      * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.     
      * @param {string} webhookId The ID of the webhook to retrieve.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WebhooksApi
      */
-    public retrieveWebhook(appId: string, webhookId: string, options?: AxiosRequestConfig) {
-        return WebhooksApiFp(this.configuration).retrieveWebhook(appId, webhookId, options).then((request) => request(this.axios, this.basePath));
+    public retrieveWebhook(appId: string, version: string, webhookId: string, options?: AxiosRequestConfig) {
+        return WebhooksApiFp(this.configuration).retrieveWebhook(appId, version, webhookId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Updates the webbook without having to perform an upsert on the entire item. Just include include the fields you want to be updated in the request body.
      * @summary Update Webhook
      * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.
      * @param {string} webhookId The ID of the webhook to update.
      * @param {UpdateWebhookRequest} [updateWebhookRequest] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WebhooksApi
      */
-    public updateWebhook(appId: string, webhookId: string, updateWebhookRequest?: UpdateWebhookRequest, options?: AxiosRequestConfig) {
-        return WebhooksApiFp(this.configuration).updateWebhook(appId, webhookId, updateWebhookRequest, options).then((request) => request(this.axios, this.basePath));
+    public updateWebhook(appId: string, version: string, webhookId: string, updateWebhookRequest?: UpdateWebhookRequest, options?: AxiosRequestConfig) {
+        return WebhooksApiFp(this.configuration).updateWebhook(appId, version, webhookId, updateWebhookRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }

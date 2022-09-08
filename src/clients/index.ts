@@ -8,6 +8,7 @@ import { AssetApi } from "./assets";
 import { PoolApi } from "./pools";
 import { EpochApi } from "./epochs";
 import { PolicyApi } from "./policies";
+import { WebhookApi } from "./webhooks";
 
 export interface ClientConfiguration {
     apiKey: string;
@@ -86,6 +87,12 @@ export class ApiClient {
      */
      public policy(): PolicyApi {
         return new PolicyApi(this.configuration, this.axios);
+    }    
+    /**
+     * Get webhook api client
+     */
+     public webhook(): WebhookApi {
+        return new WebhookApi(this.configuration, this.axios);
     }    
 
 }

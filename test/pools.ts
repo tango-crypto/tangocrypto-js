@@ -10,7 +10,7 @@ import { ApiClient } from '../src';
 import { PoolApi } from '../src/clients/pools';
 
 dotenv.config();
-describe('Pool API endpoints', function () {
+describe('Pools API endpoints', function () {
     this.timeout(0);
     let api: PoolApi;
 

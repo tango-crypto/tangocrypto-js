@@ -10,7 +10,7 @@ import { BuildTxRequest, ApiClient } from '../src';
 import { TransactionApi } from '../src/clients/transactions';
 
 dotenv.config();
-describe('Transaction API endpoints', function () {
+describe('Transactions API endpoints', function () {
     this.timeout(0);
     let api: TransactionApi;
 
