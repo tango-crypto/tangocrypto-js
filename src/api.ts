@@ -4029,12 +4029,6 @@ export interface RetrieveEpochParametersResponse {
      */
     'decentralisation'?: number;
     /**
-     * The 32 byte string of extra random-ness to be added into the protocol\'s entropy pool.
-     * @type {object}
-     * @memberof RetrieveEpochParametersResponse
-     */
-    'entropy'?: object | null;
-    /**
      * The protocol major number.
      * @type {number}
      * @memberof RetrieveEpochParametersResponse
@@ -6346,14 +6340,14 @@ export const EpochsApiAxiosParamCreator = function (configuration?: Configuratio
          * Retrieves the current epoch information
          * @summary Retrieve current epoch information
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        retrieveCurrentEpoch: async (appId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        retrieveCurrentEpoch: async (appId: string, version: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('retrieveCurrentEpoch', 'appId', appId)
-            const localVarPath = `/{app_id}/v1/epochs/current`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)));
+            const localVarPath = buildPath(appId, version, 'epochs', 'current');
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -6379,22 +6373,22 @@ export const EpochsApiAxiosParamCreator = function (configuration?: Configuratio
                 options: localVarRequestOptions,
             };
         },
+
         /**
          * Retrieves the protocol parameters for a given epoch.
          * @summary Retrieve protocol parameters
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {number} number Number of the epoch
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        retrieveEpochParameters: async (appId: string, number: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        retrieveEpochParameters: async (appId: string, version: string, number: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('retrieveEpochParameters', 'appId', appId)
             // verify required parameter 'number' is not null or undefined
             assertParamExists('retrieveEpochParameters', 'number', number)
-            const localVarPath = `/{app_id}/v1/epochs/{number}/parameters`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)))
-                .replace(`{${"number"}}`, encodeURIComponent(String(number)));
+            const localVarPath = buildPath(appId, version, 'epochs', number.toString(), 'parameters');
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -6434,23 +6428,26 @@ export const EpochsApiFp = function (configuration?: Configuration) {
          * Retrieves the current epoch information
          * @summary Retrieve current epoch information
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.     
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async retrieveCurrentEpoch(appId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveCurrentEpochResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveCurrentEpoch(appId, options);
+        async retrieveCurrentEpoch(appId: string, version: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveCurrentEpochResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveCurrentEpoch(appId, version, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+
         /**
          * Retrieves the protocol parameters for a given epoch.
          * @summary Retrieve protocol parameters
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.     
          * @param {number} number Number of the epoch
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async retrieveEpochParameters(appId: string, number: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveEpochParametersResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveEpochParameters(appId, number, options);
+        async retrieveEpochParameters(appId: string, version: string, number: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveEpochParametersResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveEpochParameters(appId, version, number, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -6467,22 +6464,26 @@ export const EpochsApiFactory = function (configuration?: Configuration, basePat
          * Retrieves the current epoch information
          * @summary Retrieve current epoch information
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        retrieveCurrentEpoch(appId: string, options?: any): AxiosPromise<RetrieveCurrentEpochResponse> {
-            return localVarFp.retrieveCurrentEpoch(appId, options).then((request) => request(axios, basePath));
+        retrieveCurrentEpoch(appId: string, version: string, options?: any): AxiosPromise<RetrieveCurrentEpochResponse> {
+            return localVarFp.retrieveCurrentEpoch(appId, version, options).then((request) => request(axios, basePath));
         },
+
+
         /**
          * Retrieves the protocol parameters for a given epoch.
          * @summary Retrieve protocol parameters
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {number} number Number of the epoch
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        retrieveEpochParameters(appId: string, number: number, options?: any): AxiosPromise<RetrieveEpochParametersResponse> {
-            return localVarFp.retrieveEpochParameters(appId, number, options).then((request) => request(axios, basePath));
+        retrieveEpochParameters(appId: string, version: string, number: number, options?: any): AxiosPromise<RetrieveEpochParametersResponse> {
+            return localVarFp.retrieveEpochParameters(appId, version, number, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -6498,25 +6499,27 @@ export class EpochsApi extends BaseAPI {
      * Retrieves the current epoch information
      * @summary Retrieve current epoch information
      * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof EpochsApi
      */
-    public retrieveCurrentEpoch(appId: string, options?: AxiosRequestConfig) {
-        return EpochsApiFp(this.configuration).retrieveCurrentEpoch(appId, options).then((request) => request(this.axios, this.basePath));
+    public retrieveCurrentEpoch(appId: string, version: string, options?: AxiosRequestConfig) {
+        return EpochsApiFp(this.configuration).retrieveCurrentEpoch(appId, version, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Retrieves the protocol parameters for a given epoch.
      * @summary Retrieve protocol parameters
      * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.     
      * @param {number} number Number of the epoch
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof EpochsApi
      */
-    public retrieveEpochParameters(appId: string, number: number, options?: AxiosRequestConfig) {
-        return EpochsApiFp(this.configuration).retrieveEpochParameters(appId, number, options).then((request) => request(this.axios, this.basePath));
+    public retrieveEpochParameters(appId: string, version: string, number: number, options?: AxiosRequestConfig) {
+        return EpochsApiFp(this.configuration).retrieveEpochParameters(appId, version, number, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

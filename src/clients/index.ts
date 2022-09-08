@@ -6,6 +6,7 @@ import { WalletApi } from "./wallets";
 import { BlockApi } from "./blocks";
 import { AssetApi } from "./assets";
 import { PoolApi } from "./pools";
+import { EpochApi } from "./epochs";
 
 export interface ClientConfiguration {
     apiKey: string;
@@ -70,6 +71,13 @@ export class ApiClient {
      */
     public pool(): PoolApi {
         return new PoolApi(this.configuration, this.axios);
+    }
+
+    /**
+     * Get epoch api client
+     */
+    public epoch(): EpochApi {
+        return new EpochApi(this.configuration, this.axios);
     }
 
 }
