@@ -7,6 +7,7 @@ import { BlockApi } from "./blocks";
 import { AssetApi } from "./assets";
 import { PoolApi } from "./pools";
 import { EpochApi } from "./epochs";
+import { PolicyApi } from "./policies";
 
 export interface ClientConfiguration {
     apiKey: string;
@@ -79,5 +80,12 @@ export class ApiClient {
     public epoch(): EpochApi {
         return new EpochApi(this.configuration, this.axios);
     }
+
+    /**
+     * Get policy api client
+     */
+     public policy(): PolicyApi {
+        return new PolicyApi(this.configuration, this.axios);
+    }    
 
 }

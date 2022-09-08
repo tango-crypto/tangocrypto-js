@@ -9063,18 +9063,19 @@ export const PolicyApiAxiosParamCreator = function (configuration?: Configuratio
          * Returns a list of assets with the given Policy ID. The response is paginated to make the result set easier to handle. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next batch of owners. To learn more about how pagination works, visit https://docs.tangocrypto.com/rest-api/pagination 
          * @summary List assets by policy
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
          * @param {string} policyId Policy ID controlling an asset.
+         * @param {number} [size] The number of assets to return in a single page.
+         * @param {string} [cursor] A pagination cursor returned by a previous call to this endpoint. Provide this cursor to retrieve the next set of results for your original query.         
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAssetByPolicy: async (appId: string, policyId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getAssetByPolicy: async (appId: string, version: string, policyId: string, size?: number, cursor?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('getAssetByPolicy', 'appId', appId)
             // verify required parameter 'policyId' is not null or undefined
             assertParamExists('getAssetByPolicy', 'policyId', policyId)
-            const localVarPath = `/{app_id}/v1/policies/{policy_id}/assets`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)))
-                .replace(`{${"policy_id"}}`, encodeURIComponent(String(policyId)));
+            const localVarPath = buildPath(appId, version, 'policies', policyId, 'assets');
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -9089,7 +9090,13 @@ export const PolicyApiAxiosParamCreator = function (configuration?: Configuratio
             // authentication x-api-key required
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
 
+            if (cursor !== undefined) {
+                localVarQueryParameter['cursor'] = cursor;
+            }
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -9114,12 +9121,15 @@ export const PolicyApiFp = function (configuration?: Configuration) {
          * Returns a list of assets with the given Policy ID. The response is paginated to make the result set easier to handle. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next batch of owners. To learn more about how pagination works, visit https://docs.tangocrypto.com/rest-api/pagination 
          * @summary List assets by policy
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
          * @param {string} policyId Policy ID controlling an asset.
+         * @param {number} [size] The number of assets to return in a single page.
+         * @param {string} [cursor] A pagination cursor returned by a previous call to this endpoint. Provide this cursor to retrieve the next set of results for your original query.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAssetByPolicy(appId: string, policyId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListPolicyAssetsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAssetByPolicy(appId, policyId, options);
+        async getAssetByPolicy(appId: string, version: string, policyId: string, size?: number, cursor?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListPolicyAssetsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAssetByPolicy(appId, version, policyId, size, cursor, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -9152,18 +9162,21 @@ export const PolicyApiFactory = function (configuration?: Configuration, basePat
  * @class PolicyApi
  * @extends {BaseAPI}
  */
-export class PolicyApi extends BaseAPI {
+export class PoliciesApi extends BaseAPI {
     /**
      * Returns a list of assets with the given Policy ID. The response is paginated to make the result set easier to handle. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next batch of owners. To learn more about how pagination works, visit https://docs.tangocrypto.com/rest-api/pagination 
      * @summary List assets by policy
      * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.
      * @param {string} policyId Policy ID controlling an asset.
+     * @param {number} [size] The number of assets to return in a single page.
+     * @param {string} [cursor] A pagination cursor returned by a previous call to this endpoint. Provide this cursor to retrieve the next set of results for your original query.     
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PolicyApi
      */
-    public getAssetByPolicy(appId: string, policyId: string, options?: AxiosRequestConfig) {
-        return PolicyApiFp(this.configuration).getAssetByPolicy(appId, policyId, options).then((request) => request(this.axios, this.basePath));
+    public getAssetByPolicy(appId: string, version: string, policyId: string, size?: number, cursor?: string, options?: AxiosRequestConfig) {
+        return PolicyApiFp(this.configuration).getAssetByPolicy(appId, version, policyId, size, cursor, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
