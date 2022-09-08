@@ -133,6 +133,12 @@ export interface BuildTxRequest {
     'inputs'?: Array<BuildTxRequestInputsInner>;
     /**
      * 
+     * @type {Array<BuildTxRequestInputsInner>}
+     * @memberof BuildTxRequest
+     */
+    'outputs'?: Array<BuildTxRequestOutputsInner>;
+    /**
+     * 
      * @type {{ [key: string]: Array<Asset>; }}
      * @memberof BuildTxRequest
      */
@@ -184,6 +190,32 @@ export interface BuildTxRequestInputsInner {
      * 
      * @type {Array<Asset>}
      * @memberof BuildTxRequestInputsInner
+     */
+    'assets'?: Array<Asset>;
+}
+/**
+ * 
+ * @export
+ * @interface BuildTxRequestInputsInner
+ */
+export interface BuildTxRequestOutputsInner {
+    /**
+     * 
+     * @type {string}
+     * @memberof BuildTxRequestOutputsInner
+     */
+    'address': string;
+
+    /**
+     * 
+     * @type {number}
+     * @memberof BuildTxRequestOutputsInner
+     */
+    'value': number;
+    /**
+     * 
+     * @type {Array<Asset>}
+     * @memberof BuildTxRequestOutputsInner
      */
     'assets'?: Array<Asset>;
 }
