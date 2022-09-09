@@ -12,7 +12,8 @@
   "module": "./dist/esm/index.js",
   "sideEffects": false,
   "scripts": {
-    "build": "tsc && tsc -p tsconfig.esm.json",
+    "build": "tsc",
+    "build:esm": "tsc && tsc -p tsconfig.esm.json",
     "prepare": "npm run build",
     "test": "mocha -r ts-node/register 'test/**/*.ts'"
   },
