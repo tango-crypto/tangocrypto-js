@@ -5,16 +5,21 @@ on:
 
 jobs:
   publish:
-    name: Build and deploy
+    name: Publish to NPM
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      # Setup .npmrc file to publish to npm
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v1
+      - name: Setup node
+        uses: actions/setup-node@v1
         with:
-          node-version: '16.x'
-          registry-url: 'https://registry.npmjs.org'
-      - run: npm ci
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.PACKAGES_PAT }}
+          node-version: 16
+      # - name: Install mocha
+      #   run: npm install -g mocha
+      - name: Install dependencies
+        run: npm ci
+      # - name: Run tests
+      #   run: npm test
+      - name: Package and publish
+        uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
