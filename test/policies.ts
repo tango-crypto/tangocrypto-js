@@ -45,6 +45,6 @@ describe('Policies API endpoints', function () {
         const response = await api.getAssetsByPolicy(policy, size);
 
         // assert
-        expect(response).deep.equal(result);
+        expect(response.result).deep.equal(result);
     })
 })

@@ -12,6 +12,10 @@
  * Do not edit the class manually.
  */
 
+import { DEFAULT_MAX_ATTEMPTS } from "../utils/constants";
+import { StandardRetryStrategy } from "../utils/middleware-retry/retry";
+import { RetryStrategy } from "../utils/middleware-retry/types";
+
 
 export interface ConfigurationParameters {
     apiKey?: string | Promise<string> | ((name: string) => string) | ((name: string) => Promise<string>);
@@ -21,6 +25,7 @@ export interface ConfigurationParameters {
     basePath?: string;
     baseOptions?: any;
     formDataCtor?: new () => any;
+    maxAttempts?: number;
 }
 
 export class Configuration {
@@ -74,6 +79,22 @@ export class Configuration {
      */
     formDataCtor?: new () => any;
 
+    /**
+     * parameter for retry strategy max attempts
+     *
+     * @type {number}
+     * @memberof Configuration
+     */
+    maxAttempts?: number;
+
+    /**
+     * parameter for retry strategy
+     *
+     * @type {RetryStrategy}
+     * @memberof Configuration
+     */
+    retryStrategy: RetryStrategy;
+
     constructor(param: ConfigurationParameters = {}) {
         this.apiKey = param.apiKey;
         this.username = param.username;
@@ -82,6 +103,8 @@ export class Configuration {
         this.basePath = param.basePath;
         this.baseOptions = param.baseOptions;
         this.formDataCtor = param.formDataCtor;
+        this.maxAttempts = param.maxAttempts;
+        this.retryStrategy = new StandardRetryStrategy(this.maxAttempts || DEFAULT_MAX_ATTEMPTS);
     }
 
     /**

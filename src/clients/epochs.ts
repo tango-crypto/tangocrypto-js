@@ -11,7 +11,8 @@ export class EpochApi {
         this.config = config;
         const configuration = new Configuration({
             apiKey: config.apiKey,
-            basePath: config.basePath
+            basePath: config.basePath,
+            maxAttempts: config.maxAttempts
         })
 
         // initialize api
@@ -25,7 +26,7 @@ export class EpochApi {
      * @memberof EpochsApi
      */
      public retrieveCurrentEpoch() {
-        return this.epochsApi.retrieveCurrentEpoch(this.config.appId, this.config.version).then(response => response.data);
+        return this.epochsApi.retrieveCurrentEpoch(this.config.appId, this.config.version);
     }
 
     /**
@@ -36,6 +37,6 @@ export class EpochApi {
      * @memberof EpochsApi
      */
     public retrieveEpochParameters(number: number) {
-        return this.epochsApi.retrieveEpochParameters(this.config.appId, this.config.version, number).then(response => response.data);
+        return this.epochsApi.retrieveEpochParameters(this.config.appId, this.config.version, number);
     }
 }

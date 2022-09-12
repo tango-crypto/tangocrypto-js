@@ -1,6 +1,7 @@
 import { AxiosInstance } from "axios";
 import { ClientConfiguration } from ".";
-import { BlocksApi } from "../api";
+import { BlocksApi, RetrieveBlockResponse } from "../api";
+import { ApiResponse } from "../common";
 import { Configuration } from "../configuration";
 
 export class BlockApi {
@@ -11,7 +12,8 @@ export class BlockApi {
         this.config = config;
         const configuration = new Configuration({
             apiKey: config.apiKey,
-            basePath: config.basePath
+            basePath: config.basePath,
+            maxAttempts: config.maxAttempts
         })
 
         // initialize api
@@ -25,8 +27,8 @@ export class BlockApi {
      * @throws {RequiredError}
      * @memberof BlocksApi
      */
-    public getBlock(blockNo: number) {
-        return this.blocksApi.getBlock(this.config.appId, this.config.version, blockNo).then(response => response.data);
+    public getBlock(blockNo: number)  {
+        return this.blocksApi.getBlock(this.config.appId, this.config.version, blockNo);
     }
 
     /**
@@ -37,7 +39,7 @@ export class BlockApi {
      * @memberof BlocksApi
      */
     public getBlockByHash(hash: string) {
-        return this.blocksApi.getBlockByHash(this.config.appId, this.config.version, hash).then(response => response.data);
+        return this.blocksApi.getBlockByHash(this.config.appId, this.config.version, hash);
     }
 
     /**
@@ -52,7 +54,7 @@ export class BlockApi {
      * @memberof BlocksApi
      */
     public getBlockTransactions(blockNumber: number, size?: number, cursor?: string, order?: 'asc' | 'desc') {
-        return this.blocksApi.getBlockTransactions(this.config.appId, this.config.version, blockNumber, size, cursor, order).then(response => response.data);
+        return this.blocksApi.getBlockTransactions(this.config.appId, this.config.version, blockNumber, size, cursor, order);
     }
 
     /**
@@ -67,7 +69,7 @@ export class BlockApi {
      * @memberof BlocksApi
      */
     public getBlockTransactionsByHash(hash: string, size?: number, cursor?: string, order?: 'asc' | 'desc') {
-        return this.blocksApi.getBlockTransactionsByHash(this.config.appId, this.config.version, hash, size, cursor, order).then(response => response.data);
+        return this.blocksApi.getBlockTransactionsByHash(this.config.appId, this.config.version, hash, size, cursor, order);
     }
 
     /**
@@ -77,6 +79,6 @@ export class BlockApi {
      * @memberof BlocksApi
      */
     public getLatestBlock() {
-        return this.blocksApi.getLatestBlock(this.config.appId, this.config.version).then(response => response.data);
+        return this.blocksApi.getLatestBlock(this.config.appId, this.config.version);
     }
 }

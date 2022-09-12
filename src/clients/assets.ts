@@ -11,7 +11,8 @@ export class AssetApi {
         this.config = config;
         const configuration = new Configuration({
             apiKey: config.apiKey,
-            basePath: config.basePath
+            basePath: config.basePath,
+            maxAttempts: config.maxAttempts
         })
 
         // initialize api
@@ -26,7 +27,7 @@ export class AssetApi {
      * @memberof AssetsApi
      */
       public getAsset(asset: string) {
-        return this.assetsApi.getAsset(this.config.appId, this.config.version, asset).then(response => response.data);
+        return this.assetsApi.getAsset(this.config.appId, this.config.version, asset);
     }
 
     /**
@@ -37,7 +38,7 @@ export class AssetApi {
      * @memberof AssetsApi
      */
     public getAssetByFingerprint(fingerprint: string) {
-        return this.assetsApi.getAssetByFingerprint(this.config.appId, this.config.version, fingerprint).then(response => response.data);
+        return this.assetsApi.getAssetByFingerprint(this.config.appId, this.config.version, fingerprint);
     }
 
     /**
@@ -48,7 +49,7 @@ export class AssetApi {
      * @memberof AssetsApi
      */
     public listAssetAddresses(asset: string) {
-        return this.assetsApi.listAssetAddresses(this.config.appId, this.config.version, asset).then(response => response.data);
+        return this.assetsApi.listAssetAddresses(this.config.appId, this.config.version, asset);
     }
 
     /**
@@ -59,6 +60,6 @@ export class AssetApi {
      * @memberof AssetsApi
      */
     public listAssetAddressesFingerprint(fingerprint: string) {
-        return this.assetsApi.listAssetAddressesFingerprint(this.config.appId, this.config.version, fingerprint).then(response => response.data);
+        return this.assetsApi.listAssetAddressesFingerprint(this.config.appId, this.config.version, fingerprint);
     }
 }

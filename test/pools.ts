@@ -46,7 +46,7 @@ describe('Pools API endpoints', function () {
         const response = await api.stakePoolMetadata(poolId);
 
         // assert
-        expect(response).deep.equal(result);
+        expect(response.result).deep.equal(result);
     })
 
     it('should get pool delegations', async () => {
@@ -112,6 +112,6 @@ describe('Pools API endpoints', function () {
         const response = await api.stakePoolDelegations(poolId);
 
         // assert
-        expect(response).deep.equal(result);
+        expect(response.result).deep.equal(result);
     })
 })

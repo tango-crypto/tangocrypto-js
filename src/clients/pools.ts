@@ -11,7 +11,8 @@ export class PoolApi {
         this.config = config;
         const configuration = new Configuration({
             apiKey: config.apiKey,
-            basePath: config.basePath
+            basePath: config.basePath,
+            maxAttempts: config.maxAttempts
         })
 
         // initialize api
@@ -26,7 +27,7 @@ export class PoolApi {
      * @memberof PoolsApi
      */
      public stakePoolDelegations(poolId: string) {
-        return this.poolsApi.stakePoolDelegations(this.config.appId, this.config.version, poolId).then(response => response.data);
+        return this.poolsApi.stakePoolDelegations(this.config.appId, this.config.version, poolId);
     }
 
     /**
@@ -37,6 +38,6 @@ export class PoolApi {
      * @memberof PoolsApi
      */
     public stakePoolMetadata(poolId: string) {
-        return this.poolsApi.stakePoolMetadata(this.config.appId, this.config.version, poolId).then(response => response.data);
+        return this.poolsApi.stakePoolMetadata(this.config.appId, this.config.version, poolId);
     }
 }

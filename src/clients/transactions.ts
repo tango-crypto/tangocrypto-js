@@ -14,7 +14,8 @@ export class TransactionApi {
         this.config = config;
         const configuration = new Configuration({
             apiKey: config.apiKey,
-            basePath: config.basePath
+            basePath: config.basePath,
+            maxAttempts: config.maxAttempts
         })
 
         // initialize api
@@ -29,7 +30,7 @@ export class TransactionApi {
      * @memberof ClientApi
      */
     public getTransaction(hash: string) {
-        return this.transactionsApi.getTransaction(this.config.appId, this.config.version, hash).then(response => response.data);
+        return this.transactionsApi.getTransaction(this.config.appId, this.config.version, hash);
     }
 
     /**
@@ -40,7 +41,7 @@ export class TransactionApi {
      * @memberof ClientApi
      */
     public getTransactionMetadata(hash: string) {
-        return this.transactionsApi.getTransactionMetadata(this.config.appId, this.config.version, hash).then(response => response.data);
+        return this.transactionsApi.getTransactionMetadata(this.config.appId, this.config.version, hash);
     }
 
     /**
@@ -51,7 +52,7 @@ export class TransactionApi {
      * @memberof ClientApi
      */
     public listTransactionUtxos(hash: string) {
-        return this.transactionsApi.listTransactionUtxos(this.config.appId, this.config.version, hash).then(response => response.data);
+        return this.transactionsApi.listTransactionUtxos(this.config.appId, this.config.version, hash);
     }
 
     /**
@@ -62,7 +63,7 @@ export class TransactionApi {
      * @memberof ClientApi
      */
     public submitTransaction(submitTansactionRequest?: SubmitTansactionRequest) {
-        return this.transactionsApi.submitTransaction(this.config.appId, this.config.version, submitTansactionRequest).then(response => response.data);
+        return this.transactionsApi.submitTransaction(this.config.appId, this.config.version, submitTansactionRequest);
     }
 
     /**
@@ -73,7 +74,7 @@ export class TransactionApi {
     * @memberof ClientApi
     */
     public buildTransaction(buildTxRequest: BuildTxRequest) {
-        return this.transactionsApi.buildTransaction(this.config.appId, this.config.version, buildTxRequest).then(response => response.data);
+        return this.transactionsApi.buildTransaction(this.config.appId, this.config.version, buildTxRequest);
     }
 
     /**

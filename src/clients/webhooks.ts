@@ -11,7 +11,8 @@ export class WebhookApi {
         this.config = config;
         const configuration = new Configuration({
             apiKey: config.apiKey,
-            basePath: config.basePath
+            basePath: config.basePath,
+            maxAttempts: config.maxAttempts
         })
 
         // initialize api
@@ -26,7 +27,7 @@ export class WebhookApi {
      * @memberof WebhooksApi
      */
     public createWebhook(createWebhookRequest?: CreateWebhookRequest) {
-        return this.webhooksApi.createWebhook(this.config.appId, this.config.version, createWebhookRequest).then(response => response.data);
+        return this.webhooksApi.createWebhook(this.config.appId, this.config.version, createWebhookRequest);
     }
 
     /**
@@ -37,7 +38,7 @@ export class WebhookApi {
      * @memberof WebhooksApi
      */
     public deleteWebhook(webhookId: string) {
-        return this.webhooksApi.deleteWebhook(this.config.appId, this.config.version, webhookId).then(response => response.data);
+        return this.webhooksApi.deleteWebhook(this.config.appId, this.config.version, webhookId);
     }
 
     /**
@@ -49,7 +50,7 @@ export class WebhookApi {
      * @memberof WebhooksApi
      */
     public listWebhooks(size?: number, cursor?: string) {
-        return this.webhooksApi.listWebhooks(this.config.appId, this.config.version, size, cursor).then(response => response.data);
+        return this.webhooksApi.listWebhooks(this.config.appId, this.config.version, size, cursor);
     }
 
     /**
@@ -60,7 +61,7 @@ export class WebhookApi {
      * @memberof WebhooksApi
      */
     public retrieveWebhook( webhookId: string) {
-        return this.webhooksApi.retrieveWebhook(this.config.appId, this.config.version, webhookId).then(response => response.data);
+        return this.webhooksApi.retrieveWebhook(this.config.appId, this.config.version, webhookId);
     }
 
     /**
@@ -72,6 +73,6 @@ export class WebhookApi {
      * @memberof WebhooksApi
      */
     public updateWebhook(webhookId: string, updateWebhookRequest?: UpdateWebhookRequest) {
-        return this.webhooksApi.updateWebhook(this.config.appId, this.config.version, webhookId, updateWebhookRequest).then(response => response.data);
+        return this.webhooksApi.updateWebhook(this.config.appId, this.config.version, webhookId, updateWebhookRequest);
     }
 }

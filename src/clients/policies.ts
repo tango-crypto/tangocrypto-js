@@ -11,7 +11,8 @@ export class PolicyApi {
         this.config = config;
         const configuration = new Configuration({
             apiKey: config.apiKey,
-            basePath: config.basePath
+            basePath: config.basePath,
+            maxAttempts: config.maxAttempts
         })
 
         // initialize api
@@ -28,6 +29,6 @@ export class PolicyApi {
      * @memberof PolicyApi
      */
      public getAssetsByPolicy(policyId: string, size?: number, cursor?: string) {
-        return this.policiesApi.getAssetByPolicy(this.config.appId, this.config.version, policyId, size, cursor).then(response => response.data);
+        return this.policiesApi.getAssetByPolicy(this.config.appId, this.config.version, policyId, size, cursor);
     }
 }

@@ -15,7 +15,8 @@
 
 import { Configuration } from "./configuration";
 import { RequiredError, RequestArgs } from "./base";
-import { AxiosInstance, AxiosResponse } from 'axios';
+import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { FinalizeHandler, InitializeHandlerArguments, InitializeHandlerOutput  } from "../utils/middleware-retry/types";
 
 /**
  *
@@ -131,9 +132,13 @@ export const toPathString = function (url: URL) {
  * @export
  */
 export const createRequestFunction = function (axiosArgs: RequestArgs, globalAxios: AxiosInstance, BASE_PATH: string, configuration?: Configuration) {
-    return <T = unknown, R = AxiosResponse<T>>(axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+    return async <T, R extends object = ApiPromise<T>>(axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
         const axiosRequestArgs = {...axiosArgs.options, url: (configuration?.basePath || basePath) + axiosArgs.url};
-        return axios.request<T, R>(axiosRequestArgs);
+        const retryStrategy = configuration.retryStrategy;
+        const finalizeHandler: FinalizeHandler<AxiosRequestConfig<T>, R> = (args: AxiosRequestConfig<T>) => axios.request<T, R>(args);
+        const response: any = await retryStrategy.retry(finalizeHandler, axiosRequestArgs);
+        return { result: response.data, $metadata: response.$metadata }
+        // return axios.request<T, R>(axiosRequestArgs);
     };
 }
 
@@ -143,4 +148,21 @@ export const createRequestFunction = function (axiosArgs: RequestArgs, globalAxi
  */
 export const buildPath = function (appId: string, version: string, ...path: string[]) {
     return (version ? [appId, version, ...path] : [appId, ...path]).join('/');
+}
+
+
+export interface ApiPromise<T> extends Promise<ApiResponse<T>> {}
+
+/**
+ *
+ * @export
+ */
+export interface ApiResponse<T> {
+    result: T;
+    $metadata: Metadata;
+}
+
+export interface Metadata {
+    attempts: number;
+    totalRetryDelay: number;
 }

@@ -14,10 +14,10 @@
 
 
 import { Configuration } from './configuration';
-import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
+import globalAxios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction, buildPath } from './common';
+import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction, buildPath, ApiResponse, ApiPromise } from './common';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from './base';
 
@@ -5317,7 +5317,7 @@ export const AddressesApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAddressSummary(appId: string, version: string, address: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveAddressSummaryResponse>> {
+        async getAddressSummary(appId: string, version: string, address: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<RetrieveAddressSummaryResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAddressSummary(appId, version, address, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -5334,7 +5334,7 @@ export const AddressesApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listAddressAssets(appId: string, version: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListAddressAssetsResponse>> {
+        async listAddressAssets(appId: string, version: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<ListAddressAssetsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listAddressAssets(appId, version, address, size, cursor, order, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -5351,7 +5351,7 @@ export const AddressesApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listAddressTransactions(appId: string, version: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListAddressTransactionsResponse>> {
+        async listAddressTransactions(appId: string, version: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<ListAddressTransactionsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listAddressTransactions(appId, version, address, size, cursor, order, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -5368,7 +5368,7 @@ export const AddressesApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listAddressUtxos(appId: string, version: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListAddressUtxosResponse>> {
+        async listAddressUtxos(appId: string, version: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<ListAddressUtxosResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listAddressUtxos(appId, version, address, size, cursor, order, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -5391,7 +5391,7 @@ export const AddressesApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAddressSummary(appId: string, version: string, address: string, options?: any): AxiosPromise<RetrieveAddressSummaryResponse> {
+        getAddressSummary(appId: string, version: string, address: string, options?: any): ApiPromise<RetrieveAddressSummaryResponse> {
             return localVarFp.getAddressSummary(appId, version, address, options).then((request) => request(axios, basePath));
         },
 
@@ -5407,7 +5407,7 @@ export const AddressesApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listAddressAssets(appId: string, version: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: any): AxiosPromise<ListAddressAssetsResponse> {
+        listAddressAssets(appId: string, version: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: any): ApiPromise<ListAddressAssetsResponse> {
             return localVarFp.listAddressAssets(appId, version, address, size, cursor, order, options).then((request) => request(axios, basePath));
         },
 
@@ -5423,7 +5423,7 @@ export const AddressesApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listAddressTransactions(appId: string, version: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: any): AxiosPromise<ListAddressTransactionsResponse> {
+        listAddressTransactions(appId: string, version: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: any): ApiPromise<ListAddressTransactionsResponse> {
             return localVarFp.listAddressTransactions(appId, version, address, size, cursor, order, options).then((request) => request(axios, basePath));
         },
 
@@ -5439,7 +5439,7 @@ export const AddressesApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listAddressUtxos(appId: string, version: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: any): AxiosPromise<ListAddressUtxosResponse> {
+        listAddressUtxos(appId: string, version: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: any): ApiPromise<ListAddressUtxosResponse> {
             return localVarFp.listAddressUtxos(appId, version, address, size, cursor, order, options).then((request) => request(axios, basePath));
         },
     };
@@ -5707,7 +5707,7 @@ export const AssetsApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAsset(appId: string, version: string, asset: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveAssetResponse>> {
+        async getAsset(appId: string, version: string, asset: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<RetrieveAssetResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAsset(appId, version, asset, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -5721,7 +5721,7 @@ export const AssetsApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAssetByFingerprint(appId: string, version: string, fingerprint: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveAssetByFingerprintResponse>> {
+        async getAssetByFingerprint(appId: string, version: string, fingerprint: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<RetrieveAssetByFingerprintResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAssetByFingerprint(appId, version, fingerprint, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -5735,7 +5735,7 @@ export const AssetsApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listAssetAddresses(appId: string, version: string, asset: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListAssetAddressesResponse>> {
+        async listAssetAddresses(appId: string, version: string, asset: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<ListAssetAddressesResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listAssetAddresses(appId, version, asset, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -5749,7 +5749,7 @@ export const AssetsApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listAssetAddressesFingerprint(appId: string, version: string, fingerprint: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListAssetAddressesResponse>> {
+        async listAssetAddressesFingerprint(appId: string, version: string, fingerprint: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<ListAssetAddressesResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listAssetAddressesFingerprint(appId, version, fingerprint, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -5771,7 +5771,7 @@ export const AssetsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAsset(appId: string, asset: string, options?: any): AxiosPromise<RetrieveAssetResponse> {
+        getAsset(appId: string, asset: string, options?: any): ApiPromise<RetrieveAssetResponse> {
             return localVarFp.getAsset(appId, asset, options).then((request) => request(axios, basePath));
         },
         /**
@@ -5782,7 +5782,7 @@ export const AssetsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAssetByFingerprint(appId: string, fingerprint: string, options?: any): AxiosPromise<RetrieveAssetByFingerprintResponse> {
+        getAssetByFingerprint(appId: string, fingerprint: string, options?: any): ApiPromise<RetrieveAssetByFingerprintResponse> {
             return localVarFp.getAssetByFingerprint(appId, fingerprint, options).then((request) => request(axios, basePath));
         },
         /**
@@ -5793,7 +5793,7 @@ export const AssetsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listAssetAddresses(appId: string, asset: string, options?: any): AxiosPromise<ListAssetAddressesResponse> {
+        listAssetAddresses(appId: string, asset: string, options?: any): ApiPromise<ListAssetAddressesResponse> {
             return localVarFp.listAssetAddresses(appId, asset, options).then((request) => request(axios, basePath));
         },
         /**
@@ -5804,7 +5804,7 @@ export const AssetsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listAssetAddressesFingerprint(appId: string, fingerprint: string, options?: any): AxiosPromise<ListAssetAddressesResponse> {
+        listAssetAddressesFingerprint(appId: string, fingerprint: string, options?: any): ApiPromise<ListAssetAddressesResponse> {
             return localVarFp.listAssetAddressesFingerprint(appId, fingerprint, options).then((request) => request(axios, basePath));
         },
     };
@@ -6131,7 +6131,7 @@ export const BlocksApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getBlock(appId: string, version: string, blockNo: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveBlockResponse>> {
+        async getBlock(appId: string, version: string, blockNo: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<RetrieveBlockResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getBlock(appId, version, blockNo, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -6145,7 +6145,7 @@ export const BlocksApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getBlockByHash(appId: string, version: string, hash: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveBlockResponse>> {
+        async getBlockByHash(appId: string, version: string, hash: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<RetrieveBlockResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getBlockByHash(appId, version, hash, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -6162,7 +6162,7 @@ export const BlocksApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getBlockTransactions(appId: string, version: string, blockNumber: number, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListBlockTransactionsResponse>> {
+        async getBlockTransactions(appId: string, version: string, blockNumber: number, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<ListBlockTransactionsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getBlockTransactions(appId, version, blockNumber, size, cursor, order, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -6179,7 +6179,7 @@ export const BlocksApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getBlockTransactionsByHash(appId: string, version: string, hash: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListBlockTransactionsResponse>> {
+        async getBlockTransactionsByHash(appId: string, version: string, hash: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<ListBlockTransactionsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getBlockTransactionsByHash(appId, version, hash, size, cursor, order, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -6192,7 +6192,7 @@ export const BlocksApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getLatestBlock(appId: string, version: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveBlockResponse>> {
+        async getLatestBlock(appId: string, version: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<RetrieveBlockResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getLatestBlock(appId, version, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -6215,7 +6215,7 @@ export const BlocksApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBlock(appId: string, version: string, blockNo: number, options?: any): AxiosPromise<RetrieveBlockResponse> {
+        getBlock(appId: string, version: string, blockNo: number, options?: any): ApiPromise<RetrieveBlockResponse> {
             return localVarFp.getBlock(appId, version, blockNo, options).then((request) => request(axios, basePath));
         },
 
@@ -6228,7 +6228,7 @@ export const BlocksApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-         getBlockByHash(appId: string, version: string, hash: string, options?: any): AxiosPromise<RetrieveBlockResponse> {
+         getBlockByHash(appId: string, version: string, hash: string, options?: any): ApiPromise<RetrieveBlockResponse> {
             return localVarFp.getBlockByHash(appId, version, hash, options).then((request) => request(axios, basePath));
         },
 
@@ -6244,7 +6244,7 @@ export const BlocksApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBlockTransactions(appId: string, version: string, blockNumber: number, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: any): AxiosPromise<ListBlockTransactionsResponse> {
+        getBlockTransactions(appId: string, version: string, blockNumber: number, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: any): ApiPromise<ListBlockTransactionsResponse> {
             return localVarFp.getBlockTransactions(appId, version, blockNumber, size, cursor, order, options).then((request) => request(axios, basePath));
         },
 
@@ -6260,7 +6260,7 @@ export const BlocksApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBlockTransactionsByHash(appId: string, version: string, hash: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: any): AxiosPromise<ListBlockTransactionsResponse> {
+        getBlockTransactionsByHash(appId: string, version: string, hash: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: any): ApiPromise<ListBlockTransactionsResponse> {
             return localVarFp.getBlockTransactionsByHash(appId, version, hash, size, cursor, order, options).then((request) => request(axios, basePath));
         },
 
@@ -6272,7 +6272,7 @@ export const BlocksApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getLatestBlock(appId: string, version: string, options?: any): AxiosPromise<RetrieveBlockResponse> {
+        getLatestBlock(appId: string, version: string, options?: any): ApiPromise<RetrieveBlockResponse> {
             return localVarFp.getLatestBlock(appId, version, options).then((request) => request(axios, basePath));
         },
     };
@@ -6464,7 +6464,7 @@ export const EpochsApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async retrieveCurrentEpoch(appId: string, version: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveCurrentEpochResponse>> {
+        async retrieveCurrentEpoch(appId: string, version: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<RetrieveCurrentEpochResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveCurrentEpoch(appId, version, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -6478,7 +6478,7 @@ export const EpochsApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async retrieveEpochParameters(appId: string, version: string, number: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveEpochParametersResponse>> {
+        async retrieveEpochParameters(appId: string, version: string, number: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<RetrieveEpochParametersResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveEpochParameters(appId, version, number, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -6500,7 +6500,7 @@ export const EpochsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        retrieveCurrentEpoch(appId: string, version: string, options?: any): AxiosPromise<RetrieveCurrentEpochResponse> {
+        retrieveCurrentEpoch(appId: string, version: string, options?: any): ApiPromise<RetrieveCurrentEpochResponse> {
             return localVarFp.retrieveCurrentEpoch(appId, version, options).then((request) => request(axios, basePath));
         },
 
@@ -6514,7 +6514,7 @@ export const EpochsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        retrieveEpochParameters(appId: string, version: string, number: number, options?: any): AxiosPromise<RetrieveEpochParametersResponse> {
+        retrieveEpochParameters(appId: string, version: string, number: number, options?: any): ApiPromise<RetrieveEpochParametersResponse> {
             return localVarFp.retrieveEpochParameters(appId, version, number, options).then((request) => request(axios, basePath));
         },
     };
@@ -6810,7 +6810,7 @@ export const NFTsAddressListApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async checkAddressList(appId: string, addressListId: string, checkAddressListRequest?: CheckAddressListRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>> {
+        async checkAddressList(appId: string, addressListId: string, checkAddressListRequest?: CheckAddressListRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<boolean>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.checkAddressList(appId, addressListId, checkAddressListRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -6824,7 +6824,7 @@ export const NFTsAddressListApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createAddressList(appId: string, name: string, file: any, description?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateAddressListResponse>> {
+        async createAddressList(appId: string, name: string, file: any, description?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<CreateAddressListResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createAddressList(appId, name, file, description, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -6836,7 +6836,7 @@ export const NFTsAddressListApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteAddressList(appId: string, addressListId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteAddressListResponse>> {
+        async deleteAddressList(appId: string, addressListId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<DeleteAddressListResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteAddressList(appId, addressListId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -6848,7 +6848,7 @@ export const NFTsAddressListApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAddressLists(appId: string, cursor?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListAdressListResponse>> {
+        async getAddressLists(appId: string, cursor?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<ListAdressListResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAddressLists(appId, cursor, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -6860,7 +6860,7 @@ export const NFTsAddressListApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async retrieveAddressList(appId: string, addressListId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveAddressListResponse>> {
+        async retrieveAddressList(appId: string, addressListId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<RetrieveAddressListResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveAddressList(appId, addressListId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -6883,7 +6883,7 @@ export const NFTsAddressListApiFactory = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        checkAddressList(appId: string, addressListId: string, checkAddressListRequest?: CheckAddressListRequest, options?: any): AxiosPromise<boolean> {
+        checkAddressList(appId: string, addressListId: string, checkAddressListRequest?: CheckAddressListRequest, options?: any): ApiPromise<boolean> {
             return localVarFp.checkAddressList(appId, addressListId, checkAddressListRequest, options).then((request) => request(axios, basePath));
         },
         /**
@@ -6896,7 +6896,7 @@ export const NFTsAddressListApiFactory = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createAddressList(appId: string, name: string, file: any, description?: string, options?: any): AxiosPromise<CreateAddressListResponse> {
+        createAddressList(appId: string, name: string, file: any, description?: string, options?: any): ApiPromise<CreateAddressListResponse> {
             return localVarFp.createAddressList(appId, name, file, description, options).then((request) => request(axios, basePath));
         },
         /**
@@ -6907,7 +6907,7 @@ export const NFTsAddressListApiFactory = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteAddressList(appId: string, addressListId: string, options?: any): AxiosPromise<DeleteAddressListResponse> {
+        deleteAddressList(appId: string, addressListId: string, options?: any): ApiPromise<DeleteAddressListResponse> {
             return localVarFp.deleteAddressList(appId, addressListId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -6918,7 +6918,7 @@ export const NFTsAddressListApiFactory = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAddressLists(appId: string, cursor?: string, options?: any): AxiosPromise<ListAdressListResponse> {
+        getAddressLists(appId: string, cursor?: string, options?: any): ApiPromise<ListAdressListResponse> {
             return localVarFp.getAddressLists(appId, cursor, options).then((request) => request(axios, basePath));
         },
         /**
@@ -6929,7 +6929,7 @@ export const NFTsAddressListApiFactory = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        retrieveAddressList(appId: string, addressListId: string, options?: any): AxiosPromise<RetrieveAddressListResponse> {
+        retrieveAddressList(appId: string, addressListId: string, options?: any): ApiPromise<RetrieveAddressListResponse> {
             return localVarFp.retrieveAddressList(appId, addressListId, options).then((request) => request(axios, basePath));
         },
     };
@@ -7317,7 +7317,7 @@ export const NFTsCollectionsApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteNftCollection(appId: string, collectionId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CollectionDeleteResponse>> {
+        async deleteNftCollection(appId: string, collectionId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<CollectionDeleteResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteNftCollection(appId, collectionId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -7333,7 +7333,7 @@ export const NFTsCollectionsApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCollectionNfts(appId: string, collectionId: string, status?: string, order?: string, size?: number, cursor?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListNftResponse>> {
+        async getCollectionNfts(appId: string, collectionId: string, status?: string, order?: string, size?: number, cursor?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<ListNftResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getCollectionNfts(appId, collectionId, status, order, size, cursor, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -7347,7 +7347,7 @@ export const NFTsCollectionsApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listNftCollections(appId: string, size?: number, cursor?: string, ids?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListCollectionsResponse>> {
+        async listNftCollections(appId: string, size?: number, cursor?: string, ids?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<ListCollectionsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listNftCollections(appId, size, cursor, ids, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -7359,7 +7359,7 @@ export const NFTsCollectionsApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async nftCollection(appId: string, createCollectionRequest?: CreateCollectionRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateCollectionResponse>> {
+        async nftCollection(appId: string, createCollectionRequest?: CreateCollectionRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<CreateCollectionResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.nftCollection(appId, createCollectionRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -7371,7 +7371,7 @@ export const NFTsCollectionsApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async retrieveNftCollection(appId: string, collectionId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NftCollection>> {
+        async retrieveNftCollection(appId: string, collectionId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<NftCollection>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveNftCollection(appId, collectionId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -7384,7 +7384,7 @@ export const NFTsCollectionsApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateNftCollection(appId: string, collectionId: string, updateCollectionRequest?: UpdateCollectionRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateCollectionResponse>> {
+        async updateNftCollection(appId: string, collectionId: string, updateCollectionRequest?: UpdateCollectionRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<CreateCollectionResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateNftCollection(appId, collectionId, updateCollectionRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -7406,7 +7406,7 @@ export const NFTsCollectionsApiFactory = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteNftCollection(appId: string, collectionId: string, options?: any): AxiosPromise<CollectionDeleteResponse> {
+        deleteNftCollection(appId: string, collectionId: string, options?: any): ApiPromise<CollectionDeleteResponse> {
             return localVarFp.deleteNftCollection(appId, collectionId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -7421,7 +7421,7 @@ export const NFTsCollectionsApiFactory = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCollectionNfts(appId: string, collectionId: string, status?: string, order?: string, size?: number, cursor?: string, options?: any): AxiosPromise<ListNftResponse> {
+        getCollectionNfts(appId: string, collectionId: string, status?: string, order?: string, size?: number, cursor?: string, options?: any): ApiPromise<ListNftResponse> {
             return localVarFp.getCollectionNfts(appId, collectionId, status, order, size, cursor, options).then((request) => request(axios, basePath));
         },
         /**
@@ -7434,7 +7434,7 @@ export const NFTsCollectionsApiFactory = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listNftCollections(appId: string, size?: number, cursor?: string, ids?: string, options?: any): AxiosPromise<ListCollectionsResponse> {
+        listNftCollections(appId: string, size?: number, cursor?: string, ids?: string, options?: any): ApiPromise<ListCollectionsResponse> {
             return localVarFp.listNftCollections(appId, size, cursor, ids, options).then((request) => request(axios, basePath));
         },
         /**
@@ -7445,7 +7445,7 @@ export const NFTsCollectionsApiFactory = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        nftCollection(appId: string, createCollectionRequest?: CreateCollectionRequest, options?: any): AxiosPromise<CreateCollectionResponse> {
+        nftCollection(appId: string, createCollectionRequest?: CreateCollectionRequest, options?: any): ApiPromise<CreateCollectionResponse> {
             return localVarFp.nftCollection(appId, createCollectionRequest, options).then((request) => request(axios, basePath));
         },
         /**
@@ -7456,7 +7456,7 @@ export const NFTsCollectionsApiFactory = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        retrieveNftCollection(appId: string, collectionId: string, options?: any): AxiosPromise<NftCollection> {
+        retrieveNftCollection(appId: string, collectionId: string, options?: any): ApiPromise<NftCollection> {
             return localVarFp.retrieveNftCollection(appId, collectionId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -7468,7 +7468,7 @@ export const NFTsCollectionsApiFactory = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateNftCollection(appId: string, collectionId: string, updateCollectionRequest?: UpdateCollectionRequest, options?: any): AxiosPromise<CreateCollectionResponse> {
+        updateNftCollection(appId: string, collectionId: string, updateCollectionRequest?: UpdateCollectionRequest, options?: any): ApiPromise<CreateCollectionResponse> {
             return localVarFp.updateNftCollection(appId, collectionId, updateCollectionRequest, options).then((request) => request(axios, basePath));
         },
     };
@@ -7970,7 +7970,7 @@ export const NFTsSalePhasesApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createAffiliate(appId: string, collectionId: string, phaseId: string, createAffiliateRequest?: CreateAffiliateRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateAffiliateResponse>> {
+        async createAffiliate(appId: string, collectionId: string, phaseId: string, createAffiliateRequest?: CreateAffiliateRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<CreateAffiliateResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createAffiliate(appId, collectionId, phaseId, createAffiliateRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -7984,7 +7984,7 @@ export const NFTsSalePhasesApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteAffiliate(appId: string, collectionId: string, phaseId: string, affiliateId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteAffiliateResponse>> {
+        async deleteAffiliate(appId: string, collectionId: string, phaseId: string, affiliateId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<DeleteAffiliateResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteAffiliate(appId, collectionId, phaseId, affiliateId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -7997,7 +7997,7 @@ export const NFTsSalePhasesApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteSalePhase(appId: string, collectionId: string, phaseId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteSalePhaseResponse>> {
+        async deleteSalePhase(appId: string, collectionId: string, phaseId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<DeleteSalePhaseResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteSalePhase(appId, collectionId, phaseId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -8010,7 +8010,7 @@ export const NFTsSalePhasesApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async nftCreateSale(appId: string, collectionId: string, createSalePhaseRequest?: CreateSalePhaseRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateSalePhaseResponse>> {
+        async nftCreateSale(appId: string, collectionId: string, createSalePhaseRequest?: CreateSalePhaseRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<CreateSalePhaseResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.nftCreateSale(appId, collectionId, createSalePhaseRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -8023,7 +8023,7 @@ export const NFTsSalePhasesApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async retrieveSalePhase(appId: string, collectionId: string, phaseId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveSalePhaseResponse>> {
+        async retrieveSalePhase(appId: string, collectionId: string, phaseId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<RetrieveSalePhaseResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveSalePhase(appId, collectionId, phaseId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -8035,7 +8035,7 @@ export const NFTsSalePhasesApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async retrieveSalePhases(appId: string, collectionId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListSalePhasesResponse>> {
+        async retrieveSalePhases(appId: string, collectionId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<ListSalePhasesResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveSalePhases(appId, collectionId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -8050,7 +8050,7 @@ export const NFTsSalePhasesApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateAffiliate(appId: string, collectionId: string, phaseId: string, affiliateId: string, createAffiliateRequest?: CreateAffiliateRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveSalePhaseResponse>> {
+        async updateAffiliate(appId: string, collectionId: string, phaseId: string, affiliateId: string, createAffiliateRequest?: CreateAffiliateRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<RetrieveSalePhaseResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateAffiliate(appId, collectionId, phaseId, affiliateId, createAffiliateRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -8064,7 +8064,7 @@ export const NFTsSalePhasesApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateSalePhase(appId: string, collectionId: string, phaseId: string, createSalePhaseRequest?: CreateSalePhaseRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveSalePhaseResponse>> {
+        async updateSalePhase(appId: string, collectionId: string, phaseId: string, createSalePhaseRequest?: CreateSalePhaseRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<RetrieveSalePhaseResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateSalePhase(appId, collectionId, phaseId, createSalePhaseRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -8088,7 +8088,7 @@ export const NFTsSalePhasesApiFactory = function (configuration?: Configuration,
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createAffiliate(appId: string, collectionId: string, phaseId: string, createAffiliateRequest?: CreateAffiliateRequest, options?: any): AxiosPromise<CreateAffiliateResponse> {
+        createAffiliate(appId: string, collectionId: string, phaseId: string, createAffiliateRequest?: CreateAffiliateRequest, options?: any): ApiPromise<CreateAffiliateResponse> {
             return localVarFp.createAffiliate(appId, collectionId, phaseId, createAffiliateRequest, options).then((request) => request(axios, basePath));
         },
         /**
@@ -8101,7 +8101,7 @@ export const NFTsSalePhasesApiFactory = function (configuration?: Configuration,
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteAffiliate(appId: string, collectionId: string, phaseId: string, affiliateId: string, options?: any): AxiosPromise<DeleteAffiliateResponse> {
+        deleteAffiliate(appId: string, collectionId: string, phaseId: string, affiliateId: string, options?: any): ApiPromise<DeleteAffiliateResponse> {
             return localVarFp.deleteAffiliate(appId, collectionId, phaseId, affiliateId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -8113,7 +8113,7 @@ export const NFTsSalePhasesApiFactory = function (configuration?: Configuration,
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteSalePhase(appId: string, collectionId: string, phaseId: string, options?: any): AxiosPromise<DeleteSalePhaseResponse> {
+        deleteSalePhase(appId: string, collectionId: string, phaseId: string, options?: any): ApiPromise<DeleteSalePhaseResponse> {
             return localVarFp.deleteSalePhase(appId, collectionId, phaseId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -8125,7 +8125,7 @@ export const NFTsSalePhasesApiFactory = function (configuration?: Configuration,
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        nftCreateSale(appId: string, collectionId: string, createSalePhaseRequest?: CreateSalePhaseRequest, options?: any): AxiosPromise<CreateSalePhaseResponse> {
+        nftCreateSale(appId: string, collectionId: string, createSalePhaseRequest?: CreateSalePhaseRequest, options?: any): ApiPromise<CreateSalePhaseResponse> {
             return localVarFp.nftCreateSale(appId, collectionId, createSalePhaseRequest, options).then((request) => request(axios, basePath));
         },
         /**
@@ -8137,7 +8137,7 @@ export const NFTsSalePhasesApiFactory = function (configuration?: Configuration,
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        retrieveSalePhase(appId: string, collectionId: string, phaseId: string, options?: any): AxiosPromise<RetrieveSalePhaseResponse> {
+        retrieveSalePhase(appId: string, collectionId: string, phaseId: string, options?: any): ApiPromise<RetrieveSalePhaseResponse> {
             return localVarFp.retrieveSalePhase(appId, collectionId, phaseId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -8148,7 +8148,7 @@ export const NFTsSalePhasesApiFactory = function (configuration?: Configuration,
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        retrieveSalePhases(appId: string, collectionId: string, options?: any): AxiosPromise<ListSalePhasesResponse> {
+        retrieveSalePhases(appId: string, collectionId: string, options?: any): ApiPromise<ListSalePhasesResponse> {
             return localVarFp.retrieveSalePhases(appId, collectionId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -8162,7 +8162,7 @@ export const NFTsSalePhasesApiFactory = function (configuration?: Configuration,
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateAffiliate(appId: string, collectionId: string, phaseId: string, affiliateId: string, createAffiliateRequest?: CreateAffiliateRequest, options?: any): AxiosPromise<RetrieveSalePhaseResponse> {
+        updateAffiliate(appId: string, collectionId: string, phaseId: string, affiliateId: string, createAffiliateRequest?: CreateAffiliateRequest, options?: any): ApiPromise<RetrieveSalePhaseResponse> {
             return localVarFp.updateAffiliate(appId, collectionId, phaseId, affiliateId, createAffiliateRequest, options).then((request) => request(axios, basePath));
         },
         /**
@@ -8175,7 +8175,7 @@ export const NFTsSalePhasesApiFactory = function (configuration?: Configuration,
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateSalePhase(appId: string, collectionId: string, phaseId: string, createSalePhaseRequest?: CreateSalePhaseRequest, options?: any): AxiosPromise<RetrieveSalePhaseResponse> {
+        updateSalePhase(appId: string, collectionId: string, phaseId: string, createSalePhaseRequest?: CreateSalePhaseRequest, options?: any): ApiPromise<RetrieveSalePhaseResponse> {
             return localVarFp.updateSalePhase(appId, collectionId, phaseId, createSalePhaseRequest, options).then((request) => request(axios, basePath));
         },
     };
@@ -8527,7 +8527,7 @@ export const NFTsSalesApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async cancelNftSale(appId: string, collectionId: string, tokenId: string, saleId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CancelNftSaleResponse>> {
+        async cancelNftSale(appId: string, collectionId: string, tokenId: string, saleId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<CancelNftSaleResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.cancelNftSale(appId, collectionId, tokenId, saleId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -8540,7 +8540,7 @@ export const NFTsSalesApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createNftSale(appId: string, collectionId: string, createNftSaleRequest?: CreateNftSaleRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateNftSaleResponse>> {
+        async createNftSale(appId: string, collectionId: string, createNftSaleRequest?: CreateNftSaleRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<CreateNftSaleResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createNftSale(appId, collectionId, createNftSaleRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -8555,7 +8555,7 @@ export const NFTsSalesApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listNftSales(appId: string, collectionId: string, order?: string, size?: number, cursor?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListNftSalesResponse>> {
+        async listNftSales(appId: string, collectionId: string, order?: string, size?: number, cursor?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<ListNftSalesResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listNftSales(appId, collectionId, order, size, cursor, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -8568,7 +8568,7 @@ export const NFTsSalesApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async retrieveNFTSale(appId: string, collectionId: string, salesId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveNftSaleResponse>> {
+        async retrieveNFTSale(appId: string, collectionId: string, salesId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<RetrieveNftSaleResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveNFTSale(appId, collectionId, salesId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -8592,7 +8592,7 @@ export const NFTsSalesApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        cancelNftSale(appId: string, collectionId: string, tokenId: string, saleId: string, options?: any): AxiosPromise<CancelNftSaleResponse> {
+        cancelNftSale(appId: string, collectionId: string, tokenId: string, saleId: string, options?: any): ApiPromise<CancelNftSaleResponse> {
             return localVarFp.cancelNftSale(appId, collectionId, tokenId, saleId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -8604,7 +8604,7 @@ export const NFTsSalesApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createNftSale(appId: string, collectionId: string, createNftSaleRequest?: CreateNftSaleRequest, options?: any): AxiosPromise<CreateNftSaleResponse> {
+        createNftSale(appId: string, collectionId: string, createNftSaleRequest?: CreateNftSaleRequest, options?: any): ApiPromise<CreateNftSaleResponse> {
             return localVarFp.createNftSale(appId, collectionId, createNftSaleRequest, options).then((request) => request(axios, basePath));
         },
         /**
@@ -8618,7 +8618,7 @@ export const NFTsSalesApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listNftSales(appId: string, collectionId: string, order?: string, size?: number, cursor?: string, options?: any): AxiosPromise<ListNftSalesResponse> {
+        listNftSales(appId: string, collectionId: string, order?: string, size?: number, cursor?: string, options?: any): ApiPromise<ListNftSalesResponse> {
             return localVarFp.listNftSales(appId, collectionId, order, size, cursor, options).then((request) => request(axios, basePath));
         },
         /**
@@ -8630,7 +8630,7 @@ export const NFTsSalesApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        retrieveNFTSale(appId: string, collectionId: string, salesId: string, options?: any): AxiosPromise<RetrieveNftSaleResponse> {
+        retrieveNFTSale(appId: string, collectionId: string, salesId: string, options?: any): ApiPromise<RetrieveNftSaleResponse> {
             return localVarFp.retrieveNFTSale(appId, collectionId, salesId, options).then((request) => request(axios, basePath));
         },
     };
@@ -8913,7 +8913,7 @@ export const NFTsTokensApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteNft(appId: string, collectionId: string, tokenId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteNftResponse>> {
+        async deleteNft(appId: string, collectionId: string, tokenId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<DeleteNftResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteNft(appId, collectionId, tokenId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -8926,7 +8926,7 @@ export const NFTsTokensApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async nftCreateNft(appId: string, collectionId: string, createNftRequest?: CreateNftRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateNftResponse>> {
+        async nftCreateNft(appId: string, collectionId: string, createNftRequest?: CreateNftRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<CreateNftResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.nftCreateNft(appId, collectionId, createNftRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -8939,7 +8939,7 @@ export const NFTsTokensApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async retrieveNFT(appId: string, collectionId: string, tokenId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NftToken>> {
+        async retrieveNFT(appId: string, collectionId: string, tokenId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<NftToken>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveNFT(appId, collectionId, tokenId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -8953,7 +8953,7 @@ export const NFTsTokensApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateNFT(appId: string, collectionId: string, tokenId: string, updateNftRequest?: UpdateNftRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateNftResponse>> {
+        async updateNFT(appId: string, collectionId: string, tokenId: string, updateNftRequest?: UpdateNftRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<CreateNftResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateNFT(appId, collectionId, tokenId, updateNftRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -8976,7 +8976,7 @@ export const NFTsTokensApiFactory = function (configuration?: Configuration, bas
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteNft(appId: string, collectionId: string, tokenId: string, options?: any): AxiosPromise<DeleteNftResponse> {
+        deleteNft(appId: string, collectionId: string, tokenId: string, options?: any): ApiPromise<DeleteNftResponse> {
             return localVarFp.deleteNft(appId, collectionId, tokenId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -8988,7 +8988,7 @@ export const NFTsTokensApiFactory = function (configuration?: Configuration, bas
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        nftCreateNft(appId: string, collectionId: string, createNftRequest?: CreateNftRequest, options?: any): AxiosPromise<CreateNftResponse> {
+        nftCreateNft(appId: string, collectionId: string, createNftRequest?: CreateNftRequest, options?: any): ApiPromise<CreateNftResponse> {
             return localVarFp.nftCreateNft(appId, collectionId, createNftRequest, options).then((request) => request(axios, basePath));
         },
         /**
@@ -9000,7 +9000,7 @@ export const NFTsTokensApiFactory = function (configuration?: Configuration, bas
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        retrieveNFT(appId: string, collectionId: string, tokenId: string, options?: any): AxiosPromise<NftToken> {
+        retrieveNFT(appId: string, collectionId: string, tokenId: string, options?: any): ApiPromise<NftToken> {
             return localVarFp.retrieveNFT(appId, collectionId, tokenId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -9013,7 +9013,7 @@ export const NFTsTokensApiFactory = function (configuration?: Configuration, bas
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateNFT(appId: string, collectionId: string, tokenId: string, updateNftRequest?: UpdateNftRequest, options?: any): AxiosPromise<CreateNftResponse> {
+        updateNFT(appId: string, collectionId: string, tokenId: string, updateNftRequest?: UpdateNftRequest, options?: any): ApiPromise<CreateNftResponse> {
             return localVarFp.updateNFT(appId, collectionId, tokenId, updateNftRequest, options).then((request) => request(axios, basePath));
         },
     };
@@ -9160,7 +9160,7 @@ export const PolicyApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAssetByPolicy(appId: string, version: string, policyId: string, size?: number, cursor?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListPolicyAssetsResponse>> {
+        async getAssetByPolicy(appId: string, version: string, policyId: string, size?: number, cursor?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<ListPolicyAssetsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAssetByPolicy(appId, version, policyId, size, cursor, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -9182,7 +9182,7 @@ export const PolicyApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAssetByPolicy(appId: string, policyId: string, options?: any): AxiosPromise<ListPolicyAssetsResponse> {
+        getAssetByPolicy(appId: string, policyId: string, options?: any): ApiPromise<ListPolicyAssetsResponse> {
             return localVarFp.getAssetByPolicy(appId, policyId, options).then((request) => request(axios, basePath));
         },
     };
@@ -9319,7 +9319,7 @@ export const PoolsApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async stakePoolDelegations(appId: string, version: string, poolId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListPoolDelegationsResponse>> {
+        async stakePoolDelegations(appId: string, version: string, poolId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<ListPoolDelegationsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.stakePoolDelegations(appId, version, poolId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -9333,7 +9333,7 @@ export const PoolsApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async stakePoolMetadata(appId: string, version: string, poolId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrievePoolMetadataResponse>> {
+        async stakePoolMetadata(appId: string, version: string, poolId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<RetrievePoolMetadataResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.stakePoolMetadata(appId, version, poolId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -9355,7 +9355,7 @@ export const PoolsApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        stakePoolDelegations(appId: string, poolId: string, options?: any): AxiosPromise<ListPoolDelegationsResponse> {
+        stakePoolDelegations(appId: string, poolId: string, options?: any): ApiPromise<ListPoolDelegationsResponse> {
             return localVarFp.stakePoolDelegations(appId, poolId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -9366,7 +9366,7 @@ export const PoolsApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        stakePoolMetadata(appId: string, poolId: string, options?: any): AxiosPromise<RetrievePoolMetadataResponse> {
+        stakePoolMetadata(appId: string, poolId: string, options?: any): ApiPromise<RetrievePoolMetadataResponse> {
             return localVarFp.stakePoolMetadata(appId, poolId, options).then((request) => request(axios, basePath));
         },
     };
@@ -9638,7 +9638,7 @@ export const TransactionsApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async buildTransaction(appId: string, version: string, buildTxRequest?: BuildTxRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BuildTxResponse>> {
+        async buildTransaction(appId: string, version: string, buildTxRequest?: BuildTxRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<BuildTxResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.buildTransaction(appId, version, buildTxRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -9652,7 +9652,7 @@ export const TransactionsApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getTransaction(appId: string, version: string, hash: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveTransactionResponse>> {
+        async getTransaction(appId: string, version: string, hash: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<RetrieveTransactionResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getTransaction(appId, version, hash, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -9666,7 +9666,7 @@ export const TransactionsApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getTransactionMetadata(appId: string, version: string, hash: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveTransactionMetadataResponse>> {
+        async getTransactionMetadata(appId: string, version: string, hash: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<RetrieveTransactionMetadataResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getTransactionMetadata(appId, version, hash, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -9680,7 +9680,7 @@ export const TransactionsApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listTransactionUtxos(appId: string, version: string, hash: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListTransactionUtxosResponse>> {
+        async listTransactionUtxos(appId: string, version: string, hash: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<ListTransactionUtxosResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listTransactionUtxos(appId, version, hash, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -9694,7 +9694,7 @@ export const TransactionsApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async submitTransaction(appId: string, version: string, subitTansactionRequest?: SubmitTansactionRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SubitTansactionResponse>> {
+        async submitTransaction(appId: string, version: string, subitTansactionRequest?: SubmitTansactionRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<SubitTansactionResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.submitTransaction(appId, version, subitTansactionRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -9717,7 +9717,7 @@ export const TransactionsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        buildTransaction(appId: string, version: string, buildTxRequest?: BuildTxRequest, options?: any): AxiosPromise<BuildTxResponse> {
+        buildTransaction(appId: string, version: string, buildTxRequest?: BuildTxRequest, options?: any): ApiPromise<BuildTxResponse> {
             return localVarFp.buildTransaction(appId, version, buildTxRequest, options).then((request) => request(axios, basePath));
         },
         /**
@@ -9728,7 +9728,7 @@ export const TransactionsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTransaction(appId: string, hash: string, options?: any): AxiosPromise<RetrieveTransactionResponse> {
+        getTransaction(appId: string, hash: string, options?: any): ApiPromise<RetrieveTransactionResponse> {
             return localVarFp.getTransaction(appId, hash, options).then((request) => request(axios, basePath));
         },
         /**
@@ -9739,7 +9739,7 @@ export const TransactionsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTransactionMetadata(appId: string, hash: string, options?: any): AxiosPromise<RetrieveTransactionMetadataResponse> {
+        getTransactionMetadata(appId: string, hash: string, options?: any): ApiPromise<RetrieveTransactionMetadataResponse> {
             return localVarFp.getTransactionMetadata(appId, hash, options).then((request) => request(axios, basePath));
         },
         /**
@@ -9750,7 +9750,7 @@ export const TransactionsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listTransactionUtxos(appId: string, hash: string, options?: any): AxiosPromise<ListTransactionUtxosResponse> {
+        listTransactionUtxos(appId: string, hash: string, options?: any): ApiPromise<ListTransactionUtxosResponse> {
             return localVarFp.listTransactionUtxos(appId, hash, options).then((request) => request(axios, basePath));
         },
         /**
@@ -9762,7 +9762,7 @@ export const TransactionsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        submitTransaction(appId: string, version: string, subitTansactionRequest?: SubmitTansactionRequest, options?: any): AxiosPromise<SubitTansactionResponse> {
+        submitTransaction(appId: string, version: string, subitTansactionRequest?: SubmitTansactionRequest, options?: any): ApiPromise<SubitTansactionResponse> {
             return localVarFp.submitTransaction(appId, version, subitTansactionRequest, options).then((request) => request(axios, basePath));
         },
     };
@@ -9968,7 +9968,7 @@ export const WalletsApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getWalletsStake(appId: string, version: string, stakeAddress: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveWalletSummaryResponse>> {
+        async getWalletsStake(appId: string, version: string, stakeAddress: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<RetrieveWalletSummaryResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getWalletsStake(appId, version, stakeAddress, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -9985,7 +9985,7 @@ export const WalletsApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listStakeAddressAddresses(appId: string, version: string, stakeAddress: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListWalletAddressesResponse>> {
+        async listStakeAddressAddresses(appId: string, version: string, stakeAddress: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<ListWalletAddressesResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listStakeAddressAddresses(appId, version, stakeAddress, size, cursor, order, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -10008,7 +10008,7 @@ export const WalletsApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getWalletsStake(appId: string, version: string, stakeAddress: string, options?: any): AxiosPromise<RetrieveWalletSummaryResponse> {
+        getWalletsStake(appId: string, version: string, stakeAddress: string, options?: any): ApiPromise<RetrieveWalletSummaryResponse> {
             return localVarFp.getWalletsStake(appId, version, stakeAddress, options).then((request) => request(axios, basePath));
         },
 
@@ -10024,7 +10024,7 @@ export const WalletsApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listStakeAddressAddresses(appId: string, version: string, stakeAddress: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: any): AxiosPromise<ListWalletAddressesResponse> {
+        listStakeAddressAddresses(appId: string, version: string, stakeAddress: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: any): ApiPromise<ListWalletAddressesResponse> {
             return localVarFp.listStakeAddressAddresses(appId, version, stakeAddress, size, cursor, order, options).then((request) => request(axios, basePath));
         },
     };
@@ -10313,7 +10313,7 @@ export const WebhooksApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createWebhook(appId: string, version: string, createWebhookRequest?: CreateWebhookRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateWebhooksResponse>> {
+        async createWebhook(appId: string, version: string, createWebhookRequest?: CreateWebhookRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<CreateWebhooksResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createWebhook(appId, version, createWebhookRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -10327,7 +10327,7 @@ export const WebhooksApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteWebhook(appId: string, version: string, webhookId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteWebhookResponse>> {
+        async deleteWebhook(appId: string, version: string, webhookId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<DeleteWebhookResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteWebhook(appId, version, webhookId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -10342,7 +10342,7 @@ export const WebhooksApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listWebhooks(appId: string, version: string, size?: number, cursor?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListWebhooksResponse>> {
+        async listWebhooks(appId: string, version: string, size?: number, cursor?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<ListWebhooksResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listWebhooks(appId, version, size, cursor, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -10356,7 +10356,7 @@ export const WebhooksApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async retrieveWebhook(appId: string, version: string, webhookId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveWebhookResponse>> {
+        async retrieveWebhook(appId: string, version: string, webhookId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<RetrieveWebhookResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveWebhook(appId, version, webhookId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -10371,7 +10371,7 @@ export const WebhooksApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateWebhook(appId: string, version: string, webhookId: string, updateWebhookRequest?: UpdateWebhookRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UpdateWebhookResponse>> {
+        async updateWebhook(appId: string, version: string, webhookId: string, updateWebhookRequest?: UpdateWebhookRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<UpdateWebhookResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateWebhook(appId, version, webhookId, updateWebhookRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -10394,7 +10394,7 @@ export const WebhooksApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createWebhook(appId: string, version: string, createWebhookRequest?: CreateWebhookRequest, options?: any): AxiosPromise<CreateWebhooksResponse> {
+        createWebhook(appId: string, version: string, createWebhookRequest?: CreateWebhookRequest, options?: any): ApiPromise<CreateWebhooksResponse> {
             return localVarFp.createWebhook(appId, version, createWebhookRequest, options).then((request) => request(axios, basePath));
         },
 
@@ -10407,7 +10407,7 @@ export const WebhooksApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteWebhook(appId: string, version: string, webhookId: string, options?: any): AxiosPromise<DeleteWebhookResponse> {
+        deleteWebhook(appId: string, version: string, webhookId: string, options?: any): ApiPromise<DeleteWebhookResponse> {
             return localVarFp.deleteWebhook(appId, version, webhookId, options).then((request) => request(axios, basePath));
         },
 
@@ -10421,7 +10421,7 @@ export const WebhooksApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listWebhooks(appId: string, version: string, size?: number, cursor?: string, options?: any): AxiosPromise<ListWebhooksResponse> {
+        listWebhooks(appId: string, version: string, size?: number, cursor?: string, options?: any): ApiPromise<ListWebhooksResponse> {
             return localVarFp.listWebhooks(appId, version, size, cursor, options).then((request) => request(axios, basePath));
         },
 
@@ -10434,7 +10434,7 @@ export const WebhooksApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        retrieveWebhook(appId: string, version: string, webhookId: string, options?: any): AxiosPromise<RetrieveWebhookResponse> {
+        retrieveWebhook(appId: string, version: string, webhookId: string, options?: any): ApiPromise<RetrieveWebhookResponse> {
             return localVarFp.retrieveWebhook(appId, version, webhookId, options).then((request) => request(axios, basePath));
         },
 
@@ -10448,7 +10448,7 @@ export const WebhooksApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateWebhook(appId: string, version: string, webhookId: string, updateWebhookRequest?: UpdateWebhookRequest, options?: any): AxiosPromise<UpdateWebhookResponse> {
+        updateWebhook(appId: string, version: string, webhookId: string, updateWebhookRequest?: UpdateWebhookRequest, options?: any): ApiPromise<UpdateWebhookResponse> {
             return localVarFp.updateWebhook(appId, version, webhookId, updateWebhookRequest, options).then((request) => request(axios, basePath));
         },
     };

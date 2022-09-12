@@ -11,7 +11,8 @@ export class WalletApi {
         this.config = config;
         const configuration = new Configuration({
             apiKey: config.apiKey,
-            basePath: config.basePath
+            basePath: config.basePath,
+            maxAttempts: config.maxAttempts
         })
 
         // initialize api
@@ -26,7 +27,7 @@ export class WalletApi {
      * @memberof WalletsApi
      */
       public getWalletsStake(stakeAddress: string) {
-        return this.walletsApi.getWalletsStake(this.config.appId, this.config.version, stakeAddress).then(response => response.data);
+        return this.walletsApi.getWalletsStake(this.config.appId, this.config.version, stakeAddress);
     }
 
     /**
@@ -40,6 +41,6 @@ export class WalletApi {
      * @memberof WalletsApi
      */
     public listStakeAddressAddresses(stakeAddress: string, size?: number, cursor?: string, order?: 'asc' | 'desc') {
-        return this.walletsApi.listStakeAddressAddresses(this.config.appId, this.config.version, stakeAddress, size, cursor, order).then(response => response.data);
+        return this.walletsApi.listStakeAddressAddresses(this.config.appId, this.config.version, stakeAddress, size, cursor, order);
     }
 }

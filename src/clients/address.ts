@@ -11,7 +11,8 @@ export class AddressApi {
         this.config = config;
         const configuration = new Configuration({
             apiKey: config.apiKey,
-            basePath: config.basePath
+            basePath: config.basePath,
+            maxAttempts: config.maxAttempts
         })
 
         // initialize api
@@ -26,7 +27,7 @@ export class AddressApi {
      * @memberof AddressesApi
      */
     public getAddressSummary(address: string) {
-        return this.addressesApi.getAddressSummary(this.config.appId, this.config.version, address).then(response => response.data);
+        return this.addressesApi.getAddressSummary(this.config.appId, this.config.version, address);
     }
 
     /**
@@ -40,7 +41,7 @@ export class AddressApi {
      * @memberof AddressesApi
      */
     public listAddressAssets(address: string, size?: number, cursor?: string, order?: 'asc' | 'desc') {
-        return this.addressesApi.listAddressAssets(this.config.appId, this.config.version, address, size, cursor, order).then(response => response.data);
+        return this.addressesApi.listAddressAssets(this.config.appId, this.config.version, address, size, cursor, order);
     }
 
     /**
@@ -54,7 +55,7 @@ export class AddressApi {
      * @memberof AddressesApi
      */
     public listAddressTransactions(address: string, size?: number, cursor?: string, order?: 'asc' | 'desc') {
-        return this.addressesApi.listAddressTransactions(this.config.appId, this.config.version, address, size, cursor, order).then(response => response.data);
+        return this.addressesApi.listAddressTransactions(this.config.appId, this.config.version, address, size, cursor, order);
     }
 
     /**
@@ -68,6 +69,6 @@ export class AddressApi {
      * @memberof AddressesApi
      */
     public listAddressUtxos(address: string, size?: number, cursor?: string, order?: 'asc' | 'desc') {
-        return this.addressesApi.listAddressUtxos(this.config.appId, this.config.version, address, size, cursor, order).then(response => response.data);
+        return this.addressesApi.listAddressUtxos(this.config.appId, this.config.version, address, size, cursor, order);
     }
 }

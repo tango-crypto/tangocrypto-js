@@ -9,19 +9,22 @@ import { PoolApi } from "./pools";
 import { EpochApi } from "./epochs";
 import { PolicyApi } from "./policies";
 import { WebhookApi } from "./webhooks";
+import { DEFAULT_MAX_ATTEMPTS } from "../../utils/constants";
 
 export interface ClientConfiguration {
     apiKey: string;
     appId: string;
     basePath?: string;
     version?: string;
+    maxAttempts?: number;
 }
 
 const defaultConfig: ClientConfiguration = {
     apiKey: '',
     appId: '',
     basePath: BASE_PATH,
-    version: V1
+    version: V1,
+    maxAttempts: DEFAULT_MAX_ATTEMPTS
 }
 
 export class ApiClient {
