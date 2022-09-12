@@ -1,6 +1,6 @@
 import { AxiosInstance } from "axios";
 import { ClientConfiguration } from ".";
-import { AddressesApi, CreateCollectionRequest, NFTsAddressListApi, NFTsCollectionsApi, NFTsSalePhasesApi, NFTsSalesApi, NFTsTokensApi, UpdateCollectionRequest } from "../api";
+import { AddressesApi, CreateCollectionRequest, CreateNftRequest, NFTsAddressListApi, NFTsCollectionsApi, NFTsSalePhasesApi, NFTsSalesApi, NFTsTokensApi, UpdateCollectionRequest, UpdateNftRequest } from "../api";
 import { Configuration } from "../configuration";
 
 export class NftApi {
@@ -101,5 +101,58 @@ export class NftApi {
      */
     public updateNftCollection(collectionId: string, updateCollectionRequest?: UpdateCollectionRequest) {
         return this.collectionsApi.updateNftCollection(this.config.appId, this.config.version, collectionId, updateCollectionRequest);
+    }
+
+
+
+    /** TOKEN SECTION */
+
+    /**
+     * Delete an NFT in your Tangocrypto account.
+     * @summary Delete NFT
+     * @param {string} collectionId Collection ID
+     * @param {string} tokenId NFT id within your Tangocrypto account.
+     * @throws {RequiredError}
+     * @memberof NFTsTokensApi
+     */
+    public deleteNft(collectionId: string, tokenId: string) {
+        return this.tokensApi.deleteNft(this.config.appId, this.config.version, collectionId, tokenId);
+    }
+
+    /**
+     * Create NFT in a Collection 
+     * @summary Create NFT
+     * @param {string} collectionId Collection ID.
+     * @param {CreateNftRequest} [createNftRequest] 
+     * @throws {RequiredError}
+     * @memberof NFTsTokensApi
+     */
+    public nftCreateNft(collectionId: string, createNftRequest?: CreateNftRequest) {
+        return this.tokensApi.nftCreateNft(this.config.appId, this.config.version, collectionId, createNftRequest);
+    }
+
+    /**
+     * Returns details for a single NFT.
+     * @summary Retrieve NFT
+     * @param {string} collectionId Collection ID
+     * @param {string} tokenId NFT id within your Tangocrypto account.
+     * @throws {RequiredError}
+     * @memberof NFTsTokensApi
+     */
+    public retrieveNFT(collectionId: string, tokenId: string) {
+        return this.tokensApi.retrieveNFT(this.config.appId, this.config.version, collectionId, tokenId);
+    }
+
+    /**
+     * Updates the NFT with the supplied parameters. The ones not provided  remain with the same value.
+     * @summary Update NFT
+     * @param {string} collectionId Collection ID
+     * @param {string} tokenId NFT id within your Tangocrypto account.
+     * @param {UpdateNftRequest} [updateNftRequest] 
+     * @throws {RequiredError}
+     * @memberof NFTsTokensApi
+     */
+    public updateNFT(collectionId: string, tokenId: string, updateNftRequest?: UpdateNftRequest) {
+        return this.tokensApi.updateNFT(this.config.appId, this.config.version, collectionId, tokenId, updateNftRequest);
     }
 }

@@ -58,4 +58,31 @@ describe('Nfts API endpoints', function () {
         // assert
         expect(response.result.id).equal(id);
     })
+
+    it('should get collection nfts', async () => {
+        // arrange
+        const id = '01g6s9wsjb3mrzgtfsy8btwy3f';
+
+        // act
+        const response = await api.getCollectionNfts(id);
+
+        // assert
+        expect(response.result.data).instanceOf(Array);
+    })
+
+    it('should get collection\'s nft', async () => {
+        // arrange
+        const collectionId = '01g6s9wsjb3mrzgtfsy8btwy3f';
+        const id = '01g7wtgnzy8q4bhjj9g6sj39ky';
+
+        // act
+        const response = await api.retrieveNFT(collectionId, id);
+
+        // assert
+        expect(response.result.id).equal(id);
+    })
+
+    
+
+
 })

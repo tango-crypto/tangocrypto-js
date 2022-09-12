@@ -8743,22 +8743,20 @@ export const NFTsTokensApiAxiosParamCreator = function (configuration?: Configur
          * Delete an NFT in your Tangocrypto account.
          * @summary Delete NFT
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
          * @param {string} collectionId Collection ID
          * @param {string} tokenId NFT id within your Tangocrypto account.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteNft: async (appId: string, collectionId: string, tokenId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        deleteNft: async (appId: string, version: string, collectionId: string, tokenId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('deleteNft', 'appId', appId)
             // verify required parameter 'collectionId' is not null or undefined
             assertParamExists('deleteNft', 'collectionId', collectionId)
             // verify required parameter 'tokenId' is not null or undefined
             assertParamExists('deleteNft', 'tokenId', tokenId)
-            const localVarPath = `/{app_id}/v1/nft/collections/{collection_id}/tokens/{token_id}`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)))
-                .replace(`{${"collection_id"}}`, encodeURIComponent(String(collectionId)))
-                .replace(`{${"token_id"}}`, encodeURIComponent(String(tokenId)));
+            const localVarPath = buildPath(appId, version, 'nft', 'collections', collectionId, 'tokens', tokenId);
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -8784,23 +8782,23 @@ export const NFTsTokensApiAxiosParamCreator = function (configuration?: Configur
                 options: localVarRequestOptions,
             };
         },
+
         /**
          * Create NFT in a Collection 
          * @summary Create NFT
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} collectionId Collection ID.
          * @param {CreateNftRequest} [createNftRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        nftCreateNft: async (appId: string, collectionId: string, createNftRequest?: CreateNftRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        nftCreateNft: async (appId: string, version: string, collectionId: string, createNftRequest?: CreateNftRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('nftCreateNft', 'appId', appId)
             // verify required parameter 'collectionId' is not null or undefined
             assertParamExists('nftCreateNft', 'collectionId', collectionId)
-            const localVarPath = `/{app_id}/v1/nft/collections/{collection_id}/tokens`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)))
-                .replace(`{${"collection_id"}}`, encodeURIComponent(String(collectionId)));
+            const localVarPath = buildPath(appId, version, 'nft', 'collections', collectionId, 'tokens');
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -8829,26 +8827,25 @@ export const NFTsTokensApiAxiosParamCreator = function (configuration?: Configur
                 options: localVarRequestOptions,
             };
         },
+
         /**
          * Returns details for a single NFT.
          * @summary Retrieve NFT
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} collectionId Collection ID
          * @param {string} tokenId NFT id within your Tangocrypto account.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        retrieveNFT: async (appId: string, collectionId: string, tokenId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        retrieveNFT: async (appId: string, version: string, collectionId: string, tokenId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('retrieveNFT', 'appId', appId)
             // verify required parameter 'collectionId' is not null or undefined
             assertParamExists('retrieveNFT', 'collectionId', collectionId)
             // verify required parameter 'tokenId' is not null or undefined
             assertParamExists('retrieveNFT', 'tokenId', tokenId)
-            const localVarPath = `/{app_id}/v1/nft/collections/{collection_id}/tokens/{token_id}`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)))
-                .replace(`{${"collection_id"}}`, encodeURIComponent(String(collectionId)))
-                .replace(`{${"token_id"}}`, encodeURIComponent(String(tokenId)));
+            const localVarPath = buildPath(appId, version, 'nft', 'collections', collectionId, 'tokens', tokenId);
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -8874,27 +8871,26 @@ export const NFTsTokensApiAxiosParamCreator = function (configuration?: Configur
                 options: localVarRequestOptions,
             };
         },
+
         /**
          * Updates the NFT with the supplied parameters. The ones not provided  remain with the same value.
          * @summary Update NFT
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} collectionId Collection ID
          * @param {string} tokenId NFT id within your Tangocrypto account.
          * @param {UpdateNftRequest} [updateNftRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateNFT: async (appId: string, collectionId: string, tokenId: string, updateNftRequest?: UpdateNftRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        updateNFT: async (appId: string, version: string, collectionId: string, tokenId: string, updateNftRequest?: UpdateNftRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('updateNFT', 'appId', appId)
             // verify required parameter 'collectionId' is not null or undefined
             assertParamExists('updateNFT', 'collectionId', collectionId)
             // verify required parameter 'tokenId' is not null or undefined
             assertParamExists('updateNFT', 'tokenId', tokenId)
-            const localVarPath = `/{app_id}/v1/nft/collections/{collection_id}/tokens/{token_id}`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)))
-                .replace(`{${"collection_id"}}`, encodeURIComponent(String(collectionId)))
-                .replace(`{${"token_id"}}`, encodeURIComponent(String(tokenId)));
+            const localVarPath = buildPath(appId, version, 'nft', 'collections', collectionId, 'tokens', tokenId);
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -8937,53 +8933,60 @@ export const NFTsTokensApiFp = function (configuration?: Configuration) {
          * Delete an NFT in your Tangocrypto account.
          * @summary Delete NFT
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
          * @param {string} collectionId Collection ID
          * @param {string} tokenId NFT id within your Tangocrypto account.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteNft(appId: string, collectionId: string, tokenId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<DeleteNftResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteNft(appId, collectionId, tokenId, options);
+        async deleteNft(appId: string, version: string, collectionId: string, tokenId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<DeleteNftResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteNft(appId, version, collectionId, tokenId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+
         /**
          * Create NFT in a Collection 
          * @summary Create NFT
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} collectionId Collection ID.
          * @param {CreateNftRequest} [createNftRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async nftCreateNft(appId: string, collectionId: string, createNftRequest?: CreateNftRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<CreateNftResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.nftCreateNft(appId, collectionId, createNftRequest, options);
+        async nftCreateNft(appId: string, version: string, collectionId: string, createNftRequest?: CreateNftRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<CreateNftResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.nftCreateNft(appId, version, collectionId, createNftRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+
         /**
          * Returns details for a single NFT.
          * @summary Retrieve NFT
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} collectionId Collection ID
          * @param {string} tokenId NFT id within your Tangocrypto account.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async retrieveNFT(appId: string, collectionId: string, tokenId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<NftToken>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveNFT(appId, collectionId, tokenId, options);
+        async retrieveNFT(appId: string, version: string, collectionId: string, tokenId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<NftToken>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveNFT(appId, version, collectionId, tokenId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+
         /**
          * Updates the NFT with the supplied parameters. The ones not provided  remain with the same value.
          * @summary Update NFT
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} collectionId Collection ID
          * @param {string} tokenId NFT id within your Tangocrypto account.
          * @param {UpdateNftRequest} [updateNftRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateNFT(appId: string, collectionId: string, tokenId: string, updateNftRequest?: UpdateNftRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<CreateNftResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateNFT(appId, collectionId, tokenId, updateNftRequest, options);
+        async updateNFT(appId: string, version: string, collectionId: string, tokenId: string, updateNftRequest?: UpdateNftRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<CreateNftResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateNFT(appId, version, collectionId, tokenId, updateNftRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -9000,50 +9003,57 @@ export const NFTsTokensApiFactory = function (configuration?: Configuration, bas
          * Delete an NFT in your Tangocrypto account.
          * @summary Delete NFT
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} collectionId Collection ID
          * @param {string} tokenId NFT id within your Tangocrypto account.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteNft(appId: string, collectionId: string, tokenId: string, options?: any): ApiPromise<DeleteNftResponse> {
-            return localVarFp.deleteNft(appId, collectionId, tokenId, options).then((request) => request(axios, basePath));
+        deleteNft(appId: string, version: string, collectionId: string, tokenId: string, options?: any): ApiPromise<DeleteNftResponse> {
+            return localVarFp.deleteNft(appId, version, collectionId, tokenId, options).then((request) => request(axios, basePath));
         },
+
         /**
          * Create NFT in a Collection 
          * @summary Create NFT
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} collectionId Collection ID.
          * @param {CreateNftRequest} [createNftRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        nftCreateNft(appId: string, collectionId: string, createNftRequest?: CreateNftRequest, options?: any): ApiPromise<CreateNftResponse> {
-            return localVarFp.nftCreateNft(appId, collectionId, createNftRequest, options).then((request) => request(axios, basePath));
+        nftCreateNft(appId: string, version: string, collectionId: string, createNftRequest?: CreateNftRequest, options?: any): ApiPromise<CreateNftResponse> {
+            return localVarFp.nftCreateNft(appId, version, collectionId, createNftRequest, options).then((request) => request(axios, basePath));
         },
+
         /**
          * Returns details for a single NFT.
          * @summary Retrieve NFT
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} collectionId Collection ID
          * @param {string} tokenId NFT id within your Tangocrypto account.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        retrieveNFT(appId: string, collectionId: string, tokenId: string, options?: any): ApiPromise<NftToken> {
-            return localVarFp.retrieveNFT(appId, collectionId, tokenId, options).then((request) => request(axios, basePath));
+        retrieveNFT(appId: string, version: string, collectionId: string, tokenId: string, options?: any): ApiPromise<NftToken> {
+            return localVarFp.retrieveNFT(appId, version, collectionId, tokenId, options).then((request) => request(axios, basePath));
         },
+
         /**
          * Updates the NFT with the supplied parameters. The ones not provided  remain with the same value.
          * @summary Update NFT
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} collectionId Collection ID
          * @param {string} tokenId NFT id within your Tangocrypto account.
          * @param {UpdateNftRequest} [updateNftRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateNFT(appId: string, collectionId: string, tokenId: string, updateNftRequest?: UpdateNftRequest, options?: any): ApiPromise<CreateNftResponse> {
-            return localVarFp.updateNFT(appId, collectionId, tokenId, updateNftRequest, options).then((request) => request(axios, basePath));
+        updateNFT(appId: string, version: string, collectionId: string, tokenId: string, updateNftRequest?: UpdateNftRequest, options?: any): ApiPromise<CreateNftResponse> {
+            return localVarFp.updateNFT(appId, version, collectionId, tokenId, updateNftRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -9059,48 +9069,52 @@ export class NFTsTokensApi extends BaseAPI {
      * Delete an NFT in your Tangocrypto account.
      * @summary Delete NFT
      * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.
      * @param {string} collectionId Collection ID
      * @param {string} tokenId NFT id within your Tangocrypto account.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NFTsTokensApi
      */
-    public deleteNft(appId: string, collectionId: string, tokenId: string, options?: AxiosRequestConfig) {
-        return NFTsTokensApiFp(this.configuration).deleteNft(appId, collectionId, tokenId, options).then((request) => request(this.axios, this.basePath));
+    public deleteNft(appId: string, version: string, collectionId: string, tokenId: string, options?: AxiosRequestConfig) {
+        return NFTsTokensApiFp(this.configuration).deleteNft(appId, version, collectionId, tokenId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Create NFT in a Collection 
      * @summary Create NFT
-     * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} appId Tangocrypto &#x60;app_id&#x60;
+     * @param {string} version Tangocrypto version.     
      * @param {string} collectionId Collection ID.
      * @param {CreateNftRequest} [createNftRequest] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NFTsTokensApi
      */
-    public nftCreateNft(appId: string, collectionId: string, createNftRequest?: CreateNftRequest, options?: AxiosRequestConfig) {
-        return NFTsTokensApiFp(this.configuration).nftCreateNft(appId, collectionId, createNftRequest, options).then((request) => request(this.axios, this.basePath));
+    public nftCreateNft(appId: string, version: string, collectionId: string, createNftRequest?: CreateNftRequest, options?: AxiosRequestConfig) {
+        return NFTsTokensApiFp(this.configuration).nftCreateNft(appId, version, collectionId, createNftRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Returns details for a single NFT.
      * @summary Retrieve NFT
      * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.     
      * @param {string} collectionId Collection ID
      * @param {string} tokenId NFT id within your Tangocrypto account.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NFTsTokensApi
      */
-    public retrieveNFT(appId: string, collectionId: string, tokenId: string, options?: AxiosRequestConfig) {
-        return NFTsTokensApiFp(this.configuration).retrieveNFT(appId, collectionId, tokenId, options).then((request) => request(this.axios, this.basePath));
+    public retrieveNFT(appId: string, version: string, collectionId: string, tokenId: string, options?: AxiosRequestConfig) {
+        return NFTsTokensApiFp(this.configuration).retrieveNFT(appId, version, collectionId, tokenId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Updates the NFT with the supplied parameters. The ones not provided  remain with the same value.
      * @summary Update NFT
      * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.     
      * @param {string} collectionId Collection ID
      * @param {string} tokenId NFT id within your Tangocrypto account.
      * @param {UpdateNftRequest} [updateNftRequest] 
@@ -9108,8 +9122,8 @@ export class NFTsTokensApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NFTsTokensApi
      */
-    public updateNFT(appId: string, collectionId: string, tokenId: string, updateNftRequest?: UpdateNftRequest, options?: AxiosRequestConfig) {
-        return NFTsTokensApiFp(this.configuration).updateNFT(appId, collectionId, tokenId, updateNftRequest, options).then((request) => request(this.axios, this.basePath));
+    public updateNFT(appId: string, version: string, collectionId: string, tokenId: string, updateNftRequest?: UpdateNftRequest, options?: AxiosRequestConfig) {
+        return NFTsTokensApiFp(this.configuration).updateNFT(appId, version, collectionId, tokenId, updateNftRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
