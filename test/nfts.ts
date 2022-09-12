@@ -30,7 +30,7 @@ describe('Nfts API endpoints', function () {
         const size = 5;
 
         // act
-        const response = await api.listNftCollections(size);
+        const response = await api.listCollections(size);
 
         // assert
         expect(response.result.data).lengthOf(5);
@@ -42,7 +42,7 @@ describe('Nfts API endpoints', function () {
         const size = 5;
 
         // act
-        const response = await api.listNftCollections(size, undefined, ids);
+        const response = await api.listCollections(size, undefined, ids);
 
         // assert
         expect(response.result.data).lengthOf(ids.length);
@@ -53,7 +53,7 @@ describe('Nfts API endpoints', function () {
         const id  = '01g6s9wsjb3mrzgtfsy8btwy3f';
 
         // act
-        const response = await api.retrieveNftCollection(id);
+        const response = await api.getCollection(id);
 
         // assert
         expect(response.result.id).equal(id);
@@ -76,13 +76,25 @@ describe('Nfts API endpoints', function () {
         const id = '01g7wtgnzy8q4bhjj9g6sj39ky';
 
         // act
-        const response = await api.retrieveNFT(collectionId, id);
+        const response = await api.getNFT(collectionId, id);
 
         // assert
         expect(response.result.id).equal(id);
     })
 
-    
+    it('should get collection\'s sale', async () => {
+        // arrange
+        const collectionId = '489b4acd87d841b581206991dd295362';
+        const id = '01gb5pmxwmr14sftesdxkzx6qe';
+
+        // act
+        const response = await api.getSale(collectionId, id);
+
+        // assert
+        expect(response.result.id).equal(id);
+    })
+
+
 
 
 })

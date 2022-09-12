@@ -8345,13 +8345,14 @@ export const NFTsSalesApiAxiosParamCreator = function (configuration?: Configura
          * Cancel a sale for a given NFT. When you cancel a sale the status of the NFT will return back to `OPEN`
          * @summary Cancel NFT sale
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
          * @param {string} collectionId Collection ID
          * @param {string} tokenId Token ID
          * @param {string} saleId Sale ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        cancelNftSale: async (appId: string, collectionId: string, tokenId: string, saleId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        cancelNftSale: async (appId: string, version: string, collectionId: string, tokenId: string, saleId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('cancelNftSale', 'appId', appId)
             // verify required parameter 'collectionId' is not null or undefined
@@ -8360,11 +8361,7 @@ export const NFTsSalesApiAxiosParamCreator = function (configuration?: Configura
             assertParamExists('cancelNftSale', 'tokenId', tokenId)
             // verify required parameter 'saleId' is not null or undefined
             assertParamExists('cancelNftSale', 'saleId', saleId)
-            const localVarPath = `/{app_id}/v1/nft/collections/{collection_id}/tokens/{token_id}/sales/{sale_id}/cancel`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)))
-                .replace(`{${"collection_id"}}`, encodeURIComponent(String(collectionId)))
-                .replace(`{${"token_id"}}`, encodeURIComponent(String(tokenId)))
-                .replace(`{${"sale_id"}}`, encodeURIComponent(String(saleId)));
+            const localVarPath = buildPath(appId, version, 'nft', 'collections', collectionId, 'sales', saleId, 'cancel');
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -8390,23 +8387,23 @@ export const NFTsSalesApiAxiosParamCreator = function (configuration?: Configura
                 options: localVarRequestOptions,
             };
         },
+
         /**
          * Create an NFT sale. You can sell multiple tokens in a single sale.
          * @summary Create NFT sale
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} collectionId Collection ID
          * @param {CreateNftSaleRequest} [createNftSaleRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createNftSale: async (appId: string, collectionId: string, createNftSaleRequest?: CreateNftSaleRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        createNftSale: async (appId: string, version: string, collectionId: string, createNftSaleRequest?: CreateNftSaleRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('createNftSale', 'appId', appId)
             // verify required parameter 'collectionId' is not null or undefined
             assertParamExists('createNftSale', 'collectionId', collectionId)
-            const localVarPath = `/{app_id}/v1/nft/collections/{collection_id}/sales`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)))
-                .replace(`{${"collection_id"}}`, encodeURIComponent(String(collectionId)));
+            const localVarPath = buildPath(appId, version, 'nft', 'collections', collectionId, 'sales');
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -8435,10 +8432,12 @@ export const NFTsSalesApiAxiosParamCreator = function (configuration?: Configura
                 options: localVarRequestOptions,
             };
         },
+
         /**
          * Returns a list of Sales for a given collection. The response is paginated to make the result set easier to handle. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next batch of NFTs. To learn more about how pagination works, visit https://docs.tangocrypto.com/rest-api/pagination 
          * @summary List NFT sales
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} collectionId Collection ID
          * @param {string} [order] Use &#x60;asc&#x60; to show the oldest NFT first and &#x60;desc&#x60; to show the most recent NFT first!. If you don\&#39;t specify, this parameter it uses&#x60;desc&#x60; by default.
          * @param {number} [size] The number of NFTs to return in a single page.
@@ -8446,14 +8445,12 @@ export const NFTsSalesApiAxiosParamCreator = function (configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listNftSales: async (appId: string, collectionId: string, order?: string, size?: number, cursor?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        listNftSales: async (appId: string, version: string, collectionId: string, order?: string, size?: number, cursor?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('listNftSales', 'appId', appId)
             // verify required parameter 'collectionId' is not null or undefined
             assertParamExists('listNftSales', 'collectionId', collectionId)
-            const localVarPath = `/{app_id}/v1/nft/collections/{collection_id}/sales`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)))
-                .replace(`{${"collection_id"}}`, encodeURIComponent(String(collectionId)));
+            const localVarPath = buildPath(appId, version, 'nft', 'collections', collectionId, 'sales');
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -8491,26 +8488,25 @@ export const NFTsSalesApiAxiosParamCreator = function (configuration?: Configura
                 options: localVarRequestOptions,
             };
         },
+
         /**
          * Returns details for a single NFT sale. With this endpoint, you can check the remaining reservation time or if the sale is expired. Also, you can check if a customer has made a partial payment or if the total amount was paid. Once the payment is received, the NFT is minted and sent to the buyer\'s wallet address.
          * @summary Retrieve NFT Sale
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} collectionId Collection ID
-         * @param {string} salesId Sales ID
+         * @param {string} saleId Sale ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        retrieveNFTSale: async (appId: string, collectionId: string, salesId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        retrieveNFTSale: async (appId: string, version: string, collectionId: string, saleId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('retrieveNFTSale', 'appId', appId)
             // verify required parameter 'collectionId' is not null or undefined
             assertParamExists('retrieveNFTSale', 'collectionId', collectionId)
-            // verify required parameter 'salesId' is not null or undefined
-            assertParamExists('retrieveNFTSale', 'salesId', salesId)
-            const localVarPath = `/{app_id}/v1/nft/collections/{collection_id}/sales/{sales_id}`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)))
-                .replace(`{${"collection_id"}}`, encodeURIComponent(String(collectionId)))
-                .replace(`{${"sales_id"}}`, encodeURIComponent(String(salesId)));
+            // verify required parameter 'saleId' is not null or undefined
+            assertParamExists('retrieveNFTSale', 'saleId', saleId)
+            const localVarPath = buildPath(appId, version, 'nft', 'collections', collectionId, 'sales', saleId);
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -8550,33 +8546,38 @@ export const NFTsSalesApiFp = function (configuration?: Configuration) {
          * Cancel a sale for a given NFT. When you cancel a sale the status of the NFT will return back to `OPEN`
          * @summary Cancel NFT sale
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
          * @param {string} collectionId Collection ID
          * @param {string} tokenId Token ID
          * @param {string} saleId Sale ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async cancelNftSale(appId: string, collectionId: string, tokenId: string, saleId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<CancelNftSaleResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.cancelNftSale(appId, collectionId, tokenId, saleId, options);
+        async cancelNftSale(appId: string, version: string, collectionId: string, tokenId: string, saleId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<CancelNftSaleResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.cancelNftSale(appId, version, collectionId, tokenId, saleId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+
         /**
          * Create an NFT sale. You can sell multiple tokens in a single sale.
          * @summary Create NFT sale
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} collectionId Collection ID
          * @param {CreateNftSaleRequest} [createNftSaleRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createNftSale(appId: string, collectionId: string, createNftSaleRequest?: CreateNftSaleRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<CreateNftSaleResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createNftSale(appId, collectionId, createNftSaleRequest, options);
+        async createNftSale(appId: string, version: string, collectionId: string, createNftSaleRequest?: CreateNftSaleRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<CreateNftSaleResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createNftSale(appId, version, collectionId, createNftSaleRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+
         /**
          * Returns a list of Sales for a given collection. The response is paginated to make the result set easier to handle. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next batch of NFTs. To learn more about how pagination works, visit https://docs.tangocrypto.com/rest-api/pagination 
          * @summary List NFT sales
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} collectionId Collection ID
          * @param {string} [order] Use &#x60;asc&#x60; to show the oldest NFT first and &#x60;desc&#x60; to show the most recent NFT first!. If you don\&#39;t specify, this parameter it uses&#x60;desc&#x60; by default.
          * @param {number} [size] The number of NFTs to return in a single page.
@@ -8584,21 +8585,23 @@ export const NFTsSalesApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listNftSales(appId: string, collectionId: string, order?: string, size?: number, cursor?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<ListNftSalesResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listNftSales(appId, collectionId, order, size, cursor, options);
+        async listNftSales(appId: string, version: string, collectionId: string, order?: string, size?: number, cursor?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<ListNftSalesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listNftSales(appId, version, collectionId, order, size, cursor, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+
         /**
          * Returns details for a single NFT sale. With this endpoint, you can check the remaining reservation time or if the sale is expired. Also, you can check if a customer has made a partial payment or if the total amount was paid. Once the payment is received, the NFT is minted and sent to the buyer\'s wallet address.
          * @summary Retrieve NFT Sale
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} collectionId Collection ID
          * @param {string} salesId Sales ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async retrieveNFTSale(appId: string, collectionId: string, salesId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<RetrieveNftSaleResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveNFTSale(appId, collectionId, salesId, options);
+        async retrieveNFTSale(appId: string, version: string, collectionId: string, salesId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<RetrieveNftSaleResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveNFTSale(appId, version, collectionId, salesId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -8615,31 +8618,36 @@ export const NFTsSalesApiFactory = function (configuration?: Configuration, base
          * Cancel a sale for a given NFT. When you cancel a sale the status of the NFT will return back to `OPEN`
          * @summary Cancel NFT sale
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
          * @param {string} collectionId Collection ID
          * @param {string} tokenId Token ID
          * @param {string} saleId Sale ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        cancelNftSale(appId: string, collectionId: string, tokenId: string, saleId: string, options?: any): ApiPromise<CancelNftSaleResponse> {
-            return localVarFp.cancelNftSale(appId, collectionId, tokenId, saleId, options).then((request) => request(axios, basePath));
+        cancelNftSale(appId: string, version: string, collectionId: string, tokenId: string, saleId: string, options?: any): ApiPromise<CancelNftSaleResponse> {
+            return localVarFp.cancelNftSale(appId, version, collectionId, tokenId, saleId, options).then((request) => request(axios, basePath));
         },
+
         /**
          * Create an NFT sale. You can sell multiple tokens in a single sale.
          * @summary Create NFT sale
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} collectionId Collection ID
          * @param {CreateNftSaleRequest} [createNftSaleRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createNftSale(appId: string, collectionId: string, createNftSaleRequest?: CreateNftSaleRequest, options?: any): ApiPromise<CreateNftSaleResponse> {
-            return localVarFp.createNftSale(appId, collectionId, createNftSaleRequest, options).then((request) => request(axios, basePath));
+        createNftSale(appId: string, version: string, collectionId: string, createNftSaleRequest?: CreateNftSaleRequest, options?: any): ApiPromise<CreateNftSaleResponse> {
+            return localVarFp.createNftSale(appId, version, collectionId, createNftSaleRequest, options).then((request) => request(axios, basePath));
         },
+
         /**
          * Returns a list of Sales for a given collection. The response is paginated to make the result set easier to handle. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next batch of NFTs. To learn more about how pagination works, visit https://docs.tangocrypto.com/rest-api/pagination 
          * @summary List NFT sales
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} collectionId Collection ID
          * @param {string} [order] Use &#x60;asc&#x60; to show the oldest NFT first and &#x60;desc&#x60; to show the most recent NFT first!. If you don\&#39;t specify, this parameter it uses&#x60;desc&#x60; by default.
          * @param {number} [size] The number of NFTs to return in a single page.
@@ -8647,20 +8655,22 @@ export const NFTsSalesApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listNftSales(appId: string, collectionId: string, order?: string, size?: number, cursor?: string, options?: any): ApiPromise<ListNftSalesResponse> {
-            return localVarFp.listNftSales(appId, collectionId, order, size, cursor, options).then((request) => request(axios, basePath));
+        listNftSales(appId: string, version: string, collectionId: string, order?: string, size?: number, cursor?: string, options?: any): ApiPromise<ListNftSalesResponse> {
+            return localVarFp.listNftSales(appId, version, collectionId, order, size, cursor, options).then((request) => request(axios, basePath));
         },
+
         /**
          * Returns details for a single NFT sale. With this endpoint, you can check the remaining reservation time or if the sale is expired. Also, you can check if a customer has made a partial payment or if the total amount was paid. Once the payment is received, the NFT is minted and sent to the buyer\'s wallet address.
          * @summary Retrieve NFT Sale
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} collectionId Collection ID
          * @param {string} salesId Sales ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        retrieveNFTSale(appId: string, collectionId: string, salesId: string, options?: any): ApiPromise<RetrieveNftSaleResponse> {
-            return localVarFp.retrieveNFTSale(appId, collectionId, salesId, options).then((request) => request(axios, basePath));
+        retrieveNFTSale(appId: string, version: string, collectionId: string, salesId: string, options?: any): ApiPromise<RetrieveNftSaleResponse> {
+            return localVarFp.retrieveNFTSale(appId, version, collectionId, salesId, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -8676,6 +8686,7 @@ export class NFTsSalesApi extends BaseAPI {
      * Cancel a sale for a given NFT. When you cancel a sale the status of the NFT will return back to `OPEN`
      * @summary Cancel NFT sale
      * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.
      * @param {string} collectionId Collection ID
      * @param {string} tokenId Token ID
      * @param {string} saleId Sale ID
@@ -8683,28 +8694,30 @@ export class NFTsSalesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NFTsSalesApi
      */
-    public cancelNftSale(appId: string, collectionId: string, tokenId: string, saleId: string, options?: AxiosRequestConfig) {
-        return NFTsSalesApiFp(this.configuration).cancelNftSale(appId, collectionId, tokenId, saleId, options).then((request) => request(this.axios, this.basePath));
+    public cancelNftSale(appId: string, version: string, collectionId: string, tokenId: string, saleId: string, options?: AxiosRequestConfig) {
+        return NFTsSalesApiFp(this.configuration).cancelNftSale(appId, version, collectionId, tokenId, saleId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Create an NFT sale. You can sell multiple tokens in a single sale.
      * @summary Create NFT sale
      * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.     
      * @param {string} collectionId Collection ID
      * @param {CreateNftSaleRequest} [createNftSaleRequest] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NFTsSalesApi
      */
-    public createNftSale(appId: string, collectionId: string, createNftSaleRequest?: CreateNftSaleRequest, options?: AxiosRequestConfig) {
-        return NFTsSalesApiFp(this.configuration).createNftSale(appId, collectionId, createNftSaleRequest, options).then((request) => request(this.axios, this.basePath));
+    public createNftSale(appId: string, version: string, collectionId: string, createNftSaleRequest?: CreateNftSaleRequest, options?: AxiosRequestConfig) {
+        return NFTsSalesApiFp(this.configuration).createNftSale(appId, version, collectionId, createNftSaleRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Returns a list of Sales for a given collection. The response is paginated to make the result set easier to handle. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next batch of NFTs. To learn more about how pagination works, visit https://docs.tangocrypto.com/rest-api/pagination 
      * @summary List NFT sales
      * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.     
      * @param {string} collectionId Collection ID
      * @param {string} [order] Use &#x60;asc&#x60; to show the oldest NFT first and &#x60;desc&#x60; to show the most recent NFT first!. If you don\&#39;t specify, this parameter it uses&#x60;desc&#x60; by default.
      * @param {number} [size] The number of NFTs to return in a single page.
@@ -8713,22 +8726,23 @@ export class NFTsSalesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NFTsSalesApi
      */
-    public listNftSales(appId: string, collectionId: string, order?: string, size?: number, cursor?: string, options?: AxiosRequestConfig) {
-        return NFTsSalesApiFp(this.configuration).listNftSales(appId, collectionId, order, size, cursor, options).then((request) => request(this.axios, this.basePath));
+    public listNftSales(appId: string, version: string, collectionId: string, order?: string, size?: number, cursor?: string, options?: AxiosRequestConfig) {
+        return NFTsSalesApiFp(this.configuration).listNftSales(appId, version, collectionId, order, size, cursor, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Returns details for a single NFT sale. With this endpoint, you can check the remaining reservation time or if the sale is expired. Also, you can check if a customer has made a partial payment or if the total amount was paid. Once the payment is received, the NFT is minted and sent to the buyer\'s wallet address.
      * @summary Retrieve NFT Sale
      * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.     
      * @param {string} collectionId Collection ID
      * @param {string} salesId Sales ID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NFTsSalesApi
      */
-    public retrieveNFTSale(appId: string, collectionId: string, salesId: string, options?: AxiosRequestConfig) {
-        return NFTsSalesApiFp(this.configuration).retrieveNFTSale(appId, collectionId, salesId, options).then((request) => request(this.axios, this.basePath));
+    public retrieveNFTSale(appId: string, version: string, collectionId: string, salesId: string, options?: AxiosRequestConfig) {
+        return NFTsSalesApiFp(this.configuration).retrieveNFTSale(appId, version, collectionId, salesId, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
