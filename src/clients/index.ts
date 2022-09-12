@@ -10,6 +10,7 @@ import { EpochApi } from "./epochs";
 import { PolicyApi } from "./policies";
 import { WebhookApi } from "./webhooks";
 import { DEFAULT_MAX_ATTEMPTS } from "../../utils/constants";
+import { NftApi } from "./nfts";
 
 export interface ClientConfiguration {
     apiKey: string;
@@ -91,11 +92,19 @@ export class ApiClient {
      public policy(): PolicyApi {
         return new PolicyApi(this.configuration, this.axios);
     }    
+
     /**
      * Get webhook api client
      */
      public webhook(): WebhookApi {
         return new WebhookApi(this.configuration, this.axios);
     }    
+
+    /**
+     * Get nft api client
+     */
+     public nft(): NftApi {
+        return new NftApi(this.configuration, this.axios);
+    } 
 
 }
