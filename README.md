@@ -78,7 +78,7 @@ Where `T` corresponding to the data specific for each endpoint. More info about 
 ```
 
 ## Error Handling
-The errors throws by this lib are `TangocryptoError` instances with the same structure you get from the API.
+The errors throws by this sdk are instances of `TangocryptoError` with the same structure you get from the API.
 ```js
 {
     "status_code": 404,
@@ -86,6 +86,8 @@ The errors throws by this lib are `TangocryptoError` instances with the same str
     "error": "Not Found"
 }
 ``` 
+Check [here](https://www.tangocrypto.com/api-reference/#/errors) for all possible `status_code` and `error`;
+
 `TancryptoError` extends built-in `Error` class, so you can catch it in your code and perform custom logic.
 
 ```js
