@@ -86,7 +86,7 @@ The errors throws by this sdk are instances of `TangocryptoError` with the same 
     "error": "Not Found"
 }
 ``` 
-Check [here](https://www.tangocrypto.com/api-reference/#/errors) for all possible `status_code` and meaning;
+Check [here](https://www.tangocrypto.com/api-reference/#/errors) for all possible `status_code` and meaning.
 
 `TancryptoError` extends built-in `Error` class, so you can catch it in your code and perform custom logic.
 
