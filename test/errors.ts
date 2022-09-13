@@ -56,7 +56,7 @@ describe('Error API endpoints', function () {
         const attempts = response.map(r => r.$metadata.attempts).filter(a => a > 1);
 
         // assert
-        expect(attempts).lengthOf(1);
+        expect(attempts.length).greaterThanOrEqual(1);
     })
 
     it('should reject status 429', async () => {

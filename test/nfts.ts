@@ -21,7 +21,8 @@ describe('Nfts API endpoints', function () {
             basePath: process.env.BASE_PATH,
             apiKey: process.env.API_KEY!,
             appId: process.env.APP_ID!,
-            version: process.env.VERSION
+            version: process.env.VERSION,
+            maxAttempts: 5
         }).nft();
     })
 
@@ -116,8 +117,5 @@ describe('Nfts API endpoints', function () {
         // assert
         expect(response.result.id).equal(id);
     })
-
-
-
 
 })
