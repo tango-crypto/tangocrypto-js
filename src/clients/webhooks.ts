@@ -60,7 +60,7 @@ export class WebhookApi {
      * @throws {RequiredError}
      * @memberof WebhooksApi
      */
-    public retrieveWebhook( webhookId: string) {
+    public getWebhook( webhookId: string) {
         return this.webhooksApi.retrieveWebhook(this.config.appId, this.config.version, webhookId);
     }
 

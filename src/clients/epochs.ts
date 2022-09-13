@@ -25,7 +25,7 @@ export class EpochApi {
      * @throws {RequiredError}
      * @memberof EpochsApi
      */
-     public retrieveCurrentEpoch() {
+     public getCurrentEpoch() {
         return this.epochsApi.retrieveCurrentEpoch(this.config.appId, this.config.version);
     }
 
@@ -36,7 +36,7 @@ export class EpochApi {
      * @throws {RequiredError}
      * @memberof EpochsApi
      */
-    public retrieveEpochParameters(number: number) {
+    public getEpochParameters(number: number) {
         return this.epochsApi.retrieveEpochParameters(this.config.appId, this.config.version, number);
     }
 }

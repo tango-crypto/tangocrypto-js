@@ -40,7 +40,7 @@ describe('Wallets API endpoints', function () {
         }
 
         // act
-        const response = await api.getWalletsStake(stakeAddress);
+        const response = await api.getWalletSummary(stakeAddress);
 
         // assert
         expect(response.result).deep.equal(summary);
@@ -66,7 +66,7 @@ describe('Wallets API endpoints', function () {
         };
 
         // act
-        const response = await api.listStakeAddressAddresses(stakeAddress, size);
+        const response = await api.listWalletAddresses(stakeAddress, size);
 
         // assert
         expect(response.result).deep.equal(result);

@@ -100,7 +100,7 @@ describe('Assets API endpoints', function () {
         }
 
         // act
-        const response = await api.listAssetAddressesFingerprint(fingerprint);
+        const response = await api.listAssetAddressesByFingerprint(fingerprint);
 
         // assert
         expect(response.result).deep.equal(result);

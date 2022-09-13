@@ -64,7 +64,7 @@ describe('Nfts API endpoints', function () {
         const id = '01g6s9wsjb3mrzgtfsy8btwy3f';
 
         // act
-        const response = await api.getCollectionNfts(id);
+        const response = await api.listNfts(id);
 
         // assert
         expect(response.result.data).instanceOf(Array);
@@ -99,7 +99,7 @@ describe('Nfts API endpoints', function () {
         const collectionId = '489b4acd87d841b581206991dd295362';
 
         // act
-        const response = await api.geCollectionSalePhases(collectionId);
+        const response = await api.listSalePhases(collectionId);
 
         // assert
         expect(response.result.data).instanceOf(Array);

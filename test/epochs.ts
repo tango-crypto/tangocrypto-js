@@ -28,7 +28,7 @@ describe('Epochs API endpoints', function () {
         // arrange
 
         // act
-        const response = await api.retrieveCurrentEpoch();
+        const response = await api.getCurrentEpoch();
 
         // assert
         expect(response.result).not.null;
@@ -39,7 +39,7 @@ describe('Epochs API endpoints', function () {
         const epoch = 153;
 
         // act
-        const response = await api.retrieveEpochParameters(epoch);
+        const response = await api.getEpochParameters(epoch);
 
         // assert
         expect(response.result).not.null;

@@ -52,7 +52,7 @@ export class BlockApi {
      * @throws {RequiredError}
      * @memberof BlocksApi
      */
-    public getBlockTransactions(blockNumber: number, size?: number, cursor?: string, order?: 'asc' | 'desc') {
+    public listBlockTransactions(blockNumber: number, size?: number, cursor?: string, order?: 'asc' | 'desc') {
         return this.blocksApi.getBlockTransactions(this.config.appId, this.config.version, blockNumber, size, cursor, order);
     }
 
@@ -67,7 +67,7 @@ export class BlockApi {
      * @throws {RequiredError}
      * @memberof BlocksApi
      */
-    public getBlockTransactionsByHash(hash: string, size?: number, cursor?: string, order?: 'asc' | 'desc') {
+    public listBlockTransactionsByHash(hash: string, size?: number, cursor?: string, order?: 'asc' | 'desc') {
         return this.blocksApi.getBlockTransactionsByHash(this.config.appId, this.config.version, hash, size, cursor, order);
     }
 

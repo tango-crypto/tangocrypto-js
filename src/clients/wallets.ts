@@ -26,7 +26,7 @@ export class WalletApi {
      * @throws {RequiredError}
      * @memberof WalletsApi
      */
-      public getWalletsStake(stakeAddress: string) {
+      public getWalletSummary(stakeAddress: string) {
         return this.walletsApi.getWalletsStake(this.config.appId, this.config.version, stakeAddress);
     }
 
@@ -40,7 +40,7 @@ export class WalletApi {
      * @throws {RequiredError}
      * @memberof WalletsApi
      */
-    public listStakeAddressAddresses(stakeAddress: string, size?: number, cursor?: string, order?: 'asc' | 'desc') {
+    public listWalletAddresses(stakeAddress: string, size?: number, cursor?: string, order?: 'asc' | 'desc') {
         return this.walletsApi.listStakeAddressAddresses(this.config.appId, this.config.version, stakeAddress, size, cursor, order);
     }
 }

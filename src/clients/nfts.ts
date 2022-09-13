@@ -52,7 +52,7 @@ export class NftApi {
      * @throws {RequiredError}
      * @memberof NFTsCollectionsApi
      */
-    public getCollectionNfts(collectionId: string, status?: string, order?: string, size?: number, cursor?: string) {
+    public listNfts(collectionId: string, status?: string, order?: string, size?: number, cursor?: string) {
         return this.collectionsApi.getCollectionNfts(this.config.appId, this.config.version, collectionId, status, order, size, cursor);
     }
 
@@ -191,7 +191,7 @@ export class NftApi {
      * @throws {RequiredError}
      * @memberof NFTsSalesApi
      */
-    public listCollectionSales(collectionId: string, order?: string, size?: number, cursor?: string) {
+    public listSales(collectionId: string, order?: string, size?: number, cursor?: string) {
         return this.salesApi.listNftSales(this.config.appId, this.config.version, collectionId, order, size, cursor);
     }
 
@@ -278,7 +278,7 @@ export class NftApi {
      * @throws {RequiredError}
      * @memberof NFTsSalePhasesApi
      */
-    public geCollectionSalePhases(collectionId: string) {
+    public listSalePhases(collectionId: string) {
         return this.phasesApi.retrieveSalePhases(this.config.appId, this.config.version, collectionId);
     }
 

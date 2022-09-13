@@ -59,7 +59,7 @@ export class AssetApi {
      * @throws {RequiredError}
      * @memberof AssetsApi
      */
-    public listAssetAddressesFingerprint(fingerprint: string) {
+    public listAssetAddressesByFingerprint(fingerprint: string) {
         return this.assetsApi.listAssetAddressesFingerprint(this.config.appId, this.config.version, fingerprint);
     }
 }

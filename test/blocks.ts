@@ -115,7 +115,7 @@ describe('Blocks API endpoints', function () {
         }
 
         // act
-        const response = await api.getBlockTransactions(blockNo, size);
+        const response = await api.listBlockTransactions(blockNo, size);
 
         // assert
         expect(response.result).deep.equal(result);
@@ -153,7 +153,7 @@ describe('Blocks API endpoints', function () {
         }
 
         // act
-        const response = await api.getBlockTransactionsByHash(hash, size);
+        const response = await api.listBlockTransactionsByHash(hash, size);
 
         // assert
         expect(response.result).deep.equal(result);

@@ -26,7 +26,7 @@ export class PoolApi {
      * @throws {RequiredError}
      * @memberof PoolsApi
      */
-     public stakePoolDelegations(poolId: string) {
+     public listPoolDelegations(poolId: string) {
         return this.poolsApi.stakePoolDelegations(this.config.appId, this.config.version, poolId);
     }
 
@@ -37,7 +37,7 @@ export class PoolApi {
      * @throws {RequiredError}
      * @memberof PoolsApi
      */
-    public stakePoolMetadata(poolId: string) {
+    public getPoolMetadata(poolId: string) {
         return this.poolsApi.stakePoolMetadata(this.config.appId, this.config.version, poolId);
     }
 }

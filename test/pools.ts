@@ -43,7 +43,7 @@ describe('Pools API endpoints', function () {
         }
 
         // act
-        const response = await api.stakePoolMetadata(poolId);
+        const response = await api.getPoolMetadata(poolId);
 
         // assert
         expect(response.result).deep.equal(result);
@@ -109,7 +109,7 @@ describe('Pools API endpoints', function () {
         }
 
         // act
-        const response = await api.stakePoolDelegations(poolId);
+        const response = await api.listPoolDelegations(poolId);
 
         // assert
         expect(response.result).deep.equal(result);
