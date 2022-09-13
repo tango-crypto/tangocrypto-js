@@ -2277,10 +2277,10 @@ export interface ListAddressUtxosResponseDataInner {
     'index'?: number;
     /**
      * Amount of Ada in the address (in Lovelace)
-     * @type {string}
+     * @type {number}
      * @memberof ListAddressUtxosResponseDataInner
      */
-    'value'?: string;
+    'value'?: number;
     /**
      * True if there is a smart contract
      * @type {boolean}
