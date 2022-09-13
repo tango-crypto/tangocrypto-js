@@ -94,6 +94,29 @@ describe('Nfts API endpoints', function () {
         expect(response.result.id).equal(id);
     })
 
+    it('should get collection phases', async () => {
+        // arrange
+        const collectionId = '489b4acd87d841b581206991dd295362';
+
+        // act
+        const response = await api.geCollectionSalePhases(collectionId);
+
+        // assert
+        expect(response.result.data).instanceOf(Array);
+    })
+
+    it('should get sale phase', async () => {
+        // arrange
+        const collectionId = '489b4acd87d841b581206991dd295362';
+        const id = '01gb8g77bzd0s6xmy3mrc3zs9j';
+
+        // act
+        const response = await api.getSalePhase(collectionId, id);
+
+        // assert
+        expect(response.result.id).equal(id);
+    })
+
 
 
 

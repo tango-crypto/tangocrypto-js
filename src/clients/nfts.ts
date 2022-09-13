@@ -1,6 +1,6 @@
 import { AxiosInstance } from "axios";
 import { ClientConfiguration } from ".";
-import { AddressesApi, CreateCollectionRequest, CreateNftRequest, CreateNftSaleRequest, NFTsAddressListApi, NFTsCollectionsApi, NFTsSalePhasesApi, NFTsSalesApi, NFTsTokensApi, UpdateCollectionRequest, UpdateNftRequest } from "../api";
+import { AddressesApi, CreateAffiliateRequest, CreateCollectionRequest, CreateNftRequest, CreateNftSaleRequest, CreateSalePhaseRequest, NFTsAddressListApi, NFTsCollectionsApi, NFTsSalePhasesApi, NFTsSalesApi, NFTsTokensApi, UpdateCollectionRequest, UpdateNftRequest, UpdateSalePhaseRequest } from "../api";
 import { Configuration } from "../configuration";
 
 export class NftApi {
@@ -165,7 +165,7 @@ export class NftApi {
     * @throws {RequiredError}
     * @memberof NFTsSalesApi
     */
-    public cancelNftSale(collectionId: string, tokenId: string, saleId: string) {
+    public cancelSale(collectionId: string, tokenId: string, saleId: string) {
         return this.salesApi.cancelNftSale(this.config.appId, this.config.version, collectionId, tokenId, saleId);
     }
 
@@ -205,6 +205,108 @@ export class NftApi {
      */
     public getSale(collectionId: string, salesId: string) {
         return this.salesApi.retrieveNFTSale(this.config.appId, this.config.version, collectionId, salesId);
+    }
+
+    /** SALE PHASE SECTION */
+
+    /**
+     * Create affiliate.
+     * @summary Create affiliate
+     * @param {string} collectionId Collection ID
+     * @param {string} phaseId Sales phase ID.
+     * @param {CreateAffiliateRequest} [createAffiliateRequest] 
+     * @throws {RequiredError}
+     * @memberof NFTsSalePhasesApi
+     */
+    public createAffiliate(collectionId: string, phaseId: string, createAffiliateRequest?: CreateAffiliateRequest) {
+        return this.phasesApi.createAffiliate(this.config.appId, this.config.version, collectionId, phaseId, createAffiliateRequest);
+    }
+
+    /**
+     * Delete affiliate.
+     * @summary Delete Affiliate
+     * @param {string} collectionId Collection ID
+     * @param {string} phaseId Sale phase id.
+     * @param {string} affiliateId Affiliate id.
+     * @throws {RequiredError}
+     * @memberof NFTsSalePhasesApi
+     */
+    public deleteAffiliate(collectionId: string, phaseId: string, affiliateId: string) {
+        return this.phasesApi.deleteAffiliate(this.config.appId, this.config.version, collectionId, phaseId, affiliateId);
+    }
+
+    /**
+     * Delete a sale phase.
+     * @summary Delete sale phase
+     * @param {string} collectionId Collection ID
+     * @param {string} phaseId Sale phase id.
+     * @throws {RequiredError}
+     * @memberof NFTsSalePhasesApi
+     */
+    public deleteSalePhase(collectionId: string, phaseId: string) {
+        return this.phasesApi.deleteSalePhase(this.config.appId, this.config.version, collectionId, phaseId);
+    }
+
+    /**
+     * Create a sale phase for a given collection. You can add different phases to control how you will sell the collection. For example, you might have a total of 5000 NFTs, and you want to sell them in stages. You can create a pre-sale phase to sell 1000 NFTs to previous customers at a special price and within a specific time range. You can identify these customers with a condition; that would be an NFT with a certain policy id on their wallets. Then you create another sale phase for the public drop with the remaining 4000 NFTs and no conditions.   
+     * @summary Create sale phase
+     * @param {string} collectionId Collection ID.
+     * @param {CreateSalePhaseRequest} [createSalePhaseRequest] 
+     * @throws {RequiredError}
+     * @memberof NFTsSalePhasesApi
+     */
+    public createSalePhase(collectionId: string, createSalePhaseRequest?: CreateSalePhaseRequest) {
+        return this.phasesApi.nftCreateSale(this.config.appId, this.config.version, collectionId, createSalePhaseRequest);
+    }
+
+    /**
+     * Returns details for a single sale phase.
+     * @summary Retrieve sale phase
+     * @param {string} collectionId Collection ID
+     * @param {string} phaseId Sales phase ID.
+     * @throws {RequiredError}
+     * @memberof NFTsSalePhasesApi
+     */
+    public getSalePhase(collectionId: string, phaseId: string) {
+        return this.phasesApi.retrieveSalePhase(this.config.appId, this.config.version, collectionId, phaseId);
+    }
+
+    /**
+     * Returns a list of sale phases for a given collection. The response is paginated. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next set of sale phases. 
+     * @summary List sale phases
+     * @param {string} collectionId Collection ID
+     * @throws {RequiredError}
+     * @memberof NFTsSalePhasesApi
+     */
+    public geCollectionSalePhases(collectionId: string) {
+        return this.phasesApi.retrieveSalePhases(this.config.appId, this.config.version, collectionId);
+    }
+
+    /**
+     * Update affiliate.
+     * @summary Update affiliate
+     * @param {string} collectionId Collection ID
+     * @param {string} phaseId Sales phase ID.
+     * @param {string} affiliateId Affiliate id.
+     * @param {CreateAffiliateRequest} [createAffiliateRequest] 
+     * @throws {RequiredError}
+     * @memberof NFTsSalePhasesApi
+     */
+    public updateAffiliate(collectionId: string, phaseId: string, affiliateId: string, createAffiliateRequest?: CreateAffiliateRequest) {
+        return this.phasesApi.updateAffiliate(this.config.appId, this.config.version, collectionId, phaseId, affiliateId, createAffiliateRequest);
+    }
+
+    /**
+     * Update sale phase.
+     * @summary Update sale phase
+     * @param {string} collectionId Collection ID
+     * @param {string} phaseId Sales phase ID.
+     * @param {CreateSalePhaseRequest} [createSalePhaseRequest] 
+     * @throws {RequiredError}
+     * @memberof NFTsSalePhasesApi
+     */
+    public updateSalePhase(collectionId: string, phaseId: string, updateSalePhaseRequest?: UpdateSalePhaseRequest) {
+        return this.phasesApi.updateSalePhase(this.config.appId, this.config.version, collectionId, phaseId, updateSalePhaseRequest);
     }
 
 }

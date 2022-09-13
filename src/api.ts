@@ -437,6 +437,238 @@ export interface CreateAffiliateRequest {
      */
     'commission_type': CreateAffiliateRequestCommissionTypeEnum;
 }
+/**
+ * 
+ * @export
+ * @interface UpdateAffiliateRequest
+ */
+export interface UpdateAffiliateRequest {
+    /**
+     * Affiliate name. Used to identify the affiliate.
+     * @type {string}
+     * @memberof UpdateAffiliateRequest
+     */
+    'name'?: string;
+    /**
+     * The value is `true` if the affiliate is active and `false` if it is not.
+     * @type {boolean}
+     * @memberof UpdateAffiliateRequest
+     */
+    'active'?: boolean;
+    /**
+     * If set to `true`, the funds are transferred automatically to the affiliate every time a customer purchases an NFT.
+     * @type {boolean}
+     * @memberof UpdateAffiliateRequest
+     */
+    'automatic_payout'?: boolean;
+}
+
+/**
+ * 
+ * @export
+ * @interface CreatePriceTierRequest
+ */
+export interface CreatePriceTierRequest {
+    /**
+     * Price tier name. Used to identify the price tier.
+     * @type {string}
+     * @memberof CreatePriceTierRequest
+     */
+    'name': string;
+    /**
+     * Price tier price. How much paid for buying with this price tier.
+     * @type {number}
+     * @memberof CreatePriceTierRequest
+     */
+    'price': number;
+    /**
+     * Price tier quantity. How many tokens will be sold with this price tier.
+     * NOTE: Cannot create sales with more than 20 tokens
+     * @type {number}
+     * @memberof CreatePriceTierRequest
+     */
+    'quantity': number;
+    /**
+     * Price tier supply. Amount of token supply when minted, default to 1.
+     * @type {number}
+     * @memberof CreatePriceTierRequest
+     */
+    'supply'?: number;
+    /**
+     * Price tier tokens. Individual tokens to include in a price tier.
+     * NOTE: Tokens batch size must be less than or equal to 20
+     * @type {Array<number>}
+     * @memberof CreatePriceTierRequest
+     */
+    'tokens'?: Array<string>;
+}
+
+/**
+ * 
+ * @export
+ * @interface CreatePriceTierResponse
+ */
+export interface CreatePriceTierResponse {
+    /**
+     * Price Tier id.
+     * @type {string}
+     * @memberof CreatePriceTierResponse
+     */
+    id: string;
+    /**
+     * Price Tier name.
+     * @type {string}
+     * @memberof CreatePriceTierResponse
+     */
+    name: string;
+    /**
+     * Price Tier price.
+     * @type {number}
+     * @memberof CreatePriceTierResponse
+     */
+    price: number;
+    /**
+     * Price Tier quantity.
+     * @type {number}
+     * @memberof CreatePriceTierResponse
+     */
+    quantity: number;
+    /**
+     * Price Tier supply.
+     * @type {number}
+     * @memberof CreatePriceTierResponse
+     */
+    supply: number;
+    /**
+     * Price Tier tokens.
+     * @type {Array<string>}
+     * @memberof CreatePriceTierResponse
+     */
+    tokens: Array<string>;
+    /**
+     * Price Tier token sold count.
+     * @type {number}
+     * @memberof CreatePriceTierResponse
+     */
+    token_sold_count: number;
+}
+
+/**
+* 
+* @export
+* @interface UpdatePriceTierRequest
+*/
+export interface UpdatePriceTierRequest {
+    /**
+     * Price tier name. Used to identify the price tier.
+     * @type {string}
+     * @memberof UpdatePriceTierRequest
+     */
+    'name'?: string;
+    /**
+     * Price tier price. How much paid for buying with this price tier.
+     * @type {number}
+     * @memberof UpdatePriceTierRequest
+     */
+    'price'?: number;
+    /**
+     * Price tier quantity. How many tokens will be sold with this price tier. 
+     * NOTE: Cannot create sales with more than 20 tokens
+     * @type {number}
+     * @memberof UpdatePriceTierRequest
+     */
+    'quantity'?: number;
+    /**
+     * Price tier supply. Amount of token supply when minted, default to 1.
+     * @type {number}
+     * @memberof UpdatePriceTierRequest
+     */
+    'supply'?: number;
+    /**
+     * Price tier tokens. Individual tokens to include in a price tier.
+     * NOTE: Tokens batch size must be less than or equal to 20     
+     * @type {Array<number>}
+     * @memberof UpdatePriceTierRequest
+     */
+    'tokens'?: Array<string>;
+}
+
+/**
+ * 
+ * @export
+ * @interface UpdatePriceTierResponse
+ */
+export interface UpdatePriceTierResponse {
+    /**
+     * Price Tier id.
+     * @type {string}
+     * @memberof UpdatePriceTierResponse
+     */
+    id: string;
+    /**
+     * Price Tier name.
+     * @type {string}
+     * @memberof UpdatePriceTierResponse
+     */
+    name: string;
+    /**
+     * Price Tier price.
+     * @type {number}
+     * @memberof UpdatePriceTierResponse
+     */
+    price: number;
+    /**
+     * Price Tier quantity.
+     * @type {number}
+     * @memberof UpdatePriceTierResponse
+     */
+    quantity: number;
+    /**
+     * Price Tier supply.
+     * @type {number}
+     * @memberof UpdatePriceTierResponse
+     */
+    supply: number;
+    /**
+     * Price Tier tokens.
+     * @type {Array<string>}
+     * @memberof UpdatePriceTierResponse
+     */
+    tokens: Array<string>;
+    /**
+     * Price Tier token sold count.
+     * @type {number}
+     * @memberof UpdatePriceTierResponse
+     */
+    token_sold_count: number;
+}
+
+
+/**
+ * 
+ * @export
+ * @interface DeletePriceTierResponse
+ */
+export interface DeletePriceTierResponse {
+    /**
+     * Returns `true` if successfuly deleted or `false` if there was an error deleting the price tier.
+     * @type {boolean}
+     * @memberof DeletePriceTierResponse
+     */
+    'deleted'?: boolean;
+    /**
+     * Deleted price tier ID
+     * @type {string}
+     * @memberof DeletePriceTierResponse
+     */
+    'deleted_affiliate_id'?: string;
+    /**
+     * Deletion datetime in ISO 8601 format.
+     * @type {string}
+     * @memberof DeletePriceTierResponse
+     */
+    'deleted_at'?: string;
+}
 
 export const CreateAffiliateRequestCommissionTypeEnum = {
     Flat: 'flat',
@@ -1167,6 +1399,7 @@ export interface CreatePriceTierItem {
      */
     'payment_link'?: string;
 }
+
 /**
  * 
  * @export
@@ -1185,6 +1418,12 @@ export interface CreateSalePhaseRequest {
      * @memberof CreateSalePhaseRequest
      */
     'type': CreateSalePhaseRequestTypeEnum;
+    /**
+     * Sale active. 
+     * @type {string}
+     * @memberof CreateSalePhaseRequest
+     */
+    'active'?: boolean;
     /**
      * Defines how many NFTs you will sell in this phase. For example, you are doing a pre-sale, and you want to sell 1000 NFTs.
      * @type {number}
@@ -1219,6 +1458,68 @@ export interface CreateSalePhaseRequest {
      * (Used in `fixed` sale phases). Individual tokens to include in a sale phase.
      * @type {Array<CreateSalePhaseRequestTokensInner>}
      * @memberof CreateSalePhaseRequest
+     */
+    'tokens'?: Array<CreateSalePhaseRequestTokensInner>;
+}
+
+/**
+ * 
+ * @export
+ * @interface UpdateSalePhaseRequest
+ */
+export interface UpdateSalePhaseRequest {
+    /**
+     * Sale phase name. For example, pre-sale.
+     * @type {string}
+     * @memberof UpdateSalePhaseRequest
+     */
+    'name'?: string;
+    /**
+     * <br /> Use `fixed` for selling a particular token or token list identified by the token-id on each token.  <br /> Use `random` for random sales, it will pick random tokens from the collection. 
+     * @type {string}
+     * @memberof UpdateSalePhaseRequest
+     */
+    'type'?: CreateSalePhaseRequestTypeEnum;
+    /**
+     * Sale active. 
+     * @type {string}
+     * @memberof UpdateSalePhaseRequest
+     */
+    'active'?: boolean;
+    /**
+     * Defines how many NFTs you will sell in this phase. For example, you are doing a pre-sale, and you want to sell 1000 NFTs.
+     * @type {number}
+     * @memberof UpdateSalePhaseRequest
+     */
+    'total_tokens': number;
+    /**
+     * Reservation time in seconds. This timer defines how long an NFT will be reserved once a potential buyer starts the buying process. During this time interval, the NFT won\'t be available for sale. No other buyer will be able to create a new reservation. If the payment is not received and this timer expires, then the NFT is ready for sale again, and it can be reserved by another buyer.
+     * @type {number}
+     * @memberof UpdateSalePhaseRequest
+     */
+    'reservation_time'?: number;
+    /**
+     * Starting date for the sale phase in ISO 8601 format `yyyy-mm-ddThh:mm:ss[.mmm]`. If you don\'t provide this value you can start selling immediately.
+     * @type {string}
+     * @memberof UpdateSalePhaseRequest
+     */
+    'start_date'?: string;
+    /**
+     * Ending date for the sale phase in ISO 8601 format `yyyy-mm-ddThh:mm:ss[.mmm]`. If you don\'t provide this value, there is no time boundary; thus, you can sell NFTs until you reach the collection\'s total amount.
+     * @type {string}
+     * @memberof UpdateSalePhaseRequest
+     */
+    'end_date'?: string;
+    /**
+     * (Used in `random` sale phases). Create price tiers per sale phase. A price tier is a way to create bundles and sell them for different prices. For example, you can create a price tier with 10 NFTs for 100 ADA, and the buyer will pay 100 ADA and receive 10 NFTs in their wallet. You can create up to 10 price tiers per sale phase.\'
+     * @type {Array<CreateSalePhaseRequestPriceTiersInner>}
+     * @memberof UpdateSalePhaseRequest
+     */
+    'price_tiers'?: Array<CreateSalePhaseRequestPriceTiersInner>;
+    /**
+     * (Used in `fixed` sale phases). Individual tokens to include in a sale phase.
+     * @type {Array<CreateSalePhaseRequestTokensInner>}
+     * @memberof UpdateSalePhaseRequest
      */
     'tokens'?: Array<CreateSalePhaseRequestTokensInner>;
 }
@@ -5662,7 +5963,7 @@ export const AssetsApiAxiosParamCreator = function (configuration?: Configuratio
             assertParamExists('listAssetAddressesFingerprint', 'appId', appId)
             // verify required parameter 'fingerprint' is not null or undefined
             assertParamExists('listAssetAddressesFingerprint', 'fingerprint', fingerprint)
-            const localVarPath =  buildPath(appId, version, 'assets', 'fingerprint', fingerprint, 'addresses');
+            const localVarPath = buildPath(appId, version, 'assets', 'fingerprint', fingerprint, 'addresses');
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -5841,7 +6142,7 @@ export class AssetsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AssetsApi
      */
-    public getAssetByFingerprint(appId: string, version: string,fingerprint: string, options?: AxiosRequestConfig) {
+    public getAssetByFingerprint(appId: string, version: string, fingerprint: string, options?: AxiosRequestConfig) {
         return AssetsApiFp(this.configuration).getAssetByFingerprint(appId, version, fingerprint, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -6228,7 +6529,7 @@ export const BlocksApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-         getBlockByHash(appId: string, version: string, hash: string, options?: any): ApiPromise<RetrieveBlockResponse> {
+        getBlockByHash(appId: string, version: string, hash: string, options?: any): ApiPromise<RetrieveBlockResponse> {
             return localVarFp.getBlockByHash(appId, version, hash, options).then((request) => request(axios, basePath));
         },
 
@@ -7607,23 +7908,21 @@ export const NFTsSalePhasesApiAxiosParamCreator = function (configuration?: Conf
          * Create affiliate.
          * @summary Create affiliate
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
          * @param {string} collectionId Collection ID
          * @param {string} phaseId Sales phase ID.
          * @param {CreateAffiliateRequest} [createAffiliateRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createAffiliate: async (appId: string, collectionId: string, phaseId: string, createAffiliateRequest?: CreateAffiliateRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        createAffiliate: async (appId: string, version: string, collectionId: string, phaseId: string, createAffiliateRequest?: CreateAffiliateRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('createAffiliate', 'appId', appId)
             // verify required parameter 'collectionId' is not null or undefined
             assertParamExists('createAffiliate', 'collectionId', collectionId)
             // verify required parameter 'phaseId' is not null or undefined
             assertParamExists('createAffiliate', 'phaseId', phaseId)
-            const localVarPath = `/{app_id}/v1/nft/collections/{collection_id}/phases/{phase_id}/affiliates`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)))
-                .replace(`{${"collection_id"}}`, encodeURIComponent(String(collectionId)))
-                .replace(`{${"phase_id"}}`, encodeURIComponent(String(phaseId)));
+            const localVarPath = buildPath(appId, version, 'nft', 'collections', collectionId, 'phases', phaseId, 'affiliates');
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -7652,17 +7951,19 @@ export const NFTsSalePhasesApiAxiosParamCreator = function (configuration?: Conf
                 options: localVarRequestOptions,
             };
         },
+
         /**
          * Delete affiliate.
          * @summary Delete Affiliate
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} collectionId Collection ID
          * @param {string} phaseId Sale phase id.
          * @param {string} affiliateId Affiliate id.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteAffiliate: async (appId: string, collectionId: string, phaseId: string, affiliateId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        deleteAffiliate: async (appId: string, version: string, collectionId: string, phaseId: string, affiliateId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('deleteAffiliate', 'appId', appId)
             // verify required parameter 'collectionId' is not null or undefined
@@ -7671,11 +7972,7 @@ export const NFTsSalePhasesApiAxiosParamCreator = function (configuration?: Conf
             assertParamExists('deleteAffiliate', 'phaseId', phaseId)
             // verify required parameter 'affiliateId' is not null or undefined
             assertParamExists('deleteAffiliate', 'affiliateId', affiliateId)
-            const localVarPath = `/{app_id}/v1/nft/collections/{collection_id}/phases/{phase_id}/affiliates/{affiliate_id}`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)))
-                .replace(`{${"collection_id"}}`, encodeURIComponent(String(collectionId)))
-                .replace(`{${"phase_id"}}`, encodeURIComponent(String(phaseId)))
-                .replace(`{${"affiliate_id"}}`, encodeURIComponent(String(affiliateId)));
+            const localVarPath = buildPath(appId, version, 'nft', 'collections', collectionId, 'phases', phaseId, 'affiliates', affiliateId);
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -7701,26 +7998,222 @@ export const NFTsSalePhasesApiAxiosParamCreator = function (configuration?: Conf
                 options: localVarRequestOptions,
             };
         },
+
+        /**
+         * Update affiliate.
+         * @summary Update affiliate
+         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
+         * @param {string} collectionId Collection ID
+         * @param {string} phaseId Sales phase ID.
+         * @param {string} affiliateId Affiliate id.
+         * @param {UpdateAffiliateRequest} [updateAffiliateRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateAffiliate: async (appId: string, version: string, collectionId: string, phaseId: string, affiliateId: string, updateAffiliateRequest?: UpdateAffiliateRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'appId' is not null or undefined
+            assertParamExists('updateAffiliate', 'appId', appId)
+            // verify required parameter 'collectionId' is not null or undefined
+            assertParamExists('updateAffiliate', 'collectionId', collectionId)
+            // verify required parameter 'phaseId' is not null or undefined
+            assertParamExists('updateAffiliate', 'phaseId', phaseId)
+            // verify required parameter 'affiliateId' is not null or undefined
+            assertParamExists('updateAffiliate', 'affiliateId', affiliateId)
+            const localVarPath = buildPath(appId, version, 'nft', 'collections', collectionId, 'phases', phaseId, 'affiliates', affiliateId);
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication x-api-key required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+            localVarRequestOptions.data = serializeDataIfNeeded(updateAffiliateRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+
+        /**
+         * Create price tier.
+         * @summary Create price tier
+         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
+         * @param {string} collectionId Collection ID
+         * @param {string} phaseId Sales phase ID.
+         * @param {CreatePriceTierRequest} [createPriceTierRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createPriceTier: async (appId: string, version: string, collectionId: string, phaseId: string, createPriceTierRequest?: CreatePriceTierRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'appId' is not null or undefined
+            assertParamExists('createPriceTier', 'appId', appId)
+            // verify required parameter 'collectionId' is not null or undefined
+            assertParamExists('createPriceTier', 'collectionId', collectionId)
+            // verify required parameter 'phaseId' is not null or undefined
+            assertParamExists('createPriceTier', 'phaseId', phaseId)
+            const localVarPath = buildPath(appId, version, 'nft', 'collections', collectionId, 'phases', phaseId, 'price_tiers');
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication x-api-key required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+            localVarRequestOptions.data = serializeDataIfNeeded(createPriceTierRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+
+        /**
+         * Delete price tier.
+         * @summary Delete price tier
+         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
+         * @param {string} collectionId Collection ID
+         * @param {string} phaseId Sale phase id.
+         * @param {string} pricetierId Price Tier id.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deletePriceTier: async (appId: string, version: string, collectionId: string, phaseId: string, pricetierId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'appId' is not null or undefined
+            assertParamExists('deletePriceTier', 'appId', appId)
+            // verify required parameter 'collectionId' is not null or undefined
+            assertParamExists('deletePriceTier', 'collectionId', collectionId)
+            // verify required parameter 'phaseId' is not null or undefined
+            assertParamExists('deletePriceTier', 'phaseId', phaseId)
+            // verify required parameter 'pricetierId' is not null or undefined
+            assertParamExists('deletePriceTier', 'pricetierId', pricetierId)
+            const localVarPath = buildPath(appId, version, 'nft', 'collections', collectionId, 'phases', phaseId, 'price_tiers', pricetierId);
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication x-api-key required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+
+        /**
+         * Update affiliate.
+         * @summary Update affiliate
+         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
+         * @param {string} collectionId Collection ID
+         * @param {string} phaseId Sales phase ID.
+         * @param {string} pricetierId Price Tier id.
+         * @param {UpdatePriceTierRequest} [updatePriceTierRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updatePriceTier: async (appId: string, version: string, collectionId: string, phaseId: string, pricetierId: string, updatePriceTierRequest?: UpdatePriceTierRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'appId' is not null or undefined
+            assertParamExists('updatePriceTier', 'appId', appId)
+            // verify required parameter 'collectionId' is not null or undefined
+            assertParamExists('updatePriceTier', 'collectionId', collectionId)
+            // verify required parameter 'phaseId' is not null or undefined
+            assertParamExists('updatePriceTier', 'phaseId', phaseId)
+            // verify required parameter 'pricetierId' is not null or undefined
+            assertParamExists('updatePriceTier', 'pricetierId', pricetierId)
+            const localVarPath = buildPath(appId, version, 'nft', 'collections', collectionId, 'phases', phaseId, 'price_tiers', pricetierId);
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication x-api-key required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+            localVarRequestOptions.data = serializeDataIfNeeded(updatePriceTierRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+
         /**
          * Delete a sale phase.
          * @summary Delete sale phase
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} collectionId Collection ID
          * @param {string} phaseId Sale phase id.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteSalePhase: async (appId: string, collectionId: string, phaseId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        deleteSalePhase: async (appId: string, version: string, collectionId: string, phaseId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('deleteSalePhase', 'appId', appId)
             // verify required parameter 'collectionId' is not null or undefined
             assertParamExists('deleteSalePhase', 'collectionId', collectionId)
             // verify required parameter 'phaseId' is not null or undefined
             assertParamExists('deleteSalePhase', 'phaseId', phaseId)
-            const localVarPath = `/{app_id}/v1/nft/collections/{collection_id}/phases/{phase_id}`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)))
-                .replace(`{${"collection_id"}}`, encodeURIComponent(String(collectionId)))
-                .replace(`{${"phase_id"}}`, encodeURIComponent(String(phaseId)));
+            const localVarPath = buildPath(appId, version, 'nft', 'collections', collectionId, 'phases', phaseId);
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -7746,23 +8239,23 @@ export const NFTsSalePhasesApiAxiosParamCreator = function (configuration?: Conf
                 options: localVarRequestOptions,
             };
         },
+
         /**
          * Create a sale phase for a given collection. You can add different phases to control how you will sell the collection. For example, you might have a total of 5000 NFTs, and you want to sell them in stages. You can create a pre-sale phase to sell 1000 NFTs to previous customers at a special price and within a specific time range. You can identify these customers with a condition; that would be an NFT with a certain policy id on their wallets. Then you create another sale phase for the public drop with the remaining 4000 NFTs and no conditions.   
          * @summary Create sale phase
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} collectionId Collection ID.
          * @param {CreateSalePhaseRequest} [createSalePhaseRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        nftCreateSale: async (appId: string, collectionId: string, createSalePhaseRequest?: CreateSalePhaseRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        nftCreateSale: async (appId: string, version: string, collectionId: string, createSalePhaseRequest?: CreateSalePhaseRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('nftCreateSale', 'appId', appId)
             // verify required parameter 'collectionId' is not null or undefined
             assertParamExists('nftCreateSale', 'collectionId', collectionId)
-            const localVarPath = `/{app_id}/v1/nft/collections/{collection_id}/phases`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)))
-                .replace(`{${"collection_id"}}`, encodeURIComponent(String(collectionId)));
+            const localVarPath = buildPath(appId, version, 'nft', 'collections', collectionId, 'phases');
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -7791,26 +8284,25 @@ export const NFTsSalePhasesApiAxiosParamCreator = function (configuration?: Conf
                 options: localVarRequestOptions,
             };
         },
+
         /**
          * Returns details for a single sale phase.
          * @summary Retrieve sale phase
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} collectionId Collection ID
          * @param {string} phaseId Sales phase ID.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        retrieveSalePhase: async (appId: string, collectionId: string, phaseId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        retrieveSalePhase: async (appId: string, version: string, collectionId: string, phaseId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('retrieveSalePhase', 'appId', appId)
             // verify required parameter 'collectionId' is not null or undefined
             assertParamExists('retrieveSalePhase', 'collectionId', collectionId)
             // verify required parameter 'phaseId' is not null or undefined
             assertParamExists('retrieveSalePhase', 'phaseId', phaseId)
-            const localVarPath = `/{app_id}/v1/nft/collections/{collection_id}/phases/{phase_id}`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)))
-                .replace(`{${"collection_id"}}`, encodeURIComponent(String(collectionId)))
-                .replace(`{${"phase_id"}}`, encodeURIComponent(String(phaseId)));
+            const localVarPath = buildPath(appId, version, 'nft', 'collections', collectionId, 'phases', phaseId);
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -7836,22 +8328,22 @@ export const NFTsSalePhasesApiAxiosParamCreator = function (configuration?: Conf
                 options: localVarRequestOptions,
             };
         },
+
         /**
          * Returns a list of sale phases for a given collection. The response is paginated. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next set of sale phases. 
          * @summary List sale phases
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} collectionId Collection ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        retrieveSalePhases: async (appId: string, collectionId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        retrieveSalePhases: async (appId: string, version: string, collectionId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('retrieveSalePhases', 'appId', appId)
             // verify required parameter 'collectionId' is not null or undefined
             assertParamExists('retrieveSalePhases', 'collectionId', collectionId)
-            const localVarPath = `/{app_id}/v1/nft/collections/{collection_id}/phases`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)))
-                .replace(`{${"collection_id"}}`, encodeURIComponent(String(collectionId)));
+            const localVarPath = buildPath(appId, version, 'nft', 'collections', collectionId, 'phases');
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -7877,80 +8369,26 @@ export const NFTsSalePhasesApiAxiosParamCreator = function (configuration?: Conf
                 options: localVarRequestOptions,
             };
         },
-        /**
-         * Update affiliate.
-         * @summary Update affiliate
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} collectionId Collection ID
-         * @param {string} phaseId Sales phase ID.
-         * @param {string} affiliateId Affiliate id.
-         * @param {CreateAffiliateRequest} [createAffiliateRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateAffiliate: async (appId: string, collectionId: string, phaseId: string, affiliateId: string, createAffiliateRequest?: CreateAffiliateRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'appId' is not null or undefined
-            assertParamExists('updateAffiliate', 'appId', appId)
-            // verify required parameter 'collectionId' is not null or undefined
-            assertParamExists('updateAffiliate', 'collectionId', collectionId)
-            // verify required parameter 'phaseId' is not null or undefined
-            assertParamExists('updateAffiliate', 'phaseId', phaseId)
-            // verify required parameter 'affiliateId' is not null or undefined
-            assertParamExists('updateAffiliate', 'affiliateId', affiliateId)
-            const localVarPath = `/{app_id}/v1/nft/collections/{collection_id}/phases/{phase_id}/affiliates/{affiliate_id}`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)))
-                .replace(`{${"collection_id"}}`, encodeURIComponent(String(collectionId)))
-                .replace(`{${"phase_id"}}`, encodeURIComponent(String(phaseId)))
-                .replace(`{${"affiliate_id"}}`, encodeURIComponent(String(affiliateId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
 
-            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication x-api-key required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
-
-
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-            localVarRequestOptions.data = serializeDataIfNeeded(createAffiliateRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
         /**
          * Update sale phase.
          * @summary Update sale phase
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} collectionId Collection ID
          * @param {string} phaseId Sales phase ID.
-         * @param {CreateSalePhaseRequest} [createSalePhaseRequest] 
+         * @param {UpdateSalePhaseRequest} [updateSalePhaseRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateSalePhase: async (appId: string, collectionId: string, phaseId: string, createSalePhaseRequest?: CreateSalePhaseRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        updateSalePhase: async (appId: string, version: string, collectionId: string, phaseId: string, updateSalePhaseRequest?: UpdateSalePhaseRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('updateSalePhase', 'appId', appId)
             // verify required parameter 'collectionId' is not null or undefined
             assertParamExists('updateSalePhase', 'collectionId', collectionId)
             // verify required parameter 'phaseId' is not null or undefined
             assertParamExists('updateSalePhase', 'phaseId', phaseId)
-            const localVarPath = `/{app_id}/v1/nft/collections/{collection_id}/phases/{phase_id}`
-                .replace(`{${"app_id"}}`, encodeURIComponent(String(appId)))
-                .replace(`{${"collection_id"}}`, encodeURIComponent(String(collectionId)))
-                .replace(`{${"phase_id"}}`, encodeURIComponent(String(phaseId)));
+            const localVarPath = buildPath(appId, version, 'nft', 'collections', collectionId, 'phases', phaseId);
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -7972,7 +8410,7 @@ export const NFTsSalePhasesApiAxiosParamCreator = function (configuration?: Conf
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-            localVarRequestOptions.data = serializeDataIfNeeded(createSalePhaseRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(updateSalePhaseRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -7993,108 +8431,172 @@ export const NFTsSalePhasesApiFp = function (configuration?: Configuration) {
          * Create affiliate.
          * @summary Create affiliate
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
          * @param {string} collectionId Collection ID
          * @param {string} phaseId Sales phase ID.
          * @param {CreateAffiliateRequest} [createAffiliateRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createAffiliate(appId: string, collectionId: string, phaseId: string, createAffiliateRequest?: CreateAffiliateRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<CreateAffiliateResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createAffiliate(appId, collectionId, phaseId, createAffiliateRequest, options);
+        async createAffiliate(appId: string, version: string, collectionId: string, phaseId: string, createAffiliateRequest?: CreateAffiliateRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<CreateAffiliateResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createAffiliate(appId, version, collectionId, phaseId, createAffiliateRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+
         /**
          * Delete affiliate.
          * @summary Delete Affiliate
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} collectionId Collection ID
          * @param {string} phaseId Sale phase id.
          * @param {string} affiliateId Affiliate id.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteAffiliate(appId: string, collectionId: string, phaseId: string, affiliateId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<DeleteAffiliateResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteAffiliate(appId, collectionId, phaseId, affiliateId, options);
+        async deleteAffiliate(appId: string, version: string, collectionId: string, phaseId: string, affiliateId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<DeleteAffiliateResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteAffiliate(appId, version, collectionId, phaseId, affiliateId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+
+        /**
+         * Update affiliate.
+         * @summary Update affiliate
+         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
+         * @param {string} collectionId Collection ID
+         * @param {string} phaseId Sales phase ID.
+         * @param {string} affiliateId Affiliate id.
+         * @param {UpdateAffiliateRequest} [updateAffiliateRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateAffiliate(appId: string, version: string, collectionId: string, phaseId: string, affiliateId: string, updateAffiliateRequest?: UpdateAffiliateRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<RetrieveSalePhaseResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateAffiliate(appId, version, collectionId, phaseId, affiliateId, updateAffiliateRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+
+        /**
+         * Create price tier.
+         * @summary Create price tier
+         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
+         * @param {string} collectionId Collection ID
+         * @param {string} phaseId Sales phase ID.
+         * @param {CreateAffiliateRequest} [createPriceTierRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createPriceTier(appId: string, version: string, collectionId: string, phaseId: string, createPriceTierRequest?: CreatePriceTierRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<CreatePriceTierResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createPriceTier(appId, version, collectionId, phaseId, createPriceTierRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+
+        /**
+         * Delete price tier.
+         * @summary Delete price tier
+         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
+         * @param {string} collectionId Collection ID
+         * @param {string} phaseId Sale phase id.
+         * @param {string} pricetierId Price Tier id.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deletePriceTier(appId: string, version: string, collectionId: string, phaseId: string, pricetierId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<DeletePriceTierResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deletePriceTier(appId, version, collectionId, phaseId, pricetierId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+
+        /**
+         * Update price tier.
+         * @summary Update price tier
+         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
+         * @param {string} collectionId Collection ID
+         * @param {string} phaseId Sales phase ID.
+         * @param {string} pricetierId Price Tier id.
+         * @param {UpdatePriceTierRequest} [updatePriceTierRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updatePriceTier(appId: string, version: string, collectionId: string, phaseId: string, pricetierId: string, updatePriceTierRequest?: UpdatePriceTierRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<RetrieveSalePhaseResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updatePriceTier(appId, version, collectionId, phaseId, pricetierId, updatePriceTierRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+
         /**
          * Delete a sale phase.
          * @summary Delete sale phase
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} collectionId Collection ID
          * @param {string} phaseId Sale phase id.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteSalePhase(appId: string, collectionId: string, phaseId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<DeleteSalePhaseResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteSalePhase(appId, collectionId, phaseId, options);
+        async deleteSalePhase(appId: string, version: string, collectionId: string, phaseId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<DeleteSalePhaseResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteSalePhase(appId, version, collectionId, phaseId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+
         /**
          * Create a sale phase for a given collection. You can add different phases to control how you will sell the collection. For example, you might have a total of 5000 NFTs, and you want to sell them in stages. You can create a pre-sale phase to sell 1000 NFTs to previous customers at a special price and within a specific time range. You can identify these customers with a condition; that would be an NFT with a certain policy id on their wallets. Then you create another sale phase for the public drop with the remaining 4000 NFTs and no conditions.   
          * @summary Create sale phase
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} collectionId Collection ID.
          * @param {CreateSalePhaseRequest} [createSalePhaseRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async nftCreateSale(appId: string, collectionId: string, createSalePhaseRequest?: CreateSalePhaseRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<CreateSalePhaseResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.nftCreateSale(appId, collectionId, createSalePhaseRequest, options);
+        async nftCreateSale(appId: string, version: string, collectionId: string, createSalePhaseRequest?: CreateSalePhaseRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<CreateSalePhaseResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.nftCreateSale(appId, version, collectionId, createSalePhaseRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+
         /**
          * Returns details for a single sale phase.
          * @summary Retrieve sale phase
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} collectionId Collection ID
          * @param {string} phaseId Sales phase ID.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async retrieveSalePhase(appId: string, collectionId: string, phaseId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<RetrieveSalePhaseResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveSalePhase(appId, collectionId, phaseId, options);
+        async retrieveSalePhase(appId: string, version: string, collectionId: string, phaseId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<RetrieveSalePhaseResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveSalePhase(appId, version, collectionId, phaseId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+
         /**
          * Returns a list of sale phases for a given collection. The response is paginated. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next set of sale phases. 
          * @summary List sale phases
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} collectionId Collection ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async retrieveSalePhases(appId: string, collectionId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<ListSalePhasesResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveSalePhases(appId, collectionId, options);
+        async retrieveSalePhases(appId: string, version: string, collectionId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<ListSalePhasesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveSalePhases(appId, version, collectionId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
-        /**
-         * Update affiliate.
-         * @summary Update affiliate
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} collectionId Collection ID
-         * @param {string} phaseId Sales phase ID.
-         * @param {string} affiliateId Affiliate id.
-         * @param {CreateAffiliateRequest} [createAffiliateRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async updateAffiliate(appId: string, collectionId: string, phaseId: string, affiliateId: string, createAffiliateRequest?: CreateAffiliateRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<RetrieveSalePhaseResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateAffiliate(appId, collectionId, phaseId, affiliateId, createAffiliateRequest, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
+
         /**
          * Update sale phase.
          * @summary Update sale phase
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
          * @param {string} collectionId Collection ID
          * @param {string} phaseId Sales phase ID.
-         * @param {CreateSalePhaseRequest} [createSalePhaseRequest] 
+         * @param {UpdateSalePhaseRequest} [updateSalePhaseRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateSalePhase(appId: string, collectionId: string, phaseId: string, createSalePhaseRequest?: CreateSalePhaseRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<RetrieveSalePhaseResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateSalePhase(appId, collectionId, phaseId, createSalePhaseRequest, options);
+        async updateSalePhase(appId: string, version: string, collectionId: string, phaseId: string, updateSalePhaseRequest?: UpdateSalePhaseRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<RetrieveSalePhaseResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateSalePhase(appId, version, collectionId, phaseId, updateSalePhaseRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -8111,79 +8613,92 @@ export const NFTsSalePhasesApiFactory = function (configuration?: Configuration,
          * Create affiliate.
          * @summary Create affiliate
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.          
          * @param {string} collectionId Collection ID
          * @param {string} phaseId Sales phase ID.
          * @param {CreateAffiliateRequest} [createAffiliateRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createAffiliate(appId: string, collectionId: string, phaseId: string, createAffiliateRequest?: CreateAffiliateRequest, options?: any): ApiPromise<CreateAffiliateResponse> {
-            return localVarFp.createAffiliate(appId, collectionId, phaseId, createAffiliateRequest, options).then((request) => request(axios, basePath));
+        createAffiliate(appId: string, version: string, collectionId: string, phaseId: string, createAffiliateRequest?: CreateAffiliateRequest, options?: any): ApiPromise<CreateAffiliateResponse> {
+            return localVarFp.createAffiliate(appId, version, collectionId, phaseId, createAffiliateRequest, options).then((request) => request(axios, basePath));
         },
+
         /**
          * Delete affiliate.
          * @summary Delete Affiliate
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.          
          * @param {string} collectionId Collection ID
          * @param {string} phaseId Sale phase id.
          * @param {string} affiliateId Affiliate id.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteAffiliate(appId: string, collectionId: string, phaseId: string, affiliateId: string, options?: any): ApiPromise<DeleteAffiliateResponse> {
-            return localVarFp.deleteAffiliate(appId, collectionId, phaseId, affiliateId, options).then((request) => request(axios, basePath));
+        deleteAffiliate(appId: string, version: string, collectionId: string, phaseId: string, affiliateId: string, options?: any): ApiPromise<DeleteAffiliateResponse> {
+            return localVarFp.deleteAffiliate(appId, version, collectionId, phaseId, affiliateId, options).then((request) => request(axios, basePath));
         },
+
         /**
          * Delete a sale phase.
          * @summary Delete sale phase
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.          
          * @param {string} collectionId Collection ID
          * @param {string} phaseId Sale phase id.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteSalePhase(appId: string, collectionId: string, phaseId: string, options?: any): ApiPromise<DeleteSalePhaseResponse> {
-            return localVarFp.deleteSalePhase(appId, collectionId, phaseId, options).then((request) => request(axios, basePath));
+        deleteSalePhase(appId: string, version: string, collectionId: string, phaseId: string, options?: any): ApiPromise<DeleteSalePhaseResponse> {
+            return localVarFp.deleteSalePhase(appId, version, collectionId, phaseId, options).then((request) => request(axios, basePath));
         },
+
         /**
          * Create a sale phase for a given collection. You can add different phases to control how you will sell the collection. For example, you might have a total of 5000 NFTs, and you want to sell them in stages. You can create a pre-sale phase to sell 1000 NFTs to previous customers at a special price and within a specific time range. You can identify these customers with a condition; that would be an NFT with a certain policy id on their wallets. Then you create another sale phase for the public drop with the remaining 4000 NFTs and no conditions.   
          * @summary Create sale phase
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.          
          * @param {string} collectionId Collection ID.
          * @param {CreateSalePhaseRequest} [createSalePhaseRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        nftCreateSale(appId: string, collectionId: string, createSalePhaseRequest?: CreateSalePhaseRequest, options?: any): ApiPromise<CreateSalePhaseResponse> {
-            return localVarFp.nftCreateSale(appId, collectionId, createSalePhaseRequest, options).then((request) => request(axios, basePath));
+        nftCreateSale(appId: string, version: string, collectionId: string, createSalePhaseRequest?: CreateSalePhaseRequest, options?: any): ApiPromise<CreateSalePhaseResponse> {
+            return localVarFp.nftCreateSale(appId, version, collectionId, createSalePhaseRequest, options).then((request) => request(axios, basePath));
         },
+
         /**
          * Returns details for a single sale phase.
          * @summary Retrieve sale phase
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.          
          * @param {string} collectionId Collection ID
          * @param {string} phaseId Sales phase ID.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        retrieveSalePhase(appId: string, collectionId: string, phaseId: string, options?: any): ApiPromise<RetrieveSalePhaseResponse> {
-            return localVarFp.retrieveSalePhase(appId, collectionId, phaseId, options).then((request) => request(axios, basePath));
+        retrieveSalePhase(appId: string, version: string, collectionId: string, phaseId: string, options?: any): ApiPromise<RetrieveSalePhaseResponse> {
+            return localVarFp.retrieveSalePhase(appId, version, collectionId, phaseId, options).then((request) => request(axios, basePath));
         },
+
         /**
          * Returns a list of sale phases for a given collection. The response is paginated. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next set of sale phases. 
          * @summary List sale phases
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.          
          * @param {string} collectionId Collection ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        retrieveSalePhases(appId: string, collectionId: string, options?: any): ApiPromise<ListSalePhasesResponse> {
-            return localVarFp.retrieveSalePhases(appId, collectionId, options).then((request) => request(axios, basePath));
+        retrieveSalePhases(appId: string, version: string, collectionId: string, options?: any): ApiPromise<ListSalePhasesResponse> {
+            return localVarFp.retrieveSalePhases(appId, version, collectionId, options).then((request) => request(axios, basePath));
         },
+
         /**
          * Update affiliate.
          * @summary Update affiliate
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.          
          * @param {string} collectionId Collection ID
          * @param {string} phaseId Sales phase ID.
          * @param {string} affiliateId Affiliate id.
@@ -8191,21 +8706,23 @@ export const NFTsSalePhasesApiFactory = function (configuration?: Configuration,
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateAffiliate(appId: string, collectionId: string, phaseId: string, affiliateId: string, createAffiliateRequest?: CreateAffiliateRequest, options?: any): ApiPromise<RetrieveSalePhaseResponse> {
-            return localVarFp.updateAffiliate(appId, collectionId, phaseId, affiliateId, createAffiliateRequest, options).then((request) => request(axios, basePath));
+        updateAffiliate(appId: string, version: string, collectionId: string, phaseId: string, affiliateId: string, createAffiliateRequest?: CreateAffiliateRequest, options?: any): ApiPromise<RetrieveSalePhaseResponse> {
+            return localVarFp.updateAffiliate(appId, version, collectionId, phaseId, affiliateId, createAffiliateRequest, options).then((request) => request(axios, basePath));
         },
+
         /**
          * Update sale phase.
          * @summary Update sale phase
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.          
          * @param {string} collectionId Collection ID
          * @param {string} phaseId Sales phase ID.
          * @param {CreateSalePhaseRequest} [createSalePhaseRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateSalePhase(appId: string, collectionId: string, phaseId: string, createSalePhaseRequest?: CreateSalePhaseRequest, options?: any): ApiPromise<RetrieveSalePhaseResponse> {
-            return localVarFp.updateSalePhase(appId, collectionId, phaseId, createSalePhaseRequest, options).then((request) => request(axios, basePath));
+        updateSalePhase(appId: string, version: string, collectionId: string, phaseId: string, createSalePhaseRequest?: CreateSalePhaseRequest, options?: any): ApiPromise<RetrieveSalePhaseResponse> {
+            return localVarFp.updateSalePhase(appId, version, collectionId, phaseId, createSalePhaseRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -8221,6 +8738,7 @@ export class NFTsSalePhasesApi extends BaseAPI {
      * Create affiliate.
      * @summary Create affiliate
      * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.
      * @param {string} collectionId Collection ID
      * @param {string} phaseId Sales phase ID.
      * @param {CreateAffiliateRequest} [createAffiliateRequest] 
@@ -8228,14 +8746,15 @@ export class NFTsSalePhasesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NFTsSalePhasesApi
      */
-    public createAffiliate(appId: string, collectionId: string, phaseId: string, createAffiliateRequest?: CreateAffiliateRequest, options?: AxiosRequestConfig) {
-        return NFTsSalePhasesApiFp(this.configuration).createAffiliate(appId, collectionId, phaseId, createAffiliateRequest, options).then((request) => request(this.axios, this.basePath));
+    public createAffiliate(appId: string, version: string, collectionId: string, phaseId: string, createAffiliateRequest?: CreateAffiliateRequest, options?: AxiosRequestConfig) {
+        return NFTsSalePhasesApiFp(this.configuration).createAffiliate(appId, version, collectionId, phaseId, createAffiliateRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Delete affiliate.
      * @summary Delete Affiliate
      * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.     
      * @param {string} collectionId Collection ID
      * @param {string} phaseId Sale phase id.
      * @param {string} affiliateId Affiliate id.
@@ -8243,94 +8762,152 @@ export class NFTsSalePhasesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NFTsSalePhasesApi
      */
-    public deleteAffiliate(appId: string, collectionId: string, phaseId: string, affiliateId: string, options?: AxiosRequestConfig) {
-        return NFTsSalePhasesApiFp(this.configuration).deleteAffiliate(appId, collectionId, phaseId, affiliateId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Delete a sale phase.
-     * @summary Delete sale phase
-     * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-     * @param {string} collectionId Collection ID
-     * @param {string} phaseId Sale phase id.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof NFTsSalePhasesApi
-     */
-    public deleteSalePhase(appId: string, collectionId: string, phaseId: string, options?: AxiosRequestConfig) {
-        return NFTsSalePhasesApiFp(this.configuration).deleteSalePhase(appId, collectionId, phaseId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Create a sale phase for a given collection. You can add different phases to control how you will sell the collection. For example, you might have a total of 5000 NFTs, and you want to sell them in stages. You can create a pre-sale phase to sell 1000 NFTs to previous customers at a special price and within a specific time range. You can identify these customers with a condition; that would be an NFT with a certain policy id on their wallets. Then you create another sale phase for the public drop with the remaining 4000 NFTs and no conditions.   
-     * @summary Create sale phase
-     * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-     * @param {string} collectionId Collection ID.
-     * @param {CreateSalePhaseRequest} [createSalePhaseRequest] 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof NFTsSalePhasesApi
-     */
-    public nftCreateSale(appId: string, collectionId: string, createSalePhaseRequest?: CreateSalePhaseRequest, options?: AxiosRequestConfig) {
-        return NFTsSalePhasesApiFp(this.configuration).nftCreateSale(appId, collectionId, createSalePhaseRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Returns details for a single sale phase.
-     * @summary Retrieve sale phase
-     * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-     * @param {string} collectionId Collection ID
-     * @param {string} phaseId Sales phase ID.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof NFTsSalePhasesApi
-     */
-    public retrieveSalePhase(appId: string, collectionId: string, phaseId: string, options?: AxiosRequestConfig) {
-        return NFTsSalePhasesApiFp(this.configuration).retrieveSalePhase(appId, collectionId, phaseId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Returns a list of sale phases for a given collection. The response is paginated. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next set of sale phases. 
-     * @summary List sale phases
-     * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-     * @param {string} collectionId Collection ID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof NFTsSalePhasesApi
-     */
-    public retrieveSalePhases(appId: string, collectionId: string, options?: AxiosRequestConfig) {
-        return NFTsSalePhasesApiFp(this.configuration).retrieveSalePhases(appId, collectionId, options).then((request) => request(this.axios, this.basePath));
+    public deleteAffiliate(appId: string, version: string, collectionId: string, phaseId: string, affiliateId: string, options?: AxiosRequestConfig) {
+        return NFTsSalePhasesApiFp(this.configuration).deleteAffiliate(appId, version, collectionId, phaseId, affiliateId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Update affiliate.
      * @summary Update affiliate
      * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.    
      * @param {string} collectionId Collection ID
      * @param {string} phaseId Sales phase ID.
      * @param {string} affiliateId Affiliate id.
-     * @param {CreateAffiliateRequest} [createAffiliateRequest] 
+     * @param {UpdateAffiliateRequest} [updateAffiliateRequest] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NFTsSalePhasesApi
      */
-    public updateAffiliate(appId: string, collectionId: string, phaseId: string, affiliateId: string, createAffiliateRequest?: CreateAffiliateRequest, options?: AxiosRequestConfig) {
-        return NFTsSalePhasesApiFp(this.configuration).updateAffiliate(appId, collectionId, phaseId, affiliateId, createAffiliateRequest, options).then((request) => request(this.axios, this.basePath));
+    public updateAffiliate(appId: string, version: string, collectionId: string, phaseId: string, affiliateId: string, updateAffiliateRequest?: UpdateAffiliateRequest, options?: AxiosRequestConfig) {
+        return NFTsSalePhasesApiFp(this.configuration).updateAffiliate(appId, version, collectionId, phaseId, affiliateId, updateAffiliateRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * Update sale phase.
-     * @summary Update sale phase
+     * Create price tier.
+     * @summary Create price tier
      * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.
      * @param {string} collectionId Collection ID
      * @param {string} phaseId Sales phase ID.
+     * @param {CreatePriceTierRequest} [createPriceTierRequest] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NFTsSalePhasesApi
+     */
+    public createPriceTier(appId: string, version: string, collectionId: string, phaseId: string, createPriceTierRequest?: CreatePriceTierRequest, options?: AxiosRequestConfig) {
+        return NFTsSalePhasesApiFp(this.configuration).createPriceTier(appId, version, collectionId, phaseId, createPriceTierRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Delete price tier.
+     * @summary Delete price tier
+     * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.     
+     * @param {string} collectionId Collection ID
+     * @param {string} phaseId Sale phase id.
+     * @param {string} pricetierId Price Tier id.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NFTsSalePhasesApi
+     */
+    public deletePriceTier(appId: string, version: string, collectionId: string, phaseId: string, pricetierId: string, options?: AxiosRequestConfig) {
+        return NFTsSalePhasesApiFp(this.configuration).deletePriceTier(appId, version, collectionId, phaseId, pricetierId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Update price tier.
+     * @summary Update price tier
+     * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.    
+     * @param {string} collectionId Collection ID
+     * @param {string} phaseId Sales phase ID.
+     * @param {string} pricetierId Price Tier id.
+     * @param {UpdatePriceTierRequest} [updatePriceTierRequest] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NFTsSalePhasesApi
+     */
+    public updatePriceTier(appId: string, version: string, collectionId: string, phaseId: string, pricetierId: string, updatePriceTierRequest?: UpdatePriceTierRequest, options?: AxiosRequestConfig) {
+        return NFTsSalePhasesApiFp(this.configuration).updatePriceTier(appId, version, collectionId, phaseId, pricetierId, updatePriceTierRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+
+
+    /**
+     * Delete a sale phase.
+     * @summary Delete sale phase
+     * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.     
+     * @param {string} collectionId Collection ID
+     * @param {string} phaseId Sale phase id.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NFTsSalePhasesApi
+     */
+    public deleteSalePhase(appId: string, version: string, collectionId: string, phaseId: string, options?: AxiosRequestConfig) {
+        return NFTsSalePhasesApiFp(this.configuration).deleteSalePhase(appId, version, collectionId, phaseId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Create a sale phase for a given collection. You can add different phases to control how you will sell the collection. For example, you might have a total of 5000 NFTs, and you want to sell them in stages. You can create a pre-sale phase to sell 1000 NFTs to previous customers at a special price and within a specific time range. You can identify these customers with a condition; that would be an NFT with a certain policy id on their wallets. Then you create another sale phase for the public drop with the remaining 4000 NFTs and no conditions.   
+     * @summary Create sale phase
+     * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.     
+     * @param {string} collectionId Collection ID.
      * @param {CreateSalePhaseRequest} [createSalePhaseRequest] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NFTsSalePhasesApi
      */
-    public updateSalePhase(appId: string, collectionId: string, phaseId: string, createSalePhaseRequest?: CreateSalePhaseRequest, options?: AxiosRequestConfig) {
-        return NFTsSalePhasesApiFp(this.configuration).updateSalePhase(appId, collectionId, phaseId, createSalePhaseRequest, options).then((request) => request(this.axios, this.basePath));
+    public nftCreateSale(appId: string, version: string, collectionId: string, createSalePhaseRequest?: CreateSalePhaseRequest, options?: AxiosRequestConfig) {
+        return NFTsSalePhasesApiFp(this.configuration).nftCreateSale(appId, version, collectionId, createSalePhaseRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Returns details for a single sale phase.
+     * @summary Retrieve sale phase
+     * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.     
+     * @param {string} collectionId Collection ID
+     * @param {string} phaseId Sales phase ID.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NFTsSalePhasesApi
+     */
+    public retrieveSalePhase(appId: string, version: string, collectionId: string, phaseId: string, options?: AxiosRequestConfig) {
+        return NFTsSalePhasesApiFp(this.configuration).retrieveSalePhase(appId, version, collectionId, phaseId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Returns a list of sale phases for a given collection. The response is paginated. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next set of sale phases. 
+     * @summary List sale phases
+     * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.     
+     * @param {string} collectionId Collection ID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NFTsSalePhasesApi
+     */
+    public retrieveSalePhases(appId: string, version: string, collectionId: string, options?: AxiosRequestConfig) {
+        return NFTsSalePhasesApiFp(this.configuration).retrieveSalePhases(appId, version, collectionId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+
+    /**
+     * Update sale phase.
+     * @summary Update sale phase
+     * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.     
+     * @param {string} collectionId Collection ID
+     * @param {string} phaseId Sales phase ID.
+     * @param {UpdateSalePhaseRequest} [updateSalePhaseRequest] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NFTsSalePhasesApi
+     */
+    public updateSalePhase(appId: string, version: string, collectionId: string, phaseId: string, updateSalePhaseRequest?: UpdateSalePhaseRequest, options?: AxiosRequestConfig) {
+        return NFTsSalePhasesApiFp(this.configuration).updateSalePhase(appId, version, collectionId, phaseId, updateSalePhaseRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -9285,7 +9862,7 @@ export const PoolsApiAxiosParamCreator = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        stakePoolDelegations: async (appId: string, version: string,  poolId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        stakePoolDelegations: async (appId: string, version: string, poolId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('stakePoolDelegations', 'appId', appId)
             // verify required parameter 'poolId' is not null or undefined
@@ -10229,7 +10806,7 @@ export const WebhooksApiAxiosParamCreator = function (configuration?: Configurat
         listWebhooks: async (appId: string, version: string, size?: number, cursor?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('listWebhooks', 'appId', appId)
-            const localVarPath =  buildPath(appId, version, 'webhooks');
+            const localVarPath = buildPath(appId, version, 'webhooks');
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
