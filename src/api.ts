@@ -9859,10 +9859,13 @@ export const PoolsApiAxiosParamCreator = function (configuration?: Configuration
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
          * @param {string} version Tangocrypto version.         
          * @param {string} poolId Bech32 or hexadecimal pool ID.
+         * @param {number} [size] The number of results displayed on one page.
+         * @param {string} [cursor] A &#x60;cursor&#x60; to access the next set of results. You include the cursor in subsequent requests to the endpoint as a URL query parameter of your request. If the cursor is empty in the result it means there are no more items to be retrieved. 
+         * @param {'asc' | 'desc'} [order] The ordering of items from the point of view of the blockchain. By default, we return oldest first, newest last.          
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        stakePoolDelegations: async (appId: string, version: string, poolId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        stakePoolDelegations: async (appId: string, version: string, poolId: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'appId' is not null or undefined
             assertParamExists('stakePoolDelegations', 'appId', appId)
             // verify required parameter 'poolId' is not null or undefined
@@ -9882,7 +9885,17 @@ export const PoolsApiAxiosParamCreator = function (configuration?: Configuration
             // authentication x-api-key required
             await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
 
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
 
+            if (cursor !== undefined) {
+                localVarQueryParameter['cursor'] = cursor;
+            }
+
+            if (order !== undefined) {
+                localVarQueryParameter['order'] = order;
+            }
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -9950,11 +9963,14 @@ export const PoolsApiFp = function (configuration?: Configuration) {
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
          * @param {string} version Tangocrypto version.
          * @param {string} poolId Bech32 or hexadecimal pool ID.
+         * @param {number} [size] The number of results displayed on one page.
+         * @param {string} [cursor] A &#x60;cursor&#x60; to access the next set of results. You include the cursor in subsequent requests to the endpoint as a URL query parameter of your request. If the cursor is empty in the result it means there are no more items to be retrieved. 
+         * @param {'asc' | 'desc'} [order] The ordering of items from the point of view of the blockchain. By default, we return oldest first, newest last.         
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async stakePoolDelegations(appId: string, version: string, poolId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<ListPoolDelegationsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.stakePoolDelegations(appId, version, poolId, options);
+        async stakePoolDelegations(appId: string, version: string, poolId: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<ListPoolDelegationsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.stakePoolDelegations(appId, version, poolId, size, cursor, order, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
 
@@ -10019,12 +10035,15 @@ export class PoolsApi extends BaseAPI {
      * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
      * @param {string} version Tangocrypto version.
      * @param {string} poolId Bech32 or hexadecimal pool ID.
+     * @param {number} [size] The number of results displayed on one page.
+     * @param {string} [cursor] A &#x60;cursor&#x60; to access the next set of results. You include the cursor in subsequent requests to the endpoint as a URL query parameter of your request. If the cursor is empty in the result it means there are no more items to be retrieved. 
+     * @param {'asc' | 'desc'} [order] The ordering of items from the point of view of the blockchain. By default, we return oldest first, newest last.     
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PoolsApi
      */
-    public stakePoolDelegations(appId: string, version: string, poolId: string, options?: AxiosRequestConfig) {
-        return PoolsApiFp(this.configuration).stakePoolDelegations(appId, version, poolId, options).then((request) => request(this.axios, this.basePath));
+    public stakePoolDelegations(appId: string, version: string, poolId: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: AxiosRequestConfig) {
+        return PoolsApiFp(this.configuration).stakePoolDelegations(appId, version, poolId, size, cursor, order, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

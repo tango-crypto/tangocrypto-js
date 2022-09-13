@@ -107,11 +107,12 @@ describe('Pools API endpoints', function () {
             ],
             "cursor": null
         }
+        const size = 2;
 
         // act
-        const response = await api.listPoolDelegations(poolId);
+        const response = await api.listPoolDelegations(poolId, size);
 
         // assert
-        expect(response.result).deep.equal(result);
+        expect(response.result.data).lengthOf(2);
     })
 })
