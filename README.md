@@ -7,7 +7,7 @@ Go to [tangocrypto.com](https://www.tangocrypto.com), login/register, then creat
 
 ### Account Id
 You can find your account Id at the top right in your dashboard.
-![Account Id](./images/account_id.png)
+<!-- ![Account Id](./images/account_id.png) -->
 
 ### App Id
 Go to your apps list and click on the lock icon (:lock:).
@@ -22,7 +22,7 @@ npm i @tango-crypto/tangocrypto-js
 ```
 
 ## Initialization
-___
+
 Using the SDK is pretty simple as you can see from the following examples. You just need to create an `ApiClient` instance. 
 
 
