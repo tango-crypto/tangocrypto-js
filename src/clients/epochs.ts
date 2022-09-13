@@ -1,13 +1,13 @@
 import { AxiosInstance } from "axios";
-import { ClientConfiguration } from ".";
+import { ApiConfiguration } from ".";
 import { EpochsApi } from "../api";
 import { Configuration } from "../configuration";
 
 export class EpochApi {
     epochsApi: EpochsApi;
-    config: ClientConfiguration;
+    config: ApiConfiguration;
 
-    constructor(config: ClientConfiguration, protected axios: AxiosInstance) {
+    constructor(config: ApiConfiguration, protected axios: AxiosInstance) {
         this.config = config;
         const configuration = new Configuration({
             apiKey: config.apiKey,

@@ -15,7 +15,7 @@
 
 import { Configuration } from "./configuration";
 import { RequiredError, RequestArgs } from "./base";
-import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { FinalizeHandler, InitializeHandlerArguments, InitializeHandlerOutput  } from "../utils/middleware-retry/types";
 
 /**
@@ -136,10 +136,29 @@ export const createRequestFunction = function (axiosArgs: RequestArgs, globalAxi
         const axiosRequestArgs = {...axiosArgs.options, url: (configuration?.basePath || basePath) + axiosArgs.url};
         const retryStrategy = configuration.retryStrategy;
         const finalizeHandler: FinalizeHandler<AxiosRequestConfig<T>, R> = (args: AxiosRequestConfig<T>) => axios.request<T, R>(args);
-        const response: any = await retryStrategy.retry(finalizeHandler, axiosRequestArgs);
-        return { result: response.data, $metadata: response.$metadata }
+        try {
+            const response: any = await retryStrategy.retry(finalizeHandler, axiosRequestArgs);
+            return { result: response.data, $metadata: response.$metadata }
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                const data = error.response?.data?.status_code ? error.response?.data : {status_code: error.response?.status || 400, message: getErrorMessage(error), error: error.response?.statusText || 'Bad Request'}
+                throw new TangocryptoError(data);
+            } else {
+                throw error;
+            }
+        }
         // return axios.request<T, R>(axiosRequestArgs);
     };
+}
+
+function getErrorMessage(err: AxiosError<any>): string {
+    if (typeof err.response?.data === 'string') {
+        return err.response?.data.trim();
+    }
+    if (typeof err.response?.data?.error === 'string') {
+        return err.response?.data?.error;
+    }
+    return err.message;
 }
 
 /**
@@ -165,4 +184,16 @@ export interface ApiResponse<T> {
 export interface Metadata {
     attempts: number;
     totalRetryDelay: number;
+}
+
+export class TangocryptoError {
+    status_code: number;
+    message: string;
+    error: string;
+    constructor(data: {status_code: number, message: string, error: string}) {
+        const {status_code, message, error} = data;
+        this.status_code = status_code;
+        this.message = message;
+        this.error = error;
+    }
 }

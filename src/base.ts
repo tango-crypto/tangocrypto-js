@@ -19,6 +19,8 @@ import { Configuration } from "./configuration";
 import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
 
 export const BASE_PATH = "https://cardano-mainnet.tangocrypto.com";
+export const BASE_PATH_TEST = "https://cardano-testnet.tangocrypto.com";
+export const BASE_PATH_TEST_STAGING = "https://cardano-testnet-staging.tangocrypto.com";
 export const V1 = 'v1';
 
 /**

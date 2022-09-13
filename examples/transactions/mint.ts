@@ -1,13 +1,13 @@
 import { BuildTxRequest } from "../../src/api";
-import { Tangocrypto } from "../../src/clients";
+import { Tangocrypto, Network } from "../../src/clients";
 import * as dotenv from "dotenv";
 
 dotenv.config();
 async function mint() {
     const client = new Tangocrypto({
-        basePath: process.env.BASE_PATH,
         apiKey: process.env.API_KEY!,
         appId: process.env.APP_ID!,
+        network: Network.CARDANO_TESTNET_STAGING,
         version: process.env.VERSION
     });
 

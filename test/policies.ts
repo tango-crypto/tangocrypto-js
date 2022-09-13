@@ -6,7 +6,7 @@ const expect = chai.expect;
 
 import 'mocha';
 import * as dotenv from "dotenv";
-import { Tangocrypto } from '../index';
+import { Tangocrypto, Network } from '../index';
 import { PolicyApi } from '../src/clients/policies';
 
 dotenv.config();
@@ -17,7 +17,7 @@ describe('Policies API endpoints', function () {
     before('Initializing API ...', () => {
 
         api = new Tangocrypto({
-            basePath: process.env.BASE_PATH,
+            network: Network.CARDANO_TESTNET_STAGING,
             apiKey: process.env.API_KEY!,
             appId: process.env.APP_ID!,
             version: process.env.VERSION

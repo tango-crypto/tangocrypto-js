@@ -6,7 +6,7 @@ const expect = chai.expect;
 
 import 'mocha';
 import * as dotenv from "dotenv";
-import { Tangocrypto } from '../index';
+import { Tangocrypto, Network } from '../index';
 import { BlockApi } from '../src/clients/blocks';
 
 dotenv.config();
@@ -18,24 +18,41 @@ describe('Error API endpoints', function () {
     it('should reject with status 404', async () => {
         // arrange
         api = new Tangocrypto({
-            basePath: process.env.BASE_PATH + '/missing/path',
+            network: Network.CARDANO_TESTNET,
             apiKey: process.env.API_KEY!,
             appId: process.env.APP_ID!,
             version: process.env.VERSION
+        }).block()
+        const block_no = -1;
+
+        // act
+        const response: any[] = await Promise.allSettled([api.getBlock(block_no)]);
+
+        // assert
+        expect(response[0].reason.status_code).equal(404);
+    })
+
+    it('should reject with status 403', async () => {
+        // arrange
+        api = new Tangocrypto({
+            network: Network.CARDANO_TESTNET_STAGING,
+            apiKey: process.env.API_KEY!,
+            appId: process.env.APP_ID!,
+            version: 'forbidden'
         }).block()
 
         // act
         const response: any[] = await Promise.allSettled([api.getLatestBlock()]);
 
         // assert
-        expect(response[0].reason.response.status).equal(404);
+        expect(response[0].reason.status_code).equal(403);
     })
 
     it('should retry', async () => {
 
         // arrange
         api = new Tangocrypto({
-            basePath: process.env.BASE_PATH,
+            network: Network.CARDANO_TESTNET_STAGING,
             apiKey: process.env.API_KEY!,
             appId: process.env.APP_ID!,
             version: process.env.VERSION,
@@ -63,7 +80,7 @@ describe('Error API endpoints', function () {
 
         // arrange
         api = new Tangocrypto({
-            basePath: process.env.BASE_PATH,
+            network: Network.CARDANO_TESTNET_STAGING,
             apiKey: process.env.API_KEY!,
             appId: process.env.APP_ID!,
             version: process.env.VERSION,
@@ -87,7 +104,7 @@ describe('Error API endpoints', function () {
             api.getBlockByHash(hash),
         ]);
 
-        const map = response.map((r:any) => r.reason?.response.status)
+        const map = response.map((r:any) => r.reason?.status_code)
         // assert
         expect(map).includes(member);
     })

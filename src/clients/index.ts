@@ -1,4 +1,4 @@
-import { BASE_PATH, V1 } from "../base";
+import { BASE_PATH, BASE_PATH_TEST, BASE_PATH_TEST_STAGING, V1 } from "../base";
 import globalAxios, { AxiosInstance } from 'axios';
 import { TransactionApi } from "./transactions";
 import { AddressApi } from "./address";
@@ -12,29 +12,52 @@ import { WebhookApi } from "./webhooks";
 import { DEFAULT_MAX_ATTEMPTS } from "../../utils/constants";
 import { NftApi } from "./nfts";
 
+export const Network = {
+    CARDANO_MAINNET: 'cardano-mainnet',
+    CARDANO_TESTNET: 'cardano-testnet',
+    CARDANO_TESTNET_STAGING: 'cardano-testnet-staging',
+}
+
 export interface ClientConfiguration {
     apiKey: string;
     appId: string;
-    basePath?: string;
+    network: string;
     version?: string;
     maxAttempts?: number;
+}
+
+export interface ApiConfiguration extends ClientConfiguration {
+    basePath: string;
 }
 
 const defaultConfig: ClientConfiguration = {
     apiKey: '',
     appId: '',
-    basePath: BASE_PATH,
+    network: Network.CARDANO_MAINNET,
     version: V1,
     maxAttempts: DEFAULT_MAX_ATTEMPTS
 }
 
 export class Tangocrypto {
-    configuration: ClientConfiguration;
+    configuration: ApiConfiguration;
     protected axios: AxiosInstance = globalAxios;
 
     constructor(config: ClientConfiguration) {
-        this.configuration = defaultConfig;
-        Object.assign(this.configuration, config);
+        const configuration = defaultConfig;
+        Object.assign(configuration, config);
+        let basePath = '';
+        switch (configuration.network) {
+            case Network.CARDANO_TESTNET:
+                basePath = BASE_PATH_TEST;
+                break;
+            case Network.CARDANO_TESTNET_STAGING:
+                basePath = BASE_PATH_TEST_STAGING;
+                break;
+            default:
+                basePath = BASE_PATH;
+                break;
+        }
+        this.configuration = { ...configuration, basePath };
     }
 
     /**

@@ -6,8 +6,9 @@ const expect = chai.expect;
 
 import 'mocha';
 import * as dotenv from "dotenv";
-import { Tangocrypto } from '../index';
+import { Tangocrypto, Network } from '../index';
 import { WebhookApi } from '../src/clients/webhooks';
+import { TangocryptoError } from '../src/common';
 
 dotenv.config();
 describe('Webhooks API endpoints', function () {
@@ -17,7 +18,7 @@ describe('Webhooks API endpoints', function () {
     before('Initializing API ...', () => {
 
         api = new Tangocrypto({
-            basePath: process.env.BASE_PATH,
+            network: Network.CARDANO_TESTNET_STAGING,
             apiKey: process.env.API_KEY!,
             appId: process.env.APP_ID!,
             version: process.env.VERSION
@@ -33,7 +34,6 @@ describe('Webhooks API endpoints', function () {
 
         // assert
         expect(response.result.data).is.instanceOf(Array);
-
     })
 
 })

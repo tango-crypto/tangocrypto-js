@@ -1,5 +1,5 @@
 import { AxiosInstance } from "axios";
-import { ClientConfiguration } from ".";
+import { ApiConfiguration } from ".";
 import { AddressesApi, CreateAffiliateRequest, CreateCollectionRequest, CreateNftRequest, CreateNftSaleRequest, CreateSalePhaseRequest, NFTsAddressListApi, NFTsCollectionsApi, NFTsSalePhasesApi, NFTsSalesApi, NFTsTokensApi, UpdateCollectionRequest, UpdateNftRequest, UpdateSalePhaseRequest } from "../api";
 import { Configuration } from "../configuration";
 
@@ -9,9 +9,9 @@ export class NftApi {
     private salesApi: NFTsSalesApi;
     private phasesApi: NFTsSalePhasesApi;
     private addresslistsApi: NFTsAddressListApi;
-    config: ClientConfiguration;
+    config: ApiConfiguration;
 
-    constructor(config: ClientConfiguration, protected axios: AxiosInstance) {
+    constructor(config: ApiConfiguration, protected axios: AxiosInstance) {
         this.config = config;
         const configuration = new Configuration({
             apiKey: config.apiKey,

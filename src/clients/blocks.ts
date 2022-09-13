@@ -1,14 +1,14 @@
 import { AxiosInstance } from "axios";
-import { ClientConfiguration } from ".";
+import { ApiConfiguration } from ".";
 import { BlocksApi, RetrieveBlockResponse } from "../api";
 import { ApiResponse } from "../common";
 import { Configuration } from "../configuration";
 
 export class BlockApi {
     blocksApi: BlocksApi;
-    config: ClientConfiguration;
+    config: ApiConfiguration;
 
-    constructor(config: ClientConfiguration, protected axios: AxiosInstance) {
+    constructor(config: ApiConfiguration, protected axios: AxiosInstance) {
         this.config = config;
         const configuration = new Configuration({
             apiKey: config.apiKey,

@@ -6,7 +6,7 @@ const expect = chai.expect;
 
 import 'mocha';
 import * as dotenv from "dotenv";
-import { Tangocrypto } from '../index';
+import { Tangocrypto, Network } from '../index';
 import { AddressApi } from '../src/clients/address';
 
 dotenv.config();
@@ -17,9 +17,9 @@ describe('Address API endpoints', function () {
     before('Initializing API ...', () => {
 
         api = new Tangocrypto({
-            basePath: process.env.BASE_PATH,
             apiKey: process.env.API_KEY!,
             appId: process.env.APP_ID!,
+            network: Network.CARDANO_TESTNET_STAGING,
             version: process.env.VERSION
         }).address();
     })

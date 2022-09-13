@@ -1,5 +1,5 @@
 import { AxiosInstance } from "axios";
-import { ClientConfiguration } from ".";
+import { ApiConfiguration } from ".";
 import { Configuration } from "../configuration";
 import { BuildTxRequest, SubmitTansactionRequest, TransactionsApi } from "../api";
 import { SignTxRequest } from "../../utils/models/sing-transaction-request.model";
@@ -8,9 +8,9 @@ import { MultisigTransaction } from "../../utils/models/multisig-transaction";
 
 export class TransactionApi {
     transactionsApi: TransactionsApi;
-    config: ClientConfiguration
+    config: ApiConfiguration
 
-    constructor(config: ClientConfiguration, protected axios: AxiosInstance) {
+    constructor(config: ApiConfiguration, protected axios: AxiosInstance) {
         this.config = config;
         const configuration = new Configuration({
             apiKey: config.apiKey,
