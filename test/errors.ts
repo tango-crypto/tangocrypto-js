@@ -6,7 +6,7 @@ const expect = chai.expect;
 
 import 'mocha';
 import * as dotenv from "dotenv";
-import { ApiClient } from '../index';
+import { Tangocrypto } from '../index';
 import { BlockApi } from '../src/clients/blocks';
 
 dotenv.config();
@@ -17,7 +17,7 @@ describe('Error API endpoints', function () {
 
     it('should reject with status 404', async () => {
         // arrange
-        api = new ApiClient({
+        api = new Tangocrypto({
             basePath: process.env.BASE_PATH + '/missing/path',
             apiKey: process.env.API_KEY!,
             appId: process.env.APP_ID!,
@@ -34,7 +34,7 @@ describe('Error API endpoints', function () {
     it('should retry', async () => {
 
         // arrange
-        api = new ApiClient({
+        api = new Tangocrypto({
             basePath: process.env.BASE_PATH,
             apiKey: process.env.API_KEY!,
             appId: process.env.APP_ID!,
@@ -62,7 +62,7 @@ describe('Error API endpoints', function () {
     it('should reject status 429', async () => {
 
         // arrange
-        api = new ApiClient({
+        api = new Tangocrypto({
             basePath: process.env.BASE_PATH,
             apiKey: process.env.API_KEY!,
             appId: process.env.APP_ID!,

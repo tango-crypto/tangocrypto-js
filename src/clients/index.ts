@@ -28,7 +28,7 @@ const defaultConfig: ClientConfiguration = {
     maxAttempts: DEFAULT_MAX_ATTEMPTS
 }
 
-export class ApiClient {
+export class Tangocrypto {
     configuration: ClientConfiguration;
     protected axios: AxiosInstance = globalAxios;
 

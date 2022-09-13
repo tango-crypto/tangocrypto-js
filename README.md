@@ -23,16 +23,16 @@ npm i @tango-crypto/tangocrypto-js
 
 ## Initialization
 
-Using the SDK is pretty simple as you can see from the following examples. You just need to create an `ApiClient` instance. 
+Using the SDK is pretty simple as you can see from the following examples. You just need to create an `Tangocrypto` instance. 
 
 
 ```js
-import { ApiClient } from '@tango-crypto/tangocrypto-js';
+import { Tangocrypto } from '@tango-crypto/tangocrypto-js';
 // or CommonJS
-// const { ApiClient } = require('@tango-crypto/tangocrypto-js');
+// const { Tangocrypto } = require('@tango-crypto/tangocrypto-js');
 
 
-const client = new ApiClient({
+const client = new Tangocrypto({
     apiKey: process.env.API_KEY, // your account id
     appId: process.env.APP_ID, // your app id
     basePath: process.env.BASE_PATH, // API base URL, defaul to https://cardano-mainnet.tangocrypto.com
@@ -41,7 +41,7 @@ const client = new ApiClient({
 })
 ```
 
-### Config Options
+### Settings Options
 * `apiKey`: Your account Id (required).
 * `appId`: Your app Id (required).
 * `basePath`: API base URL, defaul to `https://cardano-mainnet.tangocrypto.com`.
@@ -51,7 +51,7 @@ const client = new ApiClient({
 For more [examples](https://www.github.com/tango-crypto/tangocrypto-js/examples/) take a look in examples directory.
 
 ### Consume API
-After you have created an `ApiClient` instance you can get different API instances to interact with the backend. 
+After you have created an `Tangocrypto` instence you can get different API instances to interact with the backend. 
 
 * `Addresses`: Get access to a set of endpoints cardano address related.
 * `Assets`: Get access to a set of endpoints cardano asset related.

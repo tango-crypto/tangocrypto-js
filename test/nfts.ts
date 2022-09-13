@@ -6,9 +6,8 @@ const expect = chai.expect;
 
 import 'mocha';
 import * as dotenv from "dotenv";
-import { ApiClient } from '../index';
+import { Tangocrypto } from '../index';
 import { NftApi } from '../src/clients/nfts';
-import { assert } from 'console';
 
 dotenv.config();
 describe('Nfts API endpoints', function () {
@@ -17,7 +16,7 @@ describe('Nfts API endpoints', function () {
 
     before('Initializing API ...', () => {
 
-        api = new ApiClient({
+        api = new Tangocrypto({
             basePath: process.env.BASE_PATH,
             apiKey: process.env.API_KEY!,
             appId: process.env.APP_ID!,

@@ -6,7 +6,7 @@ const expect = chai.expect;
 
 import 'mocha';
 import * as dotenv from "dotenv";
-import { ApiClient } from '../index';
+import { Tangocrypto } from '../index';
 import { WalletApi } from '../src/clients/wallets';
 
 dotenv.config();
@@ -16,7 +16,7 @@ describe('Wallets API endpoints', function () {
 
     before('Initializing API ...', () => {
 
-        api = new ApiClient({
+        api = new Tangocrypto({
             basePath: process.env.BASE_PATH,
             apiKey: process.env.API_KEY!,
             appId: process.env.APP_ID!,

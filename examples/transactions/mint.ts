@@ -1,9 +1,10 @@
-import { BuildTxRequest } from "../src/api";
-import { ApiClient } from "../src/clients";
+import { BuildTxRequest } from "../../src/api";
+import { Tangocrypto } from "../../src/clients";
+import * as dotenv from "dotenv";
 
-
+dotenv.config();
 async function mint() {
-    const client = new ApiClient({
+    const client = new Tangocrypto({
         basePath: process.env.BASE_PATH,
         apiKey: process.env.API_KEY!,
         appId: process.env.APP_ID!,
@@ -68,7 +69,7 @@ async function mint() {
 
     // submit tx
     const txId = (await txClient.submitTransaction({ tx: signed })).result.tx_id;
-    console.log('Tx id:', txId);
+    return txId;
 }
 
-mint();
+mint().then(txId => console.log('Tx id:', txId));
