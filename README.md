@@ -5,13 +5,9 @@ TypeScript/JavaScript sdk for Tangocrypto platform.
 ## Getting started
 Go to [tangocrypto.com](https://www.tangocrypto.com), login/register, then create an app and save your `apiKey` and `appId`.
 
-### ApiKey
-Click on the top right icon in your dashboard and copy the value for **Account ID** .
-![Account Id](./images/account_id.png)
-
-### AppId
-In the dashboard go to your app details and copy the value for **APP Id**.
-![App Id](./images/app_id.png)
+### Credentials
+In the dashboard go to your app details and copy the value for **APP Id** and **API Key**.
+![App](./images/app_id.png)
 
 ## Installation
 
