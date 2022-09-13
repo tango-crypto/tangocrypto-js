@@ -51,7 +51,7 @@ const client = new ApiClient({
 For more [examples](https://www.github.com/tango-crypto/tangocrypto-js/examples/) take a look in examples directory.
 
 ### Consume API
-After you have created an `ApiClient` instence you can get different API instances to interact with the backend. 
+After you have created an `ApiClient` instance you can get different API instances to interact with the backend. 
 
 * `Addresses`: Get access to a set of endpoints cardano address related.
 * `Assets`: Get access to a set of endpoints cardano asset related.
