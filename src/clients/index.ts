@@ -21,7 +21,7 @@ export const Network = {
 export interface ClientConfiguration {
     apiKey: string;
     appId: string;
-    network: string;
+    network?: string;
     version?: string;
     maxAttempts?: number;
 }
