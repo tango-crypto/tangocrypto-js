@@ -7,6 +7,13 @@
     "type": "git",
     "url": "https://github.com/tango-crypto/tangocrypto-js.git"
   },
+  "keywords": [
+    "tangocrypto",
+    "cardano",
+    "api",
+    "javascript",
+    "typescript"
+],
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "module": "./dist/esm/index.js",
