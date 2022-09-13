@@ -170,30 +170,38 @@ export const buildPath = function (appId: string, version: string, ...path: stri
 }
 
 
-export interface ApiPromise<T> extends Promise<ApiResponse<T>> {}
+export interface ApiPromise<T> extends Promise<TangocryptoResponse<T>> {}
 
 /**
  *
  * @export
  */
-export interface ApiResponse<T> {
+export interface TangocryptoResponse<T> {
     result: T;
     $metadata: Metadata;
 }
 
-export interface Metadata {
+export type Metadata = {
     attempts: number;
     totalRetryDelay: number;
 }
 
-export class TangocryptoError {
+export class TangocryptoError extends Error {
     status_code: number;
     message: string;
     error: string;
-    constructor(data: {status_code: number, message: string, error: string}) {
-        const {status_code, message, error} = data;
+    constructor(err: {status_code: number, message: string, error: string}) {
+        super(err.message)
+        this.name = 'TangocryptoError';
+        const {status_code, message, error} = err;
         this.status_code = status_code;
         this.message = message;
         this.error = error;
+        Object.setPrototypeOf(this, TangocryptoError.prototype);
+    }
+
+    public toString(): string {
+        const s = JSON.stringify({ status_code: this.status_code, message: this.message, error: this.error });
+        return `${this.name}: ${s}`;
     }
 }

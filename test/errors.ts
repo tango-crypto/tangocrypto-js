@@ -8,6 +8,7 @@ import 'mocha';
 import * as dotenv from "dotenv";
 import { Tangocrypto, Network } from '../index';
 import { BlockApi } from '../src/clients/blocks';
+import { TangocryptoError } from '../src/common';
 
 dotenv.config();
 describe('Error API endpoints', function () {
@@ -18,7 +19,7 @@ describe('Error API endpoints', function () {
     it('should reject with status 404', async () => {
         // arrange
         api = new Tangocrypto({
-            network: Network.CARDANO_TESTNET,
+            network: Network.CARDANO_TESTNET_STAGING,
             apiKey: process.env.API_KEY!,
             appId: process.env.APP_ID!,
             version: process.env.VERSION
