@@ -16,21 +16,31 @@ async function mint() {
 
     // get address utxos (take into account any pagination here)
     const inputs = (await addrClient.listAddressUtxos('addr_test1qpemm54tmynjhuyw0qhzdpnras29c3pc8gxvc4afpsa3uwglmrag6mlare663x64ugkkv8nqhqg3z6u78xa49fq6wmts55h5y9')).result.data;
-    
+
     // build tx
     const request: BuildTxRequest = {
-        "inputs": inputs.map(i => ({ address: i.address, hash: i.hash, value: i.value, asset: i.assets })), // use address inputs here as spending utxos
+        "inputs": inputs.map(i => ({ 
+            address: i.address, 
+            index: i.index,
+            hash: i.hash, 
+            value: i.value, 
+            assets: i.assets.map(a => ({ 
+                policy_id: a.policy_id, 
+                asset_name: a.asset_name, 
+                quantity: a.quantity 
+            })) 
+        })), // use address inputs here as spending utxos
         "recipients": {
             "addr_test1qzy4e509u7jtztnn0p3v6rypup5w48t63pgkhtsup6anumqrejvpmpdfe7zt662gdx98f3d5a0phjrh6hvxyjhecpe3q422hpz": [
                 {
                     "policy_id": "18ed282beda4bec13226c427d4744d2642ba2cef404470b62ae184d8",
-                    "asset_name": "BuildTxTest#001",
+                    "asset_name": "BuildTxTest#005",
                     "quantity": 1,
                     "metadata": {
                         "721": {
-                            "cdf7a949cca0d57a27f862d525e4d4c734c1d503cbc7f04c1ac2350e": {
-                                "BuildTxTest#001": {
-                                    "name": "BuildTxTest #001",
+                            "18ed282beda4bec13226c427d4744d2642ba2cef404470b62ae184d8": {
+                                "BuildTxTest#005": {
+                                    "name": "BuildTxTest #005",
                                     "image": "ipfs://QmbFhLR5C6BmTW7apgDMVmGozLuEUZwoezcgHQeULT59M5",
                                     "description": "Little BuildTxTest description"
                                 }
@@ -55,11 +65,15 @@ async function mint() {
         },
         "change_address": "addr_test1qpemm54tmynjhuyw0qhzdpnras29c3pc8gxvc4afpsa3uwglmrag6mlare663x64ugkkv8nqhqg3z6u78xa49fq6wmts55h5y9"
     }
-    
+
+
+    console.log('request:', JSON.stringify(request, null, 2));
+
+
     const response = await txClient.buildTransaction(request);
     const buildTx = response.result;
 
-    
+
     // sign tx
     const keys = [
         'xprv1gpn7d2h38j5ukpvmuz4mmrlgaprx6pcp53987ff8lkuqk2ztd4p2fdfpap4ev98hg3uj8kd36wzva3av8r776ke50dhhkm2ktpca83tj46xlscy6d7qga23ql4nn7z2hl9a4r3gqgpt6n7glv57nwkf80ypl5j63', // your spending/input keys
