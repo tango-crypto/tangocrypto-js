@@ -85,16 +85,24 @@ export class TransactionApi {
     * @memberof ClientApi
     */
     public signTransaction(signTxRequest: SignTxRequest) {
-        const { tx: encoded, keys } = signTxRequest;
+        const { tx: cborTx, keys, witnesses } = signTxRequest;
+        const tx = MultisigTransaction.fromRawTx(cborTx);
 
-        const signingKeys = keys.map(key => Seed.getPrivateKey(key));
-        const buffer = Buffer.from(encoded, 'hex');
-
-        const tx = MultisigTransaction.fromBytes(buffer);
-
-        for (const prvKey of signingKeys) {
-            tx.addKeyWitnesses(prvKey);
+        // add signing keys
+        if (keys && keys.length > 0) {
+            const signingKeys = keys.map(key => Seed.getPrivateKey(key));
+            for (const prvKey of signingKeys) {
+                tx.addWitnessesFromKeys(prvKey);
+            }
         }
+
+        // add witnesses (already signed keys)
+        if (witnesses) {
+            tx.addWitnesses(witnesses);
+        }
+
+        // const buffer = Buffer.from(cborTx, 'hex');
+        // const tx = MultisigTransaction.fromBytes(buffer);
 
         const signed = tx.build();
         return Promise.resolve(signed);

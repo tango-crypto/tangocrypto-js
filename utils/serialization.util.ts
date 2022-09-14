@@ -1286,6 +1286,10 @@ export class Seed {
     return null;
   }
 
+  static getTransaction(cborTx: string): Transaction {
+    return Transaction.from_bytes(Buffer.from(cborTx, 'hex'));
+  }
+
   private static isInteger(value: any) {
     return Number.isInteger(Number(value));
   }

@@ -48,13 +48,24 @@ export class MultisigTransaction {
         return multisig
     }
 
-    addKeyWitnesses(...privateKeys: PrivateKey[]): void {
+    addWitnessesFromKeys(...privateKeys: PrivateKey[]): void {
         privateKeys.forEach(prvKey => {
             // add keyhash witnesses
             const vkeyWitness = make_vkey_witness(this.txHash, prvKey);
             this.vkeyWitnesses.add(vkeyWitness);
         });
 	}
+
+    addWitnesses(witnesses: string) {
+        const witnessSet = TransactionWitnessSet.from_bytes(Buffer.from(witnesses, 'hex'));
+        const vkeys = witnessSet.vkeys();
+        if (vkeys) {
+            for (let i = 0; i < vkeys.len(); i++) {
+                const vkeyWitness = vkeys.get(i);
+                this.vkeyWitnesses.add(vkeyWitness);
+            }
+        }
+    }
 
     adjustFee(txBody: TransactionBody, coinSelection: CoinSelection, tokens: Asset[], numberOfWitnesses: number, config: any, encoding: BufferEncoding): TransactionBody {
         const bodyFee = parseInt(txBody.fee().to_str());
@@ -197,6 +208,30 @@ export class MultisigTransaction {
         const nScripts: NativeScript[] = scripts.map((k:any) => NativeScript.from_bytes(MultisigTransaction.hexToBuff(k)));
         for (const script of nScripts) {
             multisig.nativeScripts.add(script);
+        }
+
+        return multisig;
+    }
+
+    static fromRawTx(cborTx: string): MultisigTransaction {
+        const multisig = new MultisigTransaction();
+        const tx = Seed.getTransaction(cborTx);
+
+        multisig.txBody = tx.body();
+        multisig.txHash = hash_transaction(multisig.txBody);
+        multisig.metadata = tx.auxiliary_data();
+
+        const witnessesSet = tx.witness_set();
+        if (witnessesSet.native_scripts()) {
+            multisig.nativeScripts = witnessesSet.native_scripts();
+        }
+
+        if (witnessesSet.vkeys()) {
+            const vkeys = witnessesSet.vkeys();
+            for (let i = 0; i < vkeys.len(); i++) {
+                const vkeyWitness = vkeys.get(i);
+                multisig.vkeyWitnesses.add(vkeyWitness);
+            }
         }
 
         return multisig;

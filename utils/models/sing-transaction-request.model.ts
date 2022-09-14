@@ -1,4 +1,5 @@
 export interface SignTxRequest {
     tx: string;
-    keys: string[];
+    keys?: string[];
+    witnesses?: string;
 }
