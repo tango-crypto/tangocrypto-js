@@ -1,6 +1,7 @@
 const { Tangocrypto, Network } = require('@tango-crypto/tangocrypto-js');
 import * as dotenv from "dotenv";
 
+dotenv.config();
 const tc = new  Tangocrypto({
     apiKey: process.env.API_KEY!,
     appId: process.env.APP_ID!,
