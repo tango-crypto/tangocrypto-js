@@ -37,8 +37,6 @@ const collection = {
     }
 };
 
-
-
 const tokensArr = {
     "tokens": [{
         "asset_name": "FACE#01",
@@ -191,8 +189,6 @@ const salePhase = {
         "price": 20000000
     }]
 };
-
- 
 
 async function main() {
 
