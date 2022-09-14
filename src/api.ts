@@ -2134,10 +2134,10 @@ export interface ListAddressAssetsResponseDataInner {
     'fingerprint'?: string;
     /**
      * Assset quantity
-     * @type {string}
+     * @type {number}
      * @memberof ListAddressAssetsResponseDataInner
      */
-    'quantity'?: string;
+    'quantity'?: number;
 }
 /**
  * 
@@ -2302,10 +2302,10 @@ export interface ListAddressUtxosResponseDataInner {
 export interface ListAddressUtxosResponseDataInnerAssetsInner {
     /**
      * Asset quantity
-     * @type {string}
+     * @type {number}
      * @memberof ListAddressUtxosResponseDataInnerAssetsInner
      */
-    'quantity'?: string;
+    'quantity'?: number;
     /**
      * Policy ID controlling an asset
      * @type {string}
@@ -2426,10 +2426,10 @@ export interface ListAssetAddressesResponseDataInner {
     'address'?: string;
     /**
      * Assset quantity
-     * @type {string}
+     * @type {number}
      * @memberof ListAssetAddressesResponseDataInner
      */
-    'quantity'?: string;
+    'quantity'?: number;
     /**
      * Percentage of asset ownership for a given address compared to the total supply.
      * @type {string}
@@ -2746,10 +2746,10 @@ export interface ListPolicyAssetsResponseDataInner {
     'fingerprint'?: string;
     /**
      * Asset quantity
-     * @type {string}
+     * @type {number}
      * @memberof ListPolicyAssetsResponseDataInner
      */
-    'quantity'?: string;
+    'quantity'?: number;
     /**
      * ID of the initial minting transaction
      * @type {string}
@@ -4047,10 +4047,10 @@ export interface RetrieveAssetByFingerprintResponse {
     'fingerprint'?: string;
     /**
      * Asset quantity
-     * @type {string}
+     * @type {number}
      * @memberof RetrieveAssetByFingerprintResponse
      */
-    'quantity'?: string;
+    'quantity'?: number;
     /**
      * Count of mint and burn transactions
      * @type {string}
