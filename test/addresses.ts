@@ -45,51 +45,12 @@ describe('Address API endpoints', function () {
     it('should list address utxos', async () => {
         // arrange
         const address = 'addr_test1qpemm54tmynjhuyw0qhzdpnras29c3pc8gxvc4afpsa3uwglmrag6mlare663x64ugkkv8nqhqg3z6u78xa49fq6wmts55h5y9';
-        const utxos = [
-            {
-                "address": "addr_test1qpemm54tmynjhuyw0qhzdpnras29c3pc8gxvc4afpsa3uwglmrag6mlare663x64ugkkv8nqhqg3z6u78xa49fq6wmts55h5y9",
-                "hash": "a440d0f2c09e25f93aadea53dfe511c00b730eef4b6ed0be614f06d48c2fdaeb",
-                "index": 2,
-                "value": 74763221,
-                "smart_contract": false,
-                "assets": []
-            },
-            {
-                "address": "addr_test1qpemm54tmynjhuyw0qhzdpnras29c3pc8gxvc4afpsa3uwglmrag6mlare663x64ugkkv8nqhqg3z6u78xa49fq6wmts55h5y9",
-                "hash": "546b99bf07c1861b8c69b80bfac543fe9eb1be044a5051398af0cabe8d424ab5",
-                "index": 0,
-                "value": 1137906,
-                "smart_contract": false,
-                "assets": []
-            },
-            {
-                "address": "addr_test1qpemm54tmynjhuyw0qhzdpnras29c3pc8gxvc4afpsa3uwglmrag6mlare663x64ugkkv8nqhqg3z6u78xa49fq6wmts55h5y9",
-                "hash": "60268e4eb0d21532500158b5074c3b46ad2b67f45cd10beea3c73db3aa2937b4",
-                "index": 1,
-                "value": 1482726,
-                "smart_contract": false,
-                "assets": [
-                    {
-                        "policy_id": "ef3c47ccb75e6d77e4a4c018a0ec1b8d88c253fd72b4ec29f760756e",
-                        "asset_name": "T #023",
-                        "fingerprint": "asset14nje838m44gkv85ry62pk7n20v5g2lwtx39yvj",
-                        "quantity": 1
-                    },
-                    {
-                        "policy_id": "ef3c47ccb75e6d77e4a4c018a0ec1b8d88c253fd72b4ec29f760756e",
-                        "asset_name": "TTTTTTTTTTTTT #000",
-                        "fingerprint": "asset1ftdtd3q84ql38uvcqwdm0uv0zxmattw5zm3mt5",
-                        "quantity": 1
-                    }
-                ]
-            }
-        ];
 
         // act
         const response = await api.listAddressUtxos(address)
 
         // assert
-        expect(response.result.data).deep.equal(utxos);
+        expect(response.result.data).instanceOf(Array);
     })
     
     it('should list address transactions', async () => {
