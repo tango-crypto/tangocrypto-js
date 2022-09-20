@@ -66,6 +66,7 @@ export class TransactionApi {
     public listTransactionScripts(hash: string) {
         return this.transactionsApi.listTransactionScripts(this.config.appId, this.config.version, hash);
     }
+
     /**
      * List the Collaterals from a transaction specified by a transaction `hash`.
      * @summary List transaction Collaterals
@@ -75,6 +76,20 @@ export class TransactionApi {
      */
     public listTransactionCollaterals(hash: string) {
         return this.transactionsApi.listTransactionCollaterals(this.config.appId, this.config.version, hash);
+    }
+
+    /**
+     * List the Mints from a transaction specified by a transaction `hash`.
+     * @summary List transaction Mints
+     * @param {string} hash Hash of the requested transaction
+     * @param {number} [size] The number of results displayed on one page.
+     * @param {string} [cursor] A &#x60;cursor&#x60; to access the next set of results. You include the cursor in subsequent requests to the endpoint as a URL query parameter of your request. If the cursor is empty in the result it means there are no more items to be retrieved. 
+     * @param {'asc' | 'desc'} [order] The ordering of items from the point of view of lexicografic asset fingerprint. By default, we return oldest first, newest last.     
+     * @throws {RequiredError}
+     * @memberof ClientApi
+     */
+    public listTransactionMints(hash: string, size?: number, cursor?: string, order?: 'asc' | 'desc') {
+        return this.transactionsApi.listTransactionMints(this.config.appId, this.config.version, hash, size, cursor, order);
     }
 
     /**

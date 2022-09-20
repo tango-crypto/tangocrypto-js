@@ -2,6 +2,7 @@ import globalAxios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import { BaseAPI, BASE_PATH, PaginateResponse, RequestArgs } from "../base";
 import { ApiPromise, assertParamExists, buildPath, DUMMY_BASE_URL, setApiKeyToObject, setSearchParams, toPathString, createRequestFunction, serializeDataIfNeeded } from "../common";
 import { Configuration } from "../configuration";
+import { Asset } from "../models/asset";
 import { Script } from "../models/script";
 import { BuildTxRequest, BuildTxResponse, SubmitTansactionRequest, SubmitTansactionResponse, Transaction, TransactionMetadata, TransactionUtxos } from "../models/transaction";
 import { Utxo } from "../models/utxo";
@@ -255,6 +256,60 @@ import { Utxo } from "../models/utxo";
                 options: localVarRequestOptions,
             };
         },
+
+        /**
+         * List the Collaterals from a transaction specified by a transaction `hash`.
+         * @summary List transaction Collaterals
+         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
+         * @param {string} hash Hash of the requested transaction
+         * @param {number} [size] The number of results displayed on one page.
+         * @param {string} [cursor] A &#x60;cursor&#x60; to access the next set of results. You include the cursor in subsequent requests to the endpoint as a URL query parameter of your request. If the cursor is empty in the result it means there are no more items to be retrieved. 
+         * @param {'asc' | 'desc'} [order] The ordering of items from the point of view of lexicografic asset fingerprint. By default, we return oldest first, newest last.         
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+         listTransactionMints: async (appId: string, version: string, hash: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'appId' is not null or undefined
+            assertParamExists('listTransactionUtxos', 'appId', appId)
+            // verify required parameter 'hash' is not null or undefined
+            assertParamExists('listTransactionUtxos', 'hash', hash)
+            const localVarPath = buildPath(appId, version, 'transactions', hash, 'mints');
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication x-api-key required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (cursor !== undefined) {
+                localVarQueryParameter['cursor'] = cursor;
+            }
+
+            if (order !== undefined) {
+                localVarQueryParameter['order'] = order;
+            }
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * Submit an already serialized transaction to the network.
          * @summary Submit a transaction
@@ -391,6 +446,23 @@ export const TransactionsApiFp = function (configuration?: Configuration) {
         },
 
         /**
+         * List the Mints from a transaction specified by a transaction `hash`.
+         * @summary List transaction Mints
+         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
+         * @param {string} hash Hash of the requested transaction
+         * @param {number} [size] The number of results displayed on one page.
+         * @param {string} [cursor] A &#x60;cursor&#x60; to access the next set of results. You include the cursor in subsequent requests to the endpoint as a URL query parameter of your request. If the cursor is empty in the result it means there are no more items to be retrieved. 
+         * @param {'asc' | 'desc'} [order] The ordering of items from the point of view of lexicografic asset fingerprint. By default, we return oldest first, newest last.         
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listTransactionMints(appId: string, version: string, hash: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<PaginateResponse<Asset>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listTransactionMints(appId, version, hash, size, cursor, order, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+
+        /**
          * Submit an already serialized transaction to the network.
          * @summary Submit a transaction
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
@@ -495,6 +567,23 @@ export const TransactionsApiFp = function (configuration?: Configuration) {
      */
     public listTransactionCollaterals(appId: string, version: string, hash: string, options?: AxiosRequestConfig) {
         return TransactionsApiFp(this.configuration).listTransactionCollaterals(appId, version, hash, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * List the Mints from a transaction specified by a transaction `hash`.
+     * @summary List transaction Mints
+     * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.     
+     * @param {string} hash Hash of the requested transaction
+     * @param {number} [size] The number of results displayed on one page.
+     * @param {string} [cursor] A &#x60;cursor&#x60; to access the next set of results. You include the cursor in subsequent requests to the endpoint as a URL query parameter of your request. If the cursor is empty in the result it means there are no more items to be retrieved. 
+     * @param {'asc' | 'desc'} [order] The ordering of items from the point of view of lexicografic asset fingerprint. By default, we return oldest first, newest last.     
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TransactionsApi
+     */
+    public listTransactionMints(appId: string, version: string, hash: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: AxiosRequestConfig) {
+        return TransactionsApiFp(this.configuration).listTransactionMints(appId, version, hash, size, cursor, order, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

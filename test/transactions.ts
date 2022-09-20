@@ -811,4 +811,35 @@ describe('Transactions API endpoints', function () {
         // assert
         expect(response.result).deep.equal(collaterals);
     })
+
+    it('should list tx assets mint', async () => {
+        // arrange
+        const hash = '122128d2f72f77ab6bf8fb3f95b13f820b7c08a7ba2cab9c1d4ae5422f97d3fd';
+        const mints = {
+            "data": [
+                {
+                    "policy_id": "406c221cad25b6832609bc24f649840763fae659cafa3472f26122ab",
+                    "asset_name":"/��`�.k�����D\nE�A��E5���7�",
+                    "fingerprint": "asset1s3txp9ah8vpswdn4d9afyefxzq69vfwqd0thgv",
+                    "quantity": 9223372036854775000,
+                    "created_at": "2021-12-17T14:27:39.000Z"
+                },
+                {
+                    "policy_id": "406c221cad25b6832609bc24f649840763fae659cafa3472f26122ab",
+                    "asset_name": "F",
+                    "fingerprint": "asset1r5mrxn5377473gus6jzq3n947j33flenl4qptm",
+                    "quantity": 1,
+                    "created_at": "2021-12-17T14:27:39.000Z"
+                }
+            ],
+            "cursor": "8d37a507ead225d8820a27281a29917c2e8d9f9d0a65c7edec42e7fcf2a43e67403103baf946f06451466451"
+        };
+        const size = 2;
+
+        // act
+        const response = await api.listTransactionMints(hash, size);
+
+        // assert
+        expect(response.result).deep.equal(mints);
+    })
 })
