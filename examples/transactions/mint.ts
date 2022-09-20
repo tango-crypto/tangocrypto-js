@@ -1,4 +1,4 @@
-import { BuildTxRequest } from "../../src/api";
+import { BuildTxRequest } from "../../src/models/transaction";
 import { Tangocrypto, Network } from "../../src/clients";
 import * as dotenv from "dotenv";
 
