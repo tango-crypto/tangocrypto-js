@@ -57,6 +57,17 @@ export class TransactionApi {
     }
 
     /**
+     * List the Scripts from a transaction specified by a transaction `hash`.
+     * @summary List transaction Scripts
+     * @param {string} hash Hash of the requested transaction
+     * @throws {RequiredError}
+     * @memberof ClientApi
+     */
+    public listTransactionScripts(hash: string) {
+        return this.transactionsApi.listTransactionScripts(this.config.appId, this.config.version, hash);
+    }
+
+    /**
      * Submit an already serialized transaction to the network.
      * @summary Submit a transaction
      * @param {SubmitTansactionRequest} [subitTansactionRequest] 

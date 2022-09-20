@@ -2,6 +2,7 @@ import globalAxios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import { BaseAPI, BASE_PATH, PaginateResponse, RequestArgs } from "../base";
 import { ApiPromise, assertParamExists, buildPath, DUMMY_BASE_URL, setApiKeyToObject, setSearchParams, toPathString, createRequestFunction, serializeDataIfNeeded } from "../common";
 import { Configuration } from "../configuration";
+import { Script } from "../models/script";
 import { BuildTxRequest, BuildTxResponse, SubmitTansactionRequest, SubmitTansactionResponse, Transaction, TransactionMetadata, TransactionUtxos } from "../models/transaction";
 import { Utxo } from "../models/utxo";
 
@@ -175,6 +176,46 @@ import { Utxo } from "../models/utxo";
             };
         },
         /**
+         * List the Scripts from a transaction specified by a transaction `hash`.
+         * @summary List transaction Scripts
+         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
+         * @param {string} hash Hash of the requested transaction
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+         listTransactionScripts: async (appId: string, version: string, hash: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'appId' is not null or undefined
+            assertParamExists('listTransactionUtxos', 'appId', appId)
+            // verify required parameter 'hash' is not null or undefined
+            assertParamExists('listTransactionUtxos', 'hash', hash)
+            const localVarPath = buildPath(appId, version, 'transactions', hash, 'scripts');
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication x-api-key required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Submit an already serialized transaction to the network.
          * @summary Submit a transaction
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
@@ -278,6 +319,20 @@ export const TransactionsApiFp = function (configuration?: Configuration) {
          */
         async listTransactionUtxos(appId: string, version: string, hash: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<TransactionUtxos>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listTransactionUtxos(appId, version, hash, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+
+        /**
+         * List the Scripts from a transaction specified by a transaction `hash`.
+         * @summary List transaction Scripts
+         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
+         * @param {string} hash Hash of the requested transaction
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listTransactionScripts(appId: string, version: string, hash: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<Script[]>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listTransactionScripts(appId, version, hash, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
 
@@ -425,6 +480,20 @@ export class TransactionsApi extends BaseAPI {
      */
     public listTransactionUtxos(appId: string, version: string, hash: string, options?: AxiosRequestConfig) {
         return TransactionsApiFp(this.configuration).listTransactionUtxos(appId, version, hash, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * List the Sctipts from a transaction specified by a transaction `hash`.
+     * @summary List transaction Scripts
+     * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.     
+     * @param {string} hash Hash of the requested transaction
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TransactionsApi
+     */
+    public listTransactionScripts(appId: string, version: string, hash: string, options?: AxiosRequestConfig) {
+        return TransactionsApiFp(this.configuration).listTransactionScripts(appId, version, hash, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
