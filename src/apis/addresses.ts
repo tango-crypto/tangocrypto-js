@@ -111,6 +111,63 @@ import { Utxo } from "../models/utxo";
         },
 
         /**
+         * Returns a list of asset utxos for a given `address`. The response is paginated. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next set of assets. 
+         * @summary List address assets
+         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
+         * @param {string} address Bech32 address.
+         * @param {string} asset Asset `fingerprint` or concatenation of `policy_id` and `asset_name`.         
+         * @param {number} [size] The number of results displayed on one page.
+         * @param {string} [cursor] A &#x60;cursor&#x60; to access the next set of results. You include the cursor in subsequent requests to the endpoint as a URL query parameter of your request. If the cursor is empty in the result it means there are no more items to be retrieved. 
+         * @param {'asc' | 'desc'} [order] The ordering of items from the point of view of the blockchain. By default, we return oldest first, newest last. 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+         listAddressAssetUtxos: async (appId: string, version: string, address: string, asset: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'appId' is not null or undefined
+            assertParamExists('listAddressAssets', 'appId', appId)
+            // verify required parameter 'address' is not null or undefined
+            assertParamExists('listAddressAssets', 'address', address)
+            const localVarPath = buildPath(appId, version, 'addresses', address, 'assets', asset, 'utxos');
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication x-api-key required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (cursor !== undefined) {
+                localVarQueryParameter['cursor'] = cursor;
+            }
+
+            if (order !== undefined) {
+                localVarQueryParameter['order'] = order;
+            }
+
+
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+
+        /**
          * Returns a list of UTXOs for a given `address`. The response is paginated. If truncated, the response includes a cursor that you use in a subsequent request to retrieve the next set of transactions. 
          * @summary List address transactions
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
@@ -263,6 +320,24 @@ export const AddressesApiFp = function (configuration?: Configuration) {
         },
 
         /**
+         * Returns a list of asset utxos for a given `address`. The response is paginated. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next set of assets.  
+         * @summary List address assets
+         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
+         * @param {string} address Bech32 address.
+         * @param {string} asset Asset `fingerprint` or concatenation of `policy_id` and `asset_name`.               
+         * @param {number} [size] The number of results displayed on one page.
+         * @param {string} [cursor] A &#x60;cursor&#x60; to access the next set of results. You include the cursor in subsequent requests to the endpoint as a URL query parameter of your request. If the cursor is empty in the result it means there are no more items to be retrieved. 
+         * @param {'asc' | 'desc'} [order] The ordering of items from the point of view of the blockchain. By default, we return oldest first, newest last. 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listAddressAssetUtxos(appId: string, version: string, address: string, asset: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<PaginateResponse<Utxo>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listAddressAssetUtxos(appId, version, address, asset, size, cursor, order, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+
+        /**
          * Returns a list of UTXOs for a given `address`. The response is paginated. If truncated, the response includes a cursor that you use in a subsequent request to retrieve the next set of transactions. 
          * @summary List address transactions
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
@@ -334,6 +409,24 @@ export const AddressesApiFp = function (configuration?: Configuration) {
      */
     public listAddressAssets(appId: string, version: string, address: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: AxiosRequestConfig) {
         return AddressesApiFp(this.configuration).listAddressAssets(appId, version, address, size, cursor, order, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Returns a list of asset utxos for a given `address`. The response is paginated. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next set of assets.
+     * @summary List address assets
+     * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.     
+     * @param {string} address Bech32 address.
+     * @param {string} asset Asset `fingerprint` or concatenation of `policy_id` and `asset_name`.     
+     * @param {number} [size] The number of results displayed on one page.
+     * @param {string} [cursor] A &#x60;cursor&#x60; to access the next set of results. You include the cursor in subsequent requests to the endpoint as a URL query parameter of your request. If the cursor is empty in the result it means there are no more items to be retrieved. 
+     * @param {'asc' | 'desc'} [order] The ordering of items from the point of view of the blockchain. By default, we return oldest first, newest last. 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AddressesApi
+     */
+    public listAddressAssetUtxos(appId: string, version: string, address: string, asset: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: AxiosRequestConfig) {
+        return AddressesApiFp(this.configuration).listAddressAssetUtxos(appId, version, address, asset, size, cursor, order, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
