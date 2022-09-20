@@ -1,3 +1,5 @@
+import { CostModel } from "./cost-model";
+
 /**
  * 
  * @export
@@ -131,12 +133,6 @@ export interface EpochParameters {
      */
     'coins_per_utxo_size'?: number;
     /**
-     * The CostModel table index for the params.
-     * @type {number}
-     * @memberof EpochParameters
-     */
-    'cost_model_id'?: number;
-    /**
      * The per word cost of script memory usage.
      * @type {number}
      * @memberof EpochParameters
@@ -196,4 +192,10 @@ export interface EpochParameters {
      * @memberof EpochParameters
      */
     'block_id'?: number;
+    /**
+     * The CostModel for the params.
+     * @type {CostModel}
+     * @memberof EpochParameters
+     */
+    'cost_model'?: CostModel;
 }
