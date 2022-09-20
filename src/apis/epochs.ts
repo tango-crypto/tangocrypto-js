@@ -129,41 +129,6 @@ export const EpochsApiFp = function (configuration?: Configuration) {
 };
 
 /**
- * EpochsApi - factory interface
- * @export
- */
-export const EpochsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = EpochsApiFp(configuration)
-    return {
-        /**
-         * Retrieves the current epoch information
-         * @summary Retrieve current epoch information
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} version Tangocrypto version.         
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        retrieveCurrentEpoch(appId: string, version: string, options?: any): ApiPromise<Epoch> {
-            return localVarFp.retrieveCurrentEpoch(appId, version, options).then((request) => request(axios, basePath));
-        },
-
-
-        /**
-         * Retrieves the protocol parameters for a given epoch.
-         * @summary Retrieve protocol parameters
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} version Tangocrypto version.         
-         * @param {number} number Number of the epoch
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        retrieveEpochParameters(appId: string, version: string, number: number, options?: any): ApiPromise<EpochParameters> {
-            return localVarFp.retrieveEpochParameters(appId, version, number, options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
  * EpochsApi - object-oriented interface
  * @export
  * @class EpochsApi

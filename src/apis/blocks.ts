@@ -329,91 +329,12 @@ export const BlocksApiFp = function (configuration?: Configuration) {
 };
 
 /**
- * BlocksApi - factory interface
- * @export
- */
-export const BlocksApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = BlocksApiFp(configuration)
-    return {
-        /**
-         * Retrieves information about a block specified by `hash` or `block_no`.
-         * @summary Retrieve block
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} version Tangocrypto version.
-         * @param {number} blockNo Block number.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getBlock(appId: string, version: string, blockNo: number, options?: any): ApiPromise<Block> {
-            return localVarFp.getBlock(appId, version, blockNo, options).then((request) => request(axios, basePath));
-        },
-
-        /**
-         * Retrieves information about a block specified by `hash` or `block_no`.
-         * @summary Retrieve block
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} version Tangocrypto version.
-         * @param {string} hash Block hash.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getBlockByHash(appId: string, version: string, hash: string, options?: any): ApiPromise<Block> {
-            return localVarFp.getBlockByHash(appId, version, hash, options).then((request) => request(axios, basePath));
-        },
-
-        /**
-         * Returns a list of transactions for a given block. The response is paginated. If truncated, the response includes a cursor that you use in a subsequent request to retrieve the next set of transactions. 
-         * @summary List block transactions
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} version Tangocrypto version.
-         * @param {number} blockNumber Block number.
-         * @param {number} [size] The number of results displayed on one page.
-         * @param {string} [cursor] A &#x60;cursor&#x60; to access the next set of results. You include the cursor in subsequent requests to the endpoint as a URL query parameter of your request. If the cursor is empty in the result it means there are no more items to be retrieved. 
-         * @param {'asc' | 'desc'} [order] The ordering of the transactions based on block number. By default, we return oldest first, newest last. 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getBlockTransactions(appId: string, version: string, blockNumber: number, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: any): ApiPromise<PaginateResponse<BlockTransaction>> {
-            return localVarFp.getBlockTransactions(appId, version, blockNumber, size, cursor, order, options).then((request) => request(axios, basePath));
-        },
-
-        /**
-         * Returns a list of transactions for a given block. The response is paginated. If truncated, the response includes a cursor that you use in a subsequent request to retrieve the next set of transactions. 
-         * @summary List block transactions
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} version Tangocrypto version.
-         * @param {string} hash Block hash.
-         * @param {number} [size] The number of results displayed on one page.
-         * @param {string} [cursor] A &#x60;cursor&#x60; to access the next set of results. You include the cursor in subsequent requests to the endpoint as a URL query parameter of your request. If the cursor is empty in the result it means there are no more items to be retrieved. 
-         * @param {'asc' | 'desc'} [order] The ordering of the transactions based on block number. By default, we return oldest first, newest last. 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getBlockTransactionsByHash(appId: string, version: string, hash: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: any): ApiPromise<PaginateResponse<BlockTransaction>> {
-            return localVarFp.getBlockTransactionsByHash(appId, version, hash, size, cursor, order, options).then((request) => request(axios, basePath));
-        },
-
-        /**
-         * Retrieves the latest block available. This is known as the tip of the blockchain.
-         * @summary Retrieve latest block
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} version Tangocrypto version.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getLatestBlock(appId: string, version: string, options?: any): ApiPromise<Block> {
-            return localVarFp.getLatestBlock(appId, version, options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
  * BlocksApi - object-oriented interface
  * @export
  * @class BlocksApi
  * @extends {BaseAPI}
  */
-export class BlocksApi extends BaseAPI {
+ export class BlocksApi extends BaseAPI {
     /**
      * Retrieves information about a block specified by `hash` or `block_no`.
      * @summary Retrieve block

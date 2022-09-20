@@ -151,44 +151,6 @@ export const WalletsApiFp = function (configuration?: Configuration) {
 };
 
 /**
- * WalletsApi - factory interface
- * @export
- */
-export const WalletsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = WalletsApiFp(configuration)
-    return {
-        /**
-         * Retrieve wallet summary specified by `stake_address`.
-         * @summary Retrieve wallet summary
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} version Tangocrypto version.
-         * @param {string} stakeAddress The Bech32 encoded version of the stake address.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getWalletsStake(appId: string, version: string, stakeAddress: string, options?: any): ApiPromise<WalletSummary> {
-            return localVarFp.getWalletsStake(appId, version, stakeAddress, options).then((request) => request(axios, basePath));
-        },
-
-        /**
-         * Returns a list of addreses for a given wallet `stake_address`. The response is paginated. If truncated, the response includes a cursor that you use in a subsequent request to retrieve the next set of addresses. 
-         * @summary List wallet addresses
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} version Tangocrypto version.
-         * @param {string} stakeAddress 
-         * @param {number} [size] The number of results displayed on one page.
-         * @param {string} [cursor] A &#x60;cursor&#x60; to access the next set of results. You include the cursor in subsequent requests to the endpoint as a URL query parameter of your request. If the cursor is empty in the result it means there are no more items to be retrieved. 
-         * @param {'asc' | 'desc'} [order] The ordering of items from the point of view of the blockchain. By default, we return oldest first, newest last. 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        listStakeAddressAddresses(appId: string, version: string, stakeAddress: string, size?: number, cursor?: string, order?: 'asc' | 'desc', options?: any): ApiPromise<PaginateResponse<WalletAddress>> {
-            return localVarFp.listStakeAddressAddresses(appId, version, stakeAddress, size, cursor, order, options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
  * WalletsApi - object-oriented interface
  * @export
  * @class WalletsApi

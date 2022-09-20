@@ -5,70 +5,6 @@ import { Configuration } from "../configuration";
 import { Asset, AssetAddress } from "../models/asset";
 
 /**
- * AssetsApi - object-oriented interface
- * @export
- * @class AssetsApi
- * @extends {BaseAPI}
- */
- export class AssetsApi extends BaseAPI {
-    /**
-     * Retrieves information about an asset
-     * @summary Retrieve asset
-     * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-     * @param {string} version Tangocrypto version.
-     * @param {string} asset Concatenation of the policy_id and hex-encoded asset_name
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AssetsApi
-     */
-    public getAsset(appId: string, version: string, asset: string, options?: AxiosRequestConfig) {
-        return AssetsApiFp(this.configuration).getAsset(appId, version, asset, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Retrieves information about an asset
-     * @summary Retrieve asset by fingerprint
-     * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-     * @param {string} version Tangocrypto version.     
-     * @param {string} fingerprint The CIP14 fingerprint for the Multi-Asset.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AssetsApi
-     */
-    public getAssetByFingerprint(appId: string, version: string, fingerprint: string, options?: AxiosRequestConfig) {
-        return AssetsApiFp(this.configuration).getAssetByFingerprint(appId, version, fingerprint, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Returns a list of addresses and quantities for a given asset. The response is paginated to make the result set easier to handle. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next batch of addresses. To learn more about how pagination works, visit https://docs.tangocrypto.com/rest-api/pagination 
-     * @summary List asset addresses
-     * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-     * @param {string} version Tangocrypto version.     
-     * @param {string} asset Concatenation of the policy_id and hex-encoded asset_name
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AssetsApi
-     */
-    public listAssetAddresses(appId: string, version: string, asset: string, options?: AxiosRequestConfig) {
-        return AssetsApiFp(this.configuration).listAssetAddresses(appId, version, asset, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Returns a list of addresses and quantities holding the given asset. The response is paginated to make the result set easier to handle. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next batch of owners. To learn more about how pagination works, visit https://docs.tangocrypto.com/rest-api/pagination 
-     * @summary List asset addresses by fingerprint
-     * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-     * @param {string} version Tangocrypto version.     
-     * @param {string} fingerprint The CIP14 fingerprint for the Multi-Asset.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AssetsApi
-     */
-    public listAssetAddressesFingerprint(appId: string, version: string, fingerprint: string, options?: AxiosRequestConfig) {
-        return AssetsApiFp(this.configuration).listAssetAddressesFingerprint(appId, version, fingerprint, options).then((request) => request(this.axios, this.basePath));
-    }
-}
-
-/**
  * AssetsApi - axios parameter creator
  * @export
  */
@@ -306,55 +242,65 @@ export const AssetsApiFp = function (configuration?: Configuration) {
 };
 
 /**
- * AssetsApi - factory interface
+ * AssetsApi - object-oriented interface
  * @export
+ * @class AssetsApi
+ * @extends {BaseAPI}
  */
-export const AssetsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = AssetsApiFp(configuration)
-    return {
-        /**
-         * Retrieves information about an asset
-         * @summary Retrieve asset
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} asset Concatenation of the policy_id and hex-encoded asset_name
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getAsset(appId: string, asset: string, options?: any): ApiPromise<Asset> {
-            return localVarFp.getAsset(appId, asset, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Retrieves information about an asset
-         * @summary Retrieve asset by fingerprint
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} fingerprint The CIP14 fingerprint for the Multi-Asset.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getAssetByFingerprint(appId: string, fingerprint: string, options?: any): ApiPromise<Asset> {
-            return localVarFp.getAssetByFingerprint(appId, fingerprint, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Returns a list of addresses and quantities for a given asset. The response is paginated to make the result set easier to handle. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next batch of addresses. To learn more about how pagination works, visit https://docs.tangocrypto.com/rest-api/pagination 
-         * @summary List asset addresses
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} asset Concatenation of the policy_id and hex-encoded asset_name
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        listAssetAddresses(appId: string, asset: string, options?: any): ApiPromise<PaginateResponse<AssetAddress>> {
-            return localVarFp.listAssetAddresses(appId, asset, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Returns a list of addresses and quantities holding the given asset. The response is paginated to make the result set easier to handle. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next batch of owners. To learn more about how pagination works, visit https://docs.tangocrypto.com/rest-api/pagination 
-         * @summary List asset addresses by fingerprint
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} fingerprint The CIP14 fingerprint for the Multi-Asset.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        listAssetAddressesFingerprint(appId: string, fingerprint: string, options?: any): ApiPromise<Asset> {
-            return localVarFp.listAssetAddressesFingerprint(appId, fingerprint, options).then((request) => request(axios, basePath));
-        },
-    };
-};
+ export class AssetsApi extends BaseAPI {
+    /**
+     * Retrieves information about an asset
+     * @summary Retrieve asset
+     * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.
+     * @param {string} asset Concatenation of the policy_id and hex-encoded asset_name
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AssetsApi
+     */
+    public getAsset(appId: string, version: string, asset: string, options?: AxiosRequestConfig) {
+        return AssetsApiFp(this.configuration).getAsset(appId, version, asset, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Retrieves information about an asset
+     * @summary Retrieve asset by fingerprint
+     * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.     
+     * @param {string} fingerprint The CIP14 fingerprint for the Multi-Asset.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AssetsApi
+     */
+    public getAssetByFingerprint(appId: string, version: string, fingerprint: string, options?: AxiosRequestConfig) {
+        return AssetsApiFp(this.configuration).getAssetByFingerprint(appId, version, fingerprint, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Returns a list of addresses and quantities for a given asset. The response is paginated to make the result set easier to handle. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next batch of addresses. To learn more about how pagination works, visit https://docs.tangocrypto.com/rest-api/pagination 
+     * @summary List asset addresses
+     * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.     
+     * @param {string} asset Concatenation of the policy_id and hex-encoded asset_name
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AssetsApi
+     */
+    public listAssetAddresses(appId: string, version: string, asset: string, options?: AxiosRequestConfig) {
+        return AssetsApiFp(this.configuration).listAssetAddresses(appId, version, asset, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Returns a list of addresses and quantities holding the given asset. The response is paginated to make the result set easier to handle. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next batch of owners. To learn more about how pagination works, visit https://docs.tangocrypto.com/rest-api/pagination 
+     * @summary List asset addresses by fingerprint
+     * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.     
+     * @param {string} fingerprint The CIP14 fingerprint for the Multi-Asset.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AssetsApi
+     */
+    public listAssetAddressesFingerprint(appId: string, version: string, fingerprint: string, options?: AxiosRequestConfig) {
+        return AssetsApiFp(this.configuration).listAssetAddressesFingerprint(appId, version, fingerprint, options).then((request) => request(this.axios, this.basePath));
+    }
+}

@@ -317,74 +317,6 @@ export const NFTsAddressListApiFp = function (configuration?: Configuration) {
 };
 
 /**
- * NFTsAddressListApi - factory interface
- * @export
- */
-export const NFTsAddressListApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = NFTsAddressListApiFp(configuration)
-    return {
-        /**
-         * Returns `true` if the address is included in the address list, `false` if not.
-         * @summary Check address
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} addressListId Addres list id
-         * @param {CheckAddressListRequest} [checkAddressListRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        checkAddressList(appId: string, addressListId: string, checkAddressListRequest?: CheckAddressListRequest, options?: any): ApiPromise<boolean> {
-            return localVarFp.checkAddressList(appId, addressListId, checkAddressListRequest, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Create a new address list in your Tangocrypto account.
-         * @summary Create address list
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} name Address list name
-         * @param {any} file File in .csv format
-         * @param {string} [description] Address list description
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createAddressList(appId: string, name: string, file: any, description?: string, options?: any): ApiPromise<CreateAddressListResponse> {
-            return localVarFp.createAddressList(appId, name, file, description, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Delete an address list in your Tangocrypto account.
-         * @summary Delete address list
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} addressListId Address list id
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteAddressList(appId: string, addressListId: string, options?: any): ApiPromise<DeleteAddressListResponse> {
-            return localVarFp.deleteAddressList(appId, addressListId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Returns a list of address lists. The response is paginated to make the result set easier to handle. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next batch of NFTs. To learn more about how pagination works, visit https://docs.tangocrypto.com/rest-api/pagination 
-         * @summary List Address lists
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} [cursor] A pagination cursor returned by a previous call to this endpoint. Provide this cursor to retrieve the next set of results for your original query.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getAddressLists(appId: string, cursor?: string, options?: any): ApiPromise<PaginateResponse<AddressList>> {
-            return localVarFp.getAddressLists(appId, cursor, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Returns details for a single NFT.
-         * @summary Retrieve an address list
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} addressListId Addres list id
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        retrieveAddressList(appId: string, addressListId: string, options?: any): ApiPromise<RetrieveAddressListResponse> {
-            return localVarFp.retrieveAddressList(appId, addressListId, options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
  * NFTsAddressListApi - object-oriented interface
  * @export
  * @class NFTsAddressListApi
@@ -459,7 +391,6 @@ export class NFTsAddressListApi extends BaseAPI {
         return NFTsAddressListApiFp(this.configuration).retrieveAddressList(appId, addressListId, options).then((request) => request(this.axios, this.basePath));
     }
 }
-
 
 /**
  * NFTsCollectionsApi - axios parameter creator
@@ -853,100 +784,6 @@ export const NFTsCollectionsApiFp = function (configuration?: Configuration) {
 };
 
 /**
- * NFTsCollectionsApi - factory interface
- * @export
- */
-export const NFTsCollectionsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = NFTsCollectionsApiFp(configuration)
-    return {
-        /**
-         * Delete an NFT Collection in your Tangocrypto account.
-         * @summary Delete NFT collection
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} version Tangocrypto version.
-         * @param {string} collectionId Collection ID.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteNftCollection(appId: string, version: string, collectionId: string, options?: any): ApiPromise<CollectionDeleteResponse> {
-            return localVarFp.deleteNftCollection(appId, version, collectionId, options).then((request) => request(axios, basePath));
-        },
-
-        /**
-         * Returns a list of NFTs for a given collection. The response is paginated to make the result set easier to handle. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next batch of NFTs. To learn more about how pagination works, visit https://docs.tangocrypto.com/rest-api/pagination 
-         * @summary List Collection NFTs
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} version Tangocrypto version.         
-         * @param {string} collectionId Collection ID
-         * @param {string} [status] Filter by token &#x60;status&#x60;. For example, you can get the list of tokens for sale with &#x60;status&#x3D;FOR_SALE&#x60; or tokens sold with &#x60;status&#x3D;COMPLETED&#x60;. For a full reference of the status check https://docs.tangocrypto.com/nfts/nft-api/token-sale-flow
-         * @param {string} [order] Use &#x60;asc&#x60; to show the oldest NFT first and &#x60;desc&#x60; to show the most recent NFT first!. If you don\&#39;t specify, this parameter it uses&#x60;desc&#x60; by default.
-         * @param {number} [size] The number of NFTs to return in a single page.
-         * @param {string} [cursor] A pagination cursor returned by a previous call to this endpoint. Provide this cursor to retrieve the next set of results for your original query.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getCollectionNfts(appId: string, version: string, collectionId: string, status?: string, order?: string, size?: number, cursor?: string, options?: any): ApiPromise<PaginateResponse<Token>> {
-            return localVarFp.getCollectionNfts(appId, version, collectionId, status, order, size, cursor, options).then((request) => request(axios, basePath));
-        },
-
-        /**
-         * Returns a list of NFT collections in your Tangocrypto account. The response is paginated. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next set of NFT Collections. For more information, see our <a href=\"https://docs.tangocrypto.com/rest-api/pagination\">pagination guide</a>. 
-         * @summary List NFT collections
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} version Tangocrypto version.         
-         * @param {number} [size] The number of collections to return in a single page.
-         * @param {string} [cursor] A pagination cursor returned by a previous call to this endpoint. Provide this cursor to retrieve the next set of results for your original query.
-         * @param {string} [ids] List of collection ids. **NOTICE:** When you use &#x60;ids&#x60; you can specify a maximum of 25 elements and can\&#39;t use &#x60;cursor&#x60; or &#x60;size&#x60;.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        listNftCollections(appId: string, version: string, size?: number, cursor?: string, ids?: string[], options?: any): ApiPromise<PaginateResponse<Collection>> {
-            return localVarFp.listNftCollections(appId, version, size, cursor, ids, options).then((request) => request(axios, basePath));
-        },
-
-        /**
-         * Create a new NFT collection in your Tangocrypto account.
-         * @summary Create NFT collection
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} version Tangocrypto version.         
-         * @param {CreateCollectionRequest} [createCollectionRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        nftCollection(appId: string, version: string, createCollectionRequest?: CreateCollectionRequest, options?: any): ApiPromise<CreateCollectionResponse> {
-            return localVarFp.nftCollection(appId, version, createCollectionRequest, options).then((request) => request(axios, basePath));
-        },
-
-        /**
-         * Get details for a single NFT collection in your Tangocrypto account.
-         * @summary Retrieve NFT collection
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} version Tangocrypto version.         
-         * @param {string} collectionId The ID of the NFT Collection to retrieve.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        retrieveNftCollection(appId: string, version: string, collectionId: string, options?: any): ApiPromise<Collection> {
-            return localVarFp.retrieveNftCollection(appId, version, collectionId, options).then((request) => request(axios, basePath));
-        },
-
-        /**
-         * Updates the NFT collection with the fields that were supplied, leaving the others alone.
-         * @summary Update NFT collection
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} version Tangocrypto version.         
-         * @param {string} collectionId The ID of the NFT Collection to update.
-         * @param {UpdateCollectionRequest} [updateCollectionRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateNftCollection(appId: string, version: string, collectionId: string, updateCollectionRequest?: UpdateCollectionRequest, options?: any): ApiPromise<CreateCollectionResponse> {
-            return localVarFp.updateNftCollection(appId, version, collectionId, updateCollectionRequest, options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
  * NFTsCollectionsApi - object-oriented interface
  * @export
  * @class NFTsCollectionsApi
@@ -1044,7 +881,6 @@ export class NFTsCollectionsApi extends BaseAPI {
         return NFTsCollectionsApiFp(this.configuration).updateNftCollection(appId, version, collectionId, updateCollectionRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
-
 
 /**
  * NFTsSalePhasesApi - axios parameter creator
@@ -1751,131 +1587,6 @@ export const NFTsSalePhasesApiFp = function (configuration?: Configuration) {
 };
 
 /**
- * NFTsSalePhasesApi - factory interface
- * @export
- */
-export const NFTsSalePhasesApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = NFTsSalePhasesApiFp(configuration)
-    return {
-        /**
-         * Create affiliate.
-         * @summary Create affiliate
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} version Tangocrypto version.          
-         * @param {string} collectionId Collection ID
-         * @param {string} phaseId Sales phase ID.
-         * @param {CreateAffiliateRequest} [createAffiliateRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createAffiliate(appId: string, version: string, collectionId: string, phaseId: string, createAffiliateRequest?: CreateAffiliateRequest, options?: any): ApiPromise<CreateAffiliateResponse> {
-            return localVarFp.createAffiliate(appId, version, collectionId, phaseId, createAffiliateRequest, options).then((request) => request(axios, basePath));
-        },
-
-        /**
-         * Delete affiliate.
-         * @summary Delete Affiliate
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} version Tangocrypto version.          
-         * @param {string} collectionId Collection ID
-         * @param {string} phaseId Sale phase id.
-         * @param {string} affiliateId Affiliate id.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteAffiliate(appId: string, version: string, collectionId: string, phaseId: string, affiliateId: string, options?: any): ApiPromise<DeleteAffiliateResponse> {
-            return localVarFp.deleteAffiliate(appId, version, collectionId, phaseId, affiliateId, options).then((request) => request(axios, basePath));
-        },
-
-        /**
-         * Delete a sale phase.
-         * @summary Delete sale phase
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} version Tangocrypto version.          
-         * @param {string} collectionId Collection ID
-         * @param {string} phaseId Sale phase id.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteSalePhase(appId: string, version: string, collectionId: string, phaseId: string, options?: any): ApiPromise<DeleteSalePhaseResponse> {
-            return localVarFp.deleteSalePhase(appId, version, collectionId, phaseId, options).then((request) => request(axios, basePath));
-        },
-
-        /**
-         * Create a sale phase for a given collection. You can add different phases to control how you will sell the collection. For example, you might have a total of 5000 NFTs, and you want to sell them in stages. You can create a pre-sale phase to sell 1000 NFTs to previous customers at a special price and within a specific time range. You can identify these customers with a condition; that would be an NFT with a certain policy id on their wallets. Then you create another sale phase for the public drop with the remaining 4000 NFTs and no conditions.   
-         * @summary Create sale phase
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} version Tangocrypto version.          
-         * @param {string} collectionId Collection ID.
-         * @param {CreateSalePhaseRequest} [createSalePhaseRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        nftCreateSale(appId: string, version: string, collectionId: string, createSalePhaseRequest?: CreateSalePhaseRequest, options?: any): ApiPromise<CreateSalePhaseResponse> {
-            return localVarFp.nftCreateSale(appId, version, collectionId, createSalePhaseRequest, options).then((request) => request(axios, basePath));
-        },
-
-        /**
-         * Returns details for a single sale phase.
-         * @summary Retrieve sale phase
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} version Tangocrypto version.          
-         * @param {string} collectionId Collection ID
-         * @param {string} phaseId Sales phase ID.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        retrieveSalePhase(appId: string, version: string, collectionId: string, phaseId: string, options?: any): ApiPromise<RetrieveSalePhaseResponse> {
-            return localVarFp.retrieveSalePhase(appId, version, collectionId, phaseId, options).then((request) => request(axios, basePath));
-        },
-
-        /**
-         * Returns a list of sale phases for a given collection. The response is paginated. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next set of sale phases. 
-         * @summary List sale phases
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} version Tangocrypto version.          
-         * @param {string} collectionId Collection ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        retrieveSalePhases(appId: string, version: string, collectionId: string, options?: any): ApiPromise<PaginateResponse<SalePhase>> {
-            return localVarFp.retrieveSalePhases(appId, version, collectionId, options).then((request) => request(axios, basePath));
-        },
-
-        /**
-         * Update affiliate.
-         * @summary Update affiliate
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} version Tangocrypto version.          
-         * @param {string} collectionId Collection ID
-         * @param {string} phaseId Sales phase ID.
-         * @param {string} affiliateId Affiliate id.
-         * @param {CreateAffiliateRequest} [createAffiliateRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateAffiliate(appId: string, version: string, collectionId: string, phaseId: string, affiliateId: string, createAffiliateRequest?: CreateAffiliateRequest, options?: any): ApiPromise<RetrieveSalePhaseResponse> {
-            return localVarFp.updateAffiliate(appId, version, collectionId, phaseId, affiliateId, createAffiliateRequest, options).then((request) => request(axios, basePath));
-        },
-
-        /**
-         * Update sale phase.
-         * @summary Update sale phase
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} version Tangocrypto version.          
-         * @param {string} collectionId Collection ID
-         * @param {string} phaseId Sales phase ID.
-         * @param {CreateSalePhaseRequest} [createSalePhaseRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateSalePhase(appId: string, version: string, collectionId: string, phaseId: string, createSalePhaseRequest?: CreateSalePhaseRequest, options?: any): ApiPromise<RetrieveSalePhaseResponse> {
-            return localVarFp.updateSalePhase(appId, version, collectionId, phaseId, createSalePhaseRequest, options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
  * NFTsSalePhasesApi - object-oriented interface
  * @export
  * @class NFTsSalePhasesApi
@@ -2058,7 +1769,6 @@ export class NFTsSalePhasesApi extends BaseAPI {
         return NFTsSalePhasesApiFp(this.configuration).updateSalePhase(appId, version, collectionId, phaseId, updateSalePhaseRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
-
 
 /**
  * NFTsSalesApi - axios parameter creator
@@ -2333,74 +2043,6 @@ export const NFTsSalesApiFp = function (configuration?: Configuration) {
 };
 
 /**
- * NFTsSalesApi - factory interface
- * @export
- */
-export const NFTsSalesApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = NFTsSalesApiFp(configuration)
-    return {
-        /**
-         * Cancel a sale for a given NFT. When you cancel a sale the status of the NFT will return back to `OPEN`
-         * @summary Cancel NFT sale
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} version Tangocrypto version.
-         * @param {string} collectionId Collection ID
-         * @param {string} tokenId Token ID
-         * @param {string} saleId Sale ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        cancelNftSale(appId: string, version: string, collectionId: string, tokenId: string, saleId: string, options?: any): ApiPromise<CancelNftSaleResponse> {
-            return localVarFp.cancelNftSale(appId, version, collectionId, tokenId, saleId, options).then((request) => request(axios, basePath));
-        },
-
-        /**
-         * Create an NFT sale. You can sell multiple tokens in a single sale.
-         * @summary Create NFT sale
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} version Tangocrypto version.         
-         * @param {string} collectionId Collection ID
-         * @param {CreateNftSaleRequest} [createNftSaleRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createNftSale(appId: string, version: string, collectionId: string, createNftSaleRequest?: CreateNftSaleRequest, options?: any): ApiPromise<CreateNftSaleResponse> {
-            return localVarFp.createNftSale(appId, version, collectionId, createNftSaleRequest, options).then((request) => request(axios, basePath));
-        },
-
-        /**
-         * Returns a list of Sales for a given collection. The response is paginated to make the result set easier to handle. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next batch of NFTs. To learn more about how pagination works, visit https://docs.tangocrypto.com/rest-api/pagination 
-         * @summary List NFT sales
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} version Tangocrypto version.         
-         * @param {string} collectionId Collection ID
-         * @param {string} [order] Use &#x60;asc&#x60; to show the oldest NFT first and &#x60;desc&#x60; to show the most recent NFT first!. If you don\&#39;t specify, this parameter it uses&#x60;desc&#x60; by default.
-         * @param {number} [size] The number of NFTs to return in a single page.
-         * @param {string} [cursor] A pagination cursor returned by a previous call to this endpoint. Provide this cursor to retrieve the next set of results for your original query.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        listNftSales(appId: string, version: string, collectionId: string, order?: string, size?: number, cursor?: string, options?: any): ApiPromise<PaginateResponse<Sale>> {
-            return localVarFp.listNftSales(appId, version, collectionId, order, size, cursor, options).then((request) => request(axios, basePath));
-        },
-
-        /**
-         * Returns details for a single NFT sale. With this endpoint, you can check the remaining reservation time or if the sale is expired. Also, you can check if a customer has made a partial payment or if the total amount was paid. Once the payment is received, the NFT is minted and sent to the buyer\'s wallet address.
-         * @summary Retrieve NFT Sale
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} version Tangocrypto version.         
-         * @param {string} collectionId Collection ID
-         * @param {string} salesId Sales ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        retrieveNFTSale(appId: string, version: string, collectionId: string, salesId: string, options?: any): ApiPromise<RetrieveNftSaleResponse> {
-            return localVarFp.retrieveNFTSale(appId, version, collectionId, salesId, options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
  * NFTsSalesApi - object-oriented interface
  * @export
  * @class NFTsSalesApi
@@ -2470,7 +2112,6 @@ export class NFTsSalesApi extends BaseAPI {
         return NFTsSalesApiFp(this.configuration).retrieveNFTSale(appId, version, collectionId, salesId, options).then((request) => request(this.axios, this.basePath));
     }
 }
-
 
 /**
  * NFTsTokensApi - axios parameter creator
@@ -2729,72 +2370,6 @@ export const NFTsTokensApiFp = function (configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
-};
-
-/**
- * NFTsTokensApi - factory interface
- * @export
- */
-export const NFTsTokensApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = NFTsTokensApiFp(configuration)
-    return {
-        /**
-         * Delete an NFT in your Tangocrypto account.
-         * @summary Delete NFT
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} version Tangocrypto version.         
-         * @param {string} collectionId Collection ID
-         * @param {string} tokenId NFT id within your Tangocrypto account.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteNft(appId: string, version: string, collectionId: string, tokenId: string, options?: any): ApiPromise<DeleteNftResponse> {
-            return localVarFp.deleteNft(appId, version, collectionId, tokenId, options).then((request) => request(axios, basePath));
-        },
-
-        /**
-         * Create NFT in a Collection 
-         * @summary Create NFT
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} version Tangocrypto version.         
-         * @param {string} collectionId Collection ID.
-         * @param {CreateNftRequest} [createNftRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        nftCreateNft(appId: string, version: string, collectionId: string, createNftRequest?: CreateNftRequest, options?: any): ApiPromise<CreateNftResponse> {
-            return localVarFp.nftCreateNft(appId, version, collectionId, createNftRequest, options).then((request) => request(axios, basePath));
-        },
-
-        /**
-         * Returns details for a single NFT.
-         * @summary Retrieve NFT
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} version Tangocrypto version.         
-         * @param {string} collectionId Collection ID
-         * @param {string} tokenId NFT id within your Tangocrypto account.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        retrieveNFT(appId: string, version: string, collectionId: string, tokenId: string, options?: any): ApiPromise<Token> {
-            return localVarFp.retrieveNFT(appId, version, collectionId, tokenId, options).then((request) => request(axios, basePath));
-        },
-
-        /**
-         * Updates the NFT with the supplied parameters. The ones not provided  remain with the same value.
-         * @summary Update NFT
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} version Tangocrypto version.         
-         * @param {string} collectionId Collection ID
-         * @param {string} tokenId NFT id within your Tangocrypto account.
-         * @param {UpdateNftRequest} [updateNftRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateNFT(appId: string, version: string, collectionId: string, tokenId: string, updateNftRequest?: UpdateNftRequest, options?: any): ApiPromise<CreateNftResponse> {
-            return localVarFp.updateNFT(appId, version, collectionId, tokenId, updateNftRequest, options).then((request) => request(axios, basePath));
-        },
-    };
 };
 
 /**

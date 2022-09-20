@@ -66,6 +66,16 @@ export class TransactionApi {
     public listTransactionScripts(hash: string) {
         return this.transactionsApi.listTransactionScripts(this.config.appId, this.config.version, hash);
     }
+    /**
+     * List the Collaterals from a transaction specified by a transaction `hash`.
+     * @summary List transaction Collaterals
+     * @param {string} hash Hash of the requested transaction
+     * @throws {RequiredError}
+     * @memberof ClientApi
+     */
+    public listTransactionCollaterals(hash: string) {
+        return this.transactionsApi.listTransactionCollaterals(this.config.appId, this.config.version, hash);
+    }
 
     /**
      * Submit an already serialized transaction to the network.

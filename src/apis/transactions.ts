@@ -216,6 +216,46 @@ import { Utxo } from "../models/utxo";
             };
         },
         /**
+         * List the Collaterals from a transaction specified by a transaction `hash`.
+         * @summary List transaction Collaterals
+         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.
+         * @param {string} hash Hash of the requested transaction
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+         listTransactionCollaterals: async (appId: string, version: string, hash: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'appId' is not null or undefined
+            assertParamExists('listTransactionUtxos', 'appId', appId)
+            // verify required parameter 'hash' is not null or undefined
+            assertParamExists('listTransactionUtxos', 'hash', hash)
+            const localVarPath = buildPath(appId, version, 'transactions', hash, 'collaterals');
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication x-api-key required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Submit an already serialized transaction to the network.
          * @summary Submit a transaction
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
@@ -337,6 +377,20 @@ export const TransactionsApiFp = function (configuration?: Configuration) {
         },
 
         /**
+         * List the Collaterals from a transaction specified by a transaction `hash`.
+         * @summary List transaction Collaterals
+         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+         * @param {string} version Tangocrypto version.         
+         * @param {string} hash Hash of the requested transaction
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listTransactionCollaterals(appId: string, version: string, hash: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => ApiPromise<TransactionUtxos>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listTransactionCollaterals(appId, version, hash, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+
+        /**
          * Submit an already serialized transaction to the network.
          * @summary Submit a transaction
          * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
@@ -353,79 +407,12 @@ export const TransactionsApiFp = function (configuration?: Configuration) {
 };
 
 /**
- * TransactionsApi - factory interface
- * @export
- */
-export const TransactionsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = TransactionsApiFp(configuration)
-    return {
-        /**
-         * Build and serialize transaction with custom logic like swap, send, mint, burn etc.
-         * @summary Build a transaction
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} version Tangocrypto version.
-         * @param {BuildTxRequest} [buildTxRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        buildTransaction(appId: string, version: string, buildTxRequest?: BuildTxRequest, options?: any): ApiPromise<BuildTxResponse> {
-            return localVarFp.buildTransaction(appId, version, buildTxRequest, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Retrieves the information about a transaction requested specified by a transaction `hash`.
-         * @summary Retrieve Transaction
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} hash Hash of the requested transaction
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getTransaction(appId: string, hash: string, options?: any): ApiPromise<Transaction> {
-            return localVarFp.getTransaction(appId, hash, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Retrieve the transaction metadata specified by a transaction `hash`. The response is paginated. If truncated, the response includes a cursor that you use in a subsequent request to retrieve the next set of metadata values. 
-         * @summary Retrieve transaction metadata
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} hash Hash of the requested transaction
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getTransactionMetadata(appId: string, hash: string, options?: any): ApiPromise<PaginateResponse<TransactionMetadata>> {
-            return localVarFp.getTransactionMetadata(appId, hash, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * List the UTXOs from a transaction specified by a transaction `hash`.
-         * @summary List transaction UTXOs
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} hash Hash of the requested transaction
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        listTransactionUtxos(appId: string, hash: string, options?: any): ApiPromise<TransactionUtxos> {
-            return localVarFp.listTransactionUtxos(appId, hash, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Submit an already serialized transaction to the network.
-         * @summary Submit a transaction
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} version Tangocrypto version.
-         * @param {SubmitTansactionRequest} [subitTansactionRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        submitTransaction(appId: string, version: string, subitTansactionRequest?: SubmitTansactionRequest, options?: any): ApiPromise<SubmitTansactionResponse> {
-            return localVarFp.submitTransaction(appId, version, subitTansactionRequest, options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
  * TransactionsApi - object-oriented interface
  * @export
  * @class TransactionsApi
  * @extends {BaseAPI}
  */
-export class TransactionsApi extends BaseAPI {
+ export class TransactionsApi extends BaseAPI {
     /**
      * Build and serialize transaction with custom logic like swap, send, mint, burn etc.
      * @summary Build a transaction
@@ -494,6 +481,20 @@ export class TransactionsApi extends BaseAPI {
      */
     public listTransactionScripts(appId: string, version: string, hash: string, options?: AxiosRequestConfig) {
         return TransactionsApiFp(this.configuration).listTransactionScripts(appId, version, hash, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * List the Collaterals from a transaction specified by a transaction `hash`.
+     * @summary List transaction Collaterals
+     * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
+     * @param {string} version Tangocrypto version.     
+     * @param {string} hash Hash of the requested transaction
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TransactionsApi
+     */
+    public listTransactionCollaterals(appId: string, version: string, hash: string, options?: AxiosRequestConfig) {
+        return TransactionsApiFp(this.configuration).listTransactionCollaterals(appId, version, hash, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

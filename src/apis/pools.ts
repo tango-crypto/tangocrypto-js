@@ -149,38 +149,6 @@ export const PoolsApiFp = function (configuration?: Configuration) {
 };
 
 /**
- * PoolsApi - factory interface
- * @export
- */
-export const PoolsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = PoolsApiFp(configuration)
-    return {
-        /**
-         * Returns a list of delegations for a given stake pool. The response is paginated. If truncated, the response includes a cursor that you use in a subsequent request to retrieve the next set of delegations. 
-         * @summary List stake pool delegations
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} poolId Bech32 or hexadecimal pool ID.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        stakePoolDelegations(appId: string, poolId: string, options?: any): ApiPromise<PaginateResponse<Delegation>> {
-            return localVarFp.stakePoolDelegations(appId, poolId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Retrieve stake pool registration metadata specified by a `pool_id`. 
-         * @summary Retrieve stake pool metadata
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} poolId Bech32 or hexadecimal pool ID.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        stakePoolMetadata(appId: string, poolId: string, options?: any): ApiPromise<PoolInfo> {
-            return localVarFp.stakePoolMetadata(appId, poolId, options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
  * PoolsApi - object-oriented interface
  * @export
  * @class PoolsApi

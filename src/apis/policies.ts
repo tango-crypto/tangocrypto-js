@@ -87,27 +87,6 @@ export const PolicyApiFp = function (configuration?: Configuration) {
 };
 
 /**
- * PolicyApi - factory interface
- * @export
- */
-export const PolicyApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = PolicyApiFp(configuration)
-    return {
-        /**
-         * Returns a list of assets with the given Policy ID. The response is paginated to make the result set easier to handle. If truncated, the response includes a `cursor` that you use in a subsequent request to retrieve the next batch of owners. To learn more about how pagination works, visit https://docs.tangocrypto.com/rest-api/pagination 
-         * @summary List assets by policy
-         * @param {string} appId Tangocrypto &#x60;app_id&#x60;.
-         * @param {string} policyId Policy ID controlling an asset.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getAssetByPolicy(appId: string, policyId: string, options?: any): ApiPromise<PaginateResponse<Asset>> {
-            return localVarFp.getAssetByPolicy(appId, policyId, options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
  * PolicyApi - object-oriented interface
  * @export
  * @class PolicyApi

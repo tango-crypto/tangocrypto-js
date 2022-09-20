@@ -786,4 +786,29 @@ describe('Transactions API endpoints', function () {
         // assert
         expect(response.result).deep.equal(scripts);
     })
+
+    it('should list tx collaterals', async () => {
+        // arrange
+        const hash = '122128d2f72f77ab6bf8fb3f95b13f820b7c08a7ba2cab9c1d4ae5422f97d3fd';
+        const collaterals = {
+            "hash": "122128d2f72f77ab6bf8fb3f95b13f820b7c08a7ba2cab9c1d4ae5422f97d3fd",
+            "inputs": [
+                {
+                    "address": "addr_test1qzmnd26rem246tykw4f7attzr5f6qnf25kp3mdgzany4vegm47veu20yllnu8a0t26ppr6hunpxa03jyvmdhanpym9vq6eqmp0",
+                    "hash": "8dabf7c7a7a97445d27af8c1487df26fac5048ca9222bb11477faa0374249dd4",
+                    "index": 0,
+                    "value": 4000000,
+                    "has_script": false,
+                    "assets": []
+                }
+            ],
+            "outputs": []
+        }
+
+        // act
+        const response = await api.listTransactionCollaterals(hash);
+
+        // assert
+        expect(response.result).deep.equal(collaterals);
+    })
 })
