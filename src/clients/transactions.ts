@@ -1,7 +1,8 @@
 import { AxiosInstance } from "axios";
 import { ApiConfiguration } from ".";
 import { Configuration } from "../configuration";
-import { BuildTxRequest, SubmitTansactionRequest, TransactionsApi } from "../api";
+import { TransactionsApi } from "../apis/transactions";
+import { BuildTxRequest, SubmitTansactionRequest } from "../models/transaction";
 import { SignTxRequest } from "../../utils/models/sing-transaction-request.model";
 import { Seed } from "../../utils/serialization.util";
 import { MultisigTransaction } from "../../utils/models/multisig-transaction";

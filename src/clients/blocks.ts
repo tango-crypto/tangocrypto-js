@@ -1,6 +1,6 @@
 import { AxiosInstance } from "axios";
 import { ApiConfiguration } from ".";
-import { BlocksApi } from "../api";
+import { BlocksApi } from "../apis/blocks";
 import { Configuration } from "../configuration";
 
 export class BlockApi {

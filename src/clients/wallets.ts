@@ -1,6 +1,6 @@
 import { AxiosInstance } from "axios";
 import { ApiConfiguration } from ".";
-import { WalletsApi } from "../api";
+import { WalletsApi } from "../apis/wallets";
 import { Configuration } from "../configuration";
 
 export class WalletApi {

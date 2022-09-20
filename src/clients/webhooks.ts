@@ -1,6 +1,7 @@
 import { AxiosInstance } from "axios";
 import { ApiConfiguration } from ".";
-import { CreateWebhookRequest, UpdateWebhookRequest, WebhooksApi } from "../api";
+import { WebhooksApi } from "../apis/webhooks";
+import { CreateWebhookRequest, UpdateWebhookRequest } from "../models/webhooks";
 import { Configuration } from "../configuration";
 
 export class WebhookApi {

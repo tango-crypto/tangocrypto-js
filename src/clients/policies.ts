@@ -1,6 +1,6 @@
 import { AxiosInstance } from "axios";
 import { ApiConfiguration } from ".";
-import { PoliciesApi } from "../api";
+import { PoliciesApi } from "../apis/policies";
 import { Configuration } from "../configuration";
 
 export class PolicyApi {

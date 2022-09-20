@@ -1,6 +1,6 @@
 import { AxiosInstance } from "axios";
 import { ApiConfiguration } from ".";
-import { AssetsApi } from "../api";
+import { AssetsApi } from "../apis/assets";
 import { Configuration } from "../configuration";
 
 export class AssetApi {

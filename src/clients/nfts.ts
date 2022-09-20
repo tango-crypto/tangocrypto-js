@@ -1,6 +1,7 @@
 import { AxiosInstance } from "axios";
 import { ApiConfiguration } from ".";
-import { AddressesApi, CreateAffiliateRequest, CreateCollectionRequest, CreateNftRequest, CreateNftSaleRequest, CreateSalePhaseRequest, NFTsAddressListApi, NFTsCollectionsApi, NFTsSalePhasesApi, NFTsSalesApi, NFTsTokensApi, UpdateCollectionRequest, UpdateNftRequest, UpdateSalePhaseRequest } from "../api";
+import { NFTsAddressListApi, NFTsCollectionsApi, NFTsSalePhasesApi, NFTsSalesApi, NFTsTokensApi } from "../apis/nfts";
+import { CreateAffiliateRequest, CreateCollectionRequest, CreateNftRequest, CreateNftSaleRequest, CreateSalePhaseRequest, UpdateCollectionRequest, UpdateNftRequest, UpdateSalePhaseRequest } from "../models/nft";
 import { Configuration } from "../configuration";
 
 export class NftApi {

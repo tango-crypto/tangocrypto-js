@@ -72,3 +72,23 @@ export class RequiredError extends Error {
         super(msg);
     }
 }
+
+/**
+ * 
+ * @export
+ * @interface PaginateResponse
+ */
+ export interface PaginateResponse<T> {
+    /**
+     * 
+     * @type {Array<T>}
+     * @memberof PaginateResponse
+     */
+    'data'?: Array<T>;
+    /**
+     * When the response is truncated, it includes a cursor that you can use in a subsequent request to retrieve the next set of invoices. If empty, this is the final response. For more information, see our <a href=\"https://docs.tangocrypto.com/rest-api/pagination\">pagination guide</a>. 
+     * @type {string}
+     * @memberof PaginateResponse
+     */
+    'cursor'?: string;
+}

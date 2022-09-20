@@ -1,6 +1,6 @@
 import { AxiosInstance } from "axios";
 import { ApiConfiguration } from ".";
-import { EpochsApi } from "../api";
+import { EpochsApi } from "../apis/epochs";
 import { Configuration } from "../configuration";
 
 export class EpochApi {

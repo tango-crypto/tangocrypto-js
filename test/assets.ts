@@ -32,9 +32,11 @@ describe('Assets API endpoints', function () {
             "asset_name": "5365636f6e6454657374746f6b656e",
             "fingerprint": "asset1dz7d9v3xs8sf9sljw82ux0sh6x4qfq37nu7kdw",
             "quantity": 9995000,
+            "mint_transactions": 2,
             "mint_quantity": 10000000,
             "burn_quantity": -5000,
-            "initial_mint_tx_hash": "d82e82776b3588c1a2c75245a20a9703f971145d1ca9fba4ad11f50803a43190"
+            "created_at": "2021-06-19T20:45:14.000Z",
+            "metadata": []
         }
 
         // act
@@ -52,9 +54,11 @@ describe('Assets API endpoints', function () {
             "asset_name": "5365636f6e6454657374746f6b656e",
             "fingerprint": "asset1dz7d9v3xs8sf9sljw82ux0sh6x4qfq37nu7kdw",
             "quantity": 9995000,
+            "mint_transactions": 2,
             "mint_quantity": 10000000,
             "burn_quantity": -5000,
-            "initial_mint_tx_hash": "d82e82776b3588c1a2c75245a20a9703f971145d1ca9fba4ad11f50803a43190"
+            "created_at": "2021-06-19T20:45:14.000Z",
+            "metadata": []
         }
 
         // act

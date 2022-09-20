@@ -13,6 +13,15 @@
  */
 
 
-export * from "./src/api";
+// export * from "./src/apis/addresses";
+// export * from "./src/apis/assets";
+// export * from "./src/apis/blocks";
+// export * from "./src/apis/epochs";
+// export * from "./src/apis/nfts";
+// export * from "./src/apis/policies";
+// export * from "./src/apis/pools";
+// export * from "./src/apis/transactions";
+// export * from "./src/apis/wallets";
+// export * from "./src/apis/webhooks";
 export * from "./src/configuration";
 export * from "./src/clients/index";

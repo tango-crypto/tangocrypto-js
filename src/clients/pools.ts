@@ -1,6 +1,6 @@
 import { AxiosInstance } from "axios";
 import { ApiConfiguration } from ".";
-import { PoolsApi } from "../api";
+import { PoolsApi } from "../apis/pools";
 import { Configuration } from "../configuration";
 
 export class PoolApi {
