@@ -52,6 +52,7 @@ import {
   hash_auxiliary_data,
   ByronAddress,
   TransactionBuilderConfigBuilder,
+  PlutusScript,
 } from '@emurgo/cardano-serialization-lib-nodejs';
 import { generateMnemonic, mnemonicToEntropy } from 'bip39';
 import { Asset } from './models/asset.model';
@@ -1288,6 +1289,24 @@ export class Seed {
 
   static getTransaction(cborTx: string): Transaction {
     return Transaction.from_bytes(Buffer.from(cborTx, 'hex'));
+  }
+
+  static getScriptAddressFromScript(scriptCborHex: string, network = 'mainnet'): Address {
+    const script = PlutusScript.from_bytes(Buffer.from(scriptCborHex, "hex"))
+    const scriptHash = script.hash();
+    const cred = StakeCredential.from_scripthash(scriptHash);
+    const networkId = network == 'mainnet' ? NetworkInfo.mainnet().network_id() : NetworkInfo.testnet().network_id();
+    const baseAddr = EnterpriseAddress.new(networkId, cred);
+    const addr = baseAddr.to_address();
+    return addr;
+  }
+  static getScriptAddressFromScriptHash(hash: string, network = 'mainnet'): Address {
+    const scriptHash =  ScriptHash.from_bytes(Buffer.from(hash, "hex"));
+    const cred = StakeCredential.from_scripthash(scriptHash);
+    const networkId = network == 'mainnet' ? NetworkInfo.mainnet().network_id() : NetworkInfo.testnet().network_id();
+    const baseAddr = EnterpriseAddress.new(networkId, cred);
+    const addr = baseAddr.to_address();
+    return addr;
   }
 
   private static isInteger(value: any) {

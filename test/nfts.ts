@@ -108,7 +108,7 @@ describe('Nfts API endpoints', function () {
     it('should get sale phase', async () => {
         // arrange
         const collectionId = '489b4acd87d841b581206991dd295362';
-        const id = '01gb8g77bzd0s6xmy3mrc3zs9j';
+        const id = '01gh9y4k9cdwhmbhz5hdkttgn6';
 
         // act
         const response = await api.getSalePhase(collectionId, id);

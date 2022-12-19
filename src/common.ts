@@ -39,6 +39,18 @@ export const assertParamExists = function (functionName: string, paramName: stri
  *
  * @export
  */
+export const getApiKey = async function (keyParamName: string, configuration?: Configuration) {
+    if (configuration && configuration.apiKey) {
+        return typeof configuration.apiKey === 'function'
+            ? await configuration.apiKey(keyParamName)
+            : await configuration.apiKey;
+    }
+}
+
+/**
+ *
+ * @export
+ */
 export const setApiKeyToObject = async function (object: any, keyParamName: string, configuration?: Configuration) {
     if (configuration && configuration.apiKey) {
         const localVarApiKeyValue = typeof configuration.apiKey === 'function'

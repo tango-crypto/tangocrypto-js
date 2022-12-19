@@ -92,11 +92,11 @@ import { CancelNftSaleResponse, CheckAddressListRequest, CollectionDeleteRespons
 
 
             if (name !== undefined) {
-                localVarFormParams.append('name', name as any);
+                localVarFormParams.append('name', name);
             }
 
             if (description !== undefined) {
-                localVarFormParams.append('description', description as any);
+                localVarFormParams.append('description', description);
             }
 
             if (file !== undefined) {

@@ -11,6 +11,7 @@ import { PolicyApi } from "./policies";
 import { WebhookApi } from "./webhooks";
 import { DEFAULT_MAX_ATTEMPTS } from "../../utils/constants";
 import { NftApi } from "./nfts";
+import { IpfsApi } from "./ipfs";
 
 export const Network = {
     CARDANO_MAINNET: 'cardano-mainnet',
@@ -20,14 +21,14 @@ export const Network = {
 
 export interface ClientConfiguration {
     apiKey: string;
-    appId: string;
+    appId?: string;
     network?: string;
     version?: string;
     maxAttempts?: number;
 }
 
 export interface ApiConfiguration extends ClientConfiguration {
-    basePath: string;
+    basePath?: string;
 }
 
 const defaultConfig: ClientConfiguration = {
@@ -42,22 +43,26 @@ export class Tangocrypto {
     configuration: ApiConfiguration;
     protected axios: AxiosInstance = globalAxios;
 
-    constructor(config: ClientConfiguration) {
+    constructor(config: ApiConfiguration) {
         const configuration = defaultConfig;
         Object.assign(configuration, config);
-        let basePath = '';
-        switch (configuration.network) {
-            case Network.CARDANO_TESTNET:
-                basePath = BASE_PATH_TEST;
-                break;
-            case Network.CARDANO_TESTNET_STAGING:
-                basePath = BASE_PATH_TEST_STAGING;
-                break;
-            default:
-                basePath = BASE_PATH;
-                break;
+        if (config.basePath) {
+            this.configuration = { ...configuration, basePath: config.basePath };
+        } else {
+            let basePath = '';
+            switch (configuration.network) {
+                case Network.CARDANO_TESTNET:
+                    basePath = BASE_PATH_TEST;
+                    break;
+                case Network.CARDANO_TESTNET_STAGING:
+                    basePath = BASE_PATH_TEST_STAGING;
+                    break;
+                default:
+                    basePath = BASE_PATH;
+                    break;
+            }
+            this.configuration = { ...configuration, basePath };
         }
-        this.configuration = { ...configuration, basePath };
     }
 
     /**
@@ -128,6 +133,13 @@ export class Tangocrypto {
      */
      public nft(): NftApi {
         return new NftApi(this.configuration, this.axios);
+    }
+
+    /**
+     * Get ipfs api client
+     */
+     public ipfs(): IpfsApi {
+        return new IpfsApi(this.configuration, this.axios);
     } 
 
 }
