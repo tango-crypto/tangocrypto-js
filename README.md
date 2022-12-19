@@ -38,6 +38,7 @@ const client = new Tangocrypto({
 ```
 
 ### Settings Options
+* `basePath`: base URL (e.g. `https://cardano-mainnet.tangocrypto.com`)
 * `apiKey`: Your account Id (required).
 * `appId`: Your app Id (required).
 * `network`: Network to determine the base URL, default to `https://cardano-mainnet.tangocrypto.com`
@@ -59,6 +60,7 @@ After you have created a `Tangocrypto` instance you have different API instances
 * `Wallets`: Get access to a set of endpoints cardano stake address related.
 * `Webhooks`: Get access Webhooks API.
 * `Nfts`: Get access to NFT Studio API.
+* `Ipfs`: Get access to Ipfs API.
 
 ## API Response
 All API instances methods return an instance of `TangocryptoResponse<T>` definde this way:
@@ -135,6 +137,46 @@ Output:
     "vrf_key": "vrf_vk1cxcf73rmj7luakn0ykjtvsf3mzqj5akhh3j82hamch4srlvx37tsy2gg35",
     "op_cert": "48a680a489fbf4d0035afec3596e42eb05c2d2d3ebfa4ca5f6210ddb74d7facc"
 }
+```
+
+Access to IPFS
+```js
+const api = new Tangocrypto({
+    apiKey: process.env.API_KEY,
+    basePath: IPFS_BASE_PATH // https://storage.tangocrypto.cloud
+}).ipfs()
+
+
+const { result } = await api.listContents();
+
+console.log(result.data);
+Output:
+>>> [{
+        "created_at": "2022-12-19T18:01:33.326Z",
+        "status": "pinned",
+        "account_id": "8120536a5efc478b92809f8f1987a76e",
+        "name": "test-tangocrypto-js",
+        "updated_at": "2022-12-19T18:01:33.326Z",
+        "content_cid": "bafybeicfu52l2qhibv6juzeks7tjjnbzv7ykqusgcjlokg3i3aecn4ttsy",
+        "id": "01gmnrrkce3ggjwc11t15e5zb8",
+        "cid": "QmT2YwTAj9T3umZ7CRFW94vRg58dWUnYCyc8s8LdXn3KWV",
+        "pins": [
+            {
+                "location": {
+                    "ipfs_peer_id": "12D3KooWEfdXu9Ssk8abzxaB5fVPyY9ojFaU3EgSzzjEcEfBfFDe",
+                    "peer_id": "12D3KooWCLuHQj5ZyvE3VRBAPazAfmAn2pz3CkK14YdvWrhuyszg",
+                    "peer_name": "cluster0"
+                },
+                "id": "12D3KooWCLuHQj5ZyvE3VRBAPazAfmAn2pz3CkK14YdvWrhuyszg",
+                "status": "Pinned"
+            }
+        ],
+        "dag_size": 244927,
+        "type": "Upload"
+    },
+    ...
+]
+
 ```
 
 Please check our [docs](https://docs.tangocrypto.com/) for more information about all the tangocrypto features.
