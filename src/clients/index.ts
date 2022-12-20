@@ -1,4 +1,4 @@
-import { BASE_PATH, BASE_PATH_TEST, BASE_PATH_TEST_STAGING, V1 } from "../base";
+import { BASE_PATH, BASE_PATH_TEST, BASE_PATH_TEST_STAGING, IPFS_BASE_PATH, V1 } from "../base";
 import globalAxios, { AxiosInstance } from 'axios';
 import { TransactionApi } from "./transactions";
 import { AddressApi } from "./address";
@@ -28,7 +28,7 @@ export interface ClientConfiguration {
 }
 
 export interface ApiConfiguration extends ClientConfiguration {
-    basePath?: string;
+    basePath: string;
 }
 
 const defaultConfig: ClientConfiguration = {
@@ -43,26 +43,22 @@ export class Tangocrypto {
     configuration: ApiConfiguration;
     protected axios: AxiosInstance = globalAxios;
 
-    constructor(config: ApiConfiguration) {
+    constructor(config: ClientConfiguration) {
         const configuration = defaultConfig;
         Object.assign(configuration, config);
-        if (config.basePath) {
-            this.configuration = { ...configuration, basePath: config.basePath };
-        } else {
-            let basePath = '';
-            switch (configuration.network) {
-                case Network.CARDANO_TESTNET:
-                    basePath = BASE_PATH_TEST;
-                    break;
-                case Network.CARDANO_TESTNET_STAGING:
-                    basePath = BASE_PATH_TEST_STAGING;
-                    break;
-                default:
-                    basePath = BASE_PATH;
-                    break;
-            }
-            this.configuration = { ...configuration, basePath };
+        let basePath = '';
+        switch (configuration.network) {
+            case Network.CARDANO_TESTNET:
+                basePath = BASE_PATH_TEST;
+                break;
+            case Network.CARDANO_TESTNET_STAGING:
+                basePath = BASE_PATH_TEST_STAGING;
+                break;
+            default:
+                basePath = BASE_PATH;
+                break;
         }
+        this.configuration = { ...configuration, basePath };
     }
 
     /**
@@ -139,7 +135,8 @@ export class Tangocrypto {
      * Get ipfs api client
      */
      public ipfs(): IpfsApi {
-        return new IpfsApi(this.configuration, this.axios);
+        const config = {...this.configuration, basePath: IPFS_BASE_PATH };
+        return new IpfsApi(config, this.axios);
     } 
 
 }

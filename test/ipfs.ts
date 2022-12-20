@@ -19,7 +19,6 @@ describe('Ipfs API endpoints', function () {
     before('Initializing API ...', () => {
 
         api = new Tangocrypto({
-            basePath: IPFS_BASE_PATH,
             apiKey: process.env.API_KEY!,
         }).ipfs();
     })

@@ -38,9 +38,8 @@ const client = new Tangocrypto({
 ```
 
 ### Settings Options
-* `basePath`: base URL (e.g. `https://cardano-mainnet.tangocrypto.com`)
 * `apiKey`: Your account Id (required).
-* `appId`: Your app Id (required).
+* `appId`: Your app Id.
 * `network`: Network to determine the base URL, default to `https://cardano-mainnet.tangocrypto.com`
 * `version`: String for API version, default to `v1`.
 * `maxAttempts`: Number indicating the maximmum retry attemps when request fails and is retryable (e.g. status 429).
@@ -143,7 +142,6 @@ Access to IPFS
 ```js
 const api = new Tangocrypto({
     apiKey: process.env.API_KEY,
-    basePath: IPFS_BASE_PATH // https://storage.tangocrypto.cloud
 }).ipfs()
 
 
