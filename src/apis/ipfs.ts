@@ -100,7 +100,7 @@ export const IpfsApiAxiosParamCreator = function (configuration?: Configuration)
         },
 
         /**
-         * Retrieve ipfs content by a `id`. 
+         * Retrieve ipfs content by `id`. 
          * @summary Retrieve ipfs content
          * @param {string} version Tangocrypto version.          
          * @param {string} contentId Content Id.
